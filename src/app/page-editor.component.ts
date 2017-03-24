@@ -4,30 +4,29 @@ import { PainterService } from './painter.service';
 import { DesignProperty, DesignProperties, ArtboardTemplate } from './interfaces';
 
 @Component({
-    selector: 'page-test',
-    templateUrl: '/app/page-test.component.html',
-    styleUrls: ['/app/page-test.component.css'],
+    selector: 'page-editor',
+    templateUrl: '/app/page-editor.component.html',
+    styleUrls: ['/app/page-editor.component.css'],
     providers: [PainterService]
 })
-export class PageTestComponent {
+export class PageEditorComponent {
     designProperties: DesignProperties = {
-        text3 : {
-            group: "A",
-            label: "Kota 1",
-            value : 'jogja',
-            type: 'text'
+        text1 : {
+            label: "Text 1 Sample",
+            type: 'text',
+            value : 'Indonesia'
         } ,
-        text4: {
-            group: "A",
-            label: "Kota 2",
-            value : 'jogja',
-            type: 'text'
+        text2: {
+            label: "Text 2 Sample",
+            type: 'text',
+            value : 'Australia'
         } ,
         size1: {
-            group: "A",
-            label: "Ukuran Teks",
+            label: "Text Size",
+            type: 'range',
             value : '90',
-            type: 'slider'
+            min: 50,
+            max: 95
         }
     };
 
@@ -35,11 +34,13 @@ export class PageTestComponent {
 
     artboardTemplate: ArtboardTemplate = {
         html: `
-            <div>{{text3}}</div>
-            <div>{{text3}}</div>
-            <div>{{text4}}</div>
-            <div>{{text4}}</div>
-            <div style="font-size: {{size1}}px">{{text4}}</div>
+            <style>
+                div[artboardElement] {
+                    font-size: {{size1}}px
+                }
+            </style>
+            <div artboardElement>{{text1}}</div>
+            <div artboardElement>{{text2}}</div>
             `
     };
     artboardOutput: string;
@@ -57,9 +58,10 @@ export class PageTestComponent {
         let key = arg.target.getAttribute('designPropertyBinder');
         let value = arg.target.value;
 
-        this.designProperties[key].value = value;
+        this.designProperties[key].value = value.toString();
         
         this.artboardOutput = this.modifyCanvas(this.designProperties, this.artboardTemplate);
+
     }
 
     modifyCanvas(designProperties: DesignProperties, artboardTemplate: ArtboardTemplate) {

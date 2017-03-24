@@ -47,13 +47,6 @@ function swallowError(error) {
     this.emit('end')
 }
 
-// Get arguments from CLI
-// const options = minimist(process.argv.slice(2), { 
-//     default :{
-//         compname: process.env.NODE_ENV || 'new-component' 
-//     }
-// });
-
 /**
  * ------------------------------------------------------------------------
  * Browserify + Watchify

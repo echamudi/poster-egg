@@ -1,5 +1,5 @@
 'use strict';
 
 export const GLOBALS = {
-    appName: "Desainmu 3"
+    appName: "Posty Poster"
 };
