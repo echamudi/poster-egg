@@ -1,0 +1,8 @@
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'compNameDashed',
+    templateUrl: '/app/compNameDashed.component.html',
+    styleUrls: ['/app/compNameDashed.component.css'],
+})
+export class compNameCapitalizedComponent { }

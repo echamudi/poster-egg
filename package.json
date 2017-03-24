@@ -1,0 +1,52 @@
+{
+  "name": "posty-poster",
+  "version": "0.0.1",
+  "description": "Make your posters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ezzat Chamudi <ezhmd@users.noreply.github.com",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "bootstrap-sass": "^3.3.7",
+    "browserify": "^14.1.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-exit": "0.0.2",
+    "gulp-if": "^2.0.2",
+    "gulp-postcss": "^6.3.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-run": "^1.7.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.1.0",
+    "gulp-util": "^3.0.8",
+    "minimist": "^1.2.0",
+    "tsify": "^3.0.1",
+    "typescript": "^2.2.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0",
+    "yargs": "^7.0.2"
+  },
+  "dependencies": {
+    "@angular/animations": "^4.0.0",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/platform-server": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.2.0",
+    "typescript": "^2.2.1",
+    "zone.js": "^0.8.5"
+  }
+}
