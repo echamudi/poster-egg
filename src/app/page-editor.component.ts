@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PainterService } from './painter.service';
-import { DesignProperty, DesignProperties, ArtboardTemplate } from './interfaces';
+import { DesignProperty, DesignProperties } from './interfaces';
+import { ArtboardClass } from './artboard.class';
 
 @Component({
     selector: 'page-editor',
     templateUrl: '/app/page-editor.component.html',
     styleUrls: ['/app/page-editor.component.css'],
-    providers: [PainterService]
+    providers: [PainterService],
+    host: {
+        '(window:resize)': 'onWindowResize($event)'
+    }
+
 })
 export class PageEditorComponent {
     designProperties: DesignProperties = {
@@ -32,39 +37,46 @@ export class PageEditorComponent {
 
     designPropertiesArray: DesignProperty[] = [];
 
-    artboardTemplate: ArtboardTemplate = {
-        html: `
-            <style>
-                div[artboardElement] {
-                    font-size: {{size1}}px
-                }
-            </style>
-            <div artboardElement>{{text1}}</div>
-            <div artboardElement>{{text2}}</div>
-            `
-    };
-    artboardOutput: string;
+    artboard: ArtboardClass;
 
     constructor ( private painterService: PainterService ) {
-
         this.designPropertiesArray = this.painterService.designPropertiesObjectToArray(this.designProperties);
-        
-        // Initial Render
-        this.artboardOutput = this.modifyCanvas(this.designProperties, this.artboardTemplate);
+
+        this.artboard = new ArtboardClass();
+
+        this.artboard
+            .setTemplate(
+                `
+                    <style>
+                        div[artboard] {
+                            border: solid 1px black,
+                        }
+
+                        div[artboardElement] {
+                            font-size: {{size1}}px
+                        }
+                    </style>
+                    <div artboard>
+                        <div artboardElement>{{text1}}</div>
+                        <div artboardElement>{{text2}}</div>
+                    </div>
+                `
+            )
+            .init()
+            .drawAll(this.designProperties);
     }
 
-    changed(arg: any) {
+    onInputChange(arg: any) {
         // Get designPropertyBinder from the text input for designProperties and its value
         let key = arg.target.getAttribute('designPropertyBinder');
         let value = arg.target.value;
 
         this.designProperties[key].value = value.toString();
         
-        this.artboardOutput = this.modifyCanvas(this.designProperties, this.artboardTemplate);
-
+        this.artboard.drawAll(this.designProperties);
     }
 
-    modifyCanvas(designProperties: DesignProperties, artboardTemplate: ArtboardTemplate) {
-        return this.painterService.fill(designProperties, artboardTemplate);
+    onWindowResize(arg: any) {
+        console.log(arg)
     }
 }

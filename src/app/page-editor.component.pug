@@ -2,12 +2,12 @@
     h1 The Editor
     .row
         .col-xs-6
-            div([innerHTML]="artboardOutput | safe: 'html'")
+            div([innerHTML]="artboard.output | safe: 'html'")
         .col-xs-6
             ul
                 li(*ngFor='let designProperty of designPropertiesArray')
                     div {{ designProperty.label }}
                     div(*ngIf="designProperty.type === 'range'")
-                        input(type='range', [attr.designPropertyBinder]="designProperty.binder", [attr.value]="designProperty.value", (input)='changed($event)', [attr.min]="designProperty.min", [attr.max]="designProperty.max") 
+                        input(type='range', [attr.designPropertyBinder]="designProperty.binder", [attr.value]="designProperty.value", (input)='onInputChange($event)', [attr.min]="designProperty.min", [attr.max]="designProperty.max") 
                     div(*ngIf="designProperty.type === 'text'")
-                        input(type='text', [attr.designPropertyBinder]="designProperty.binder", (keyup)='changed($event)', [attr.value]="designProperty.value")
+                        input(type='text', [attr.designPropertyBinder]="designProperty.binder", (keyup)='onInputChange($event)', [attr.value]="designProperty.value")

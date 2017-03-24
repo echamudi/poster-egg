@@ -4,7 +4,8 @@
 
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { DesignProperty, DesignProperties, ArtboardTemplate } from './interfaces';
+import { DesignProperty, DesignProperties } from './interfaces';
+import { ArtboardClass } from './artboard.class';
 
 import * as tool from './tools';
 
@@ -26,21 +27,6 @@ export class PainterService {
 
                 // Add binder attribute (aka designPropertiesKey) to the objects inside array.
                 returney[Index].binder = objectKey;
-            });
-
-        return returney;
-    }
-
-    /**
-     * Fill canvas template with design properties using regex
-     */
-    fill(designProperties: DesignProperties, artboardTemplate: ArtboardTemplate): string {
-        let returney: string = artboardTemplate.html ;
-
-        Object
-            .keys(designProperties)
-            .map(objectKey => {
-                returney = tool.replaceAll(returney, "{{" + objectKey + "}}", designProperties[objectKey].value);
             });
 
         return returney;
