@@ -1,7 +1,7 @@
 {
   "name": "posty-poster",
   "version": "0.0.1",
-  "description": "Make your posters",
+  "description": "A client-side poster maker using HTML5, CSS3, and Angular.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
