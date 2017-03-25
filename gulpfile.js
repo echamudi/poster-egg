@@ -74,7 +74,7 @@ const bundle = (toBundle) => {
     gutil.log('Starting \'' + gutil.colors.cyan('Bundle Function') + ' 📦\'...');
 
     return toBundle
-        
+
         .bundle()
 
         // Catch error
@@ -145,10 +145,19 @@ gulp.task('sass', () => {
 });
 
 gulp.task('connect', () => {
+    // var cors = function (req, res, next) {
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Headers', 'headers_you_want_to_accept');
+    // next();
+    // };
+
     connect.server({
         root: ['dist'],
         fallback: 'dist/index.html',
-        https: false
+        https: false,
+        // middleware: function () {
+        // return [cors];
+        // }
     })
 });
 
@@ -167,19 +176,19 @@ gulp.task('clean', () => {
 // New component
 // $ gulp newcomp --name your-component
 
-gulp.task('newcomp', function() {
+gulp.task('newcomp', function () {
     var nameDashed = argv.name;
     var nameCapitalized = ("-" + nameDashed).replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() });
-    
-  return gulp
-    .src('src/app')
-    .pipe(run('touch src/app/' + nameDashed + '.component.pug')) 
-    .pipe(run('touch src/app/' + nameDashed + '.component.scss')) 
-    .pipe(run('cp templates/new-component.component.ts.template src/app/' + nameDashed + '.component.ts')) 
-    .pipe(run("sed -i '' 's/compNameDashed/" + nameDashed + "/g' src/app/" + nameDashed + ".component.ts")) 
-    .pipe(run("sed -i '' 's/compNameCapitalized/" + nameCapitalized + "/g' src/app/" + nameDashed + ".component.ts")) 
-    .pipe(gulp.dest('src/app'))
-  ;
+
+    return gulp
+        .src('src/app')
+        .pipe(run('touch src/app/' + nameDashed + '.component.pug'))
+        .pipe(run('touch src/app/' + nameDashed + '.component.scss'))
+        .pipe(run('cp templates/new-component.component.ts.template src/app/' + nameDashed + '.component.ts'))
+        .pipe(run("sed -i '' 's/compNameDashed/" + nameDashed + "/g' src/app/" + nameDashed + ".component.ts"))
+        .pipe(run("sed -i '' 's/compNameCapitalized/" + nameCapitalized + "/g' src/app/" + nameDashed + ".component.ts"))
+        .pipe(gulp.dest('src/app'))
+        ;
 });
 
 /**

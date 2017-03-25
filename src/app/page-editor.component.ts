@@ -51,6 +51,8 @@ export class PageEditorComponent {
     private artboard: ArtboardClass;
     private artboardScaleStyle: string;
 
+    private resultSrc: string;
+
     constructor ( private painterService: PainterService ) {
         this.designPropertiesArray = this.painterService.designPropertiesObjectToArray(this.designProperties);
 
@@ -116,7 +118,21 @@ export class PageEditorComponent {
     }
 
     render() {
-        this.artboard.render();
+        var aElement = document.createElement('a');
+        var today = new Date();
+        var dataURL: string;
+
+        this.artboard.render().then((canvas: any) => {
+            dataURL = canvas.toDataURL();
+            aElement.href = dataURL;
+            aElement.setAttribute('download', `postyposter.com_${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.png`);
+            aElement.style.display = 'none';
+
+            document.body.appendChild(aElement);
+
+            aElement.click();
+            aElement.parentNode.removeChild(aElement);
+        });
     }
 
     scaleArtboard() {

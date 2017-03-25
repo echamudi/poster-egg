@@ -15,12 +15,14 @@
     position: relative;
     overflow: hidden;
     flex: 1;
+    background: #eeeeee;
 }
 
 .editor-sidebar {
     padding: 40px;
     width: 350px;
     border-left: 1px solid #e7e7e7;
+    overflow-y: auto;
 }
 
 @include angular-deep {
@@ -30,8 +32,12 @@
     }
 
     #artboard {
-        border: solid 1px black;
+        border: solid 2px #eaeaea;
+        box-sizing: content-box;
         position: absolute;
         transform-origin: top left;
+        box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.1);
+        // user-select: none;
+        // cursor: default;
     }
 }

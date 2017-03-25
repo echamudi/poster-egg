@@ -1,8 +1,17 @@
+// Custom Vars
+
 $font-family-sans-serif:  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $text-color: #2c3e50;
-
 $navbar-default-bg: #FFFFFF;
+
+// Imports
 
 @import 'mixins';
 @import 'bootstrap';
 
+// Modifier
+
+.navbar {
+    box-shadow: 0 0 2px rgba(0,0,0,0.1);
+    z-index: 100;
+}

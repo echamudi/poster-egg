@@ -34,3 +34,6 @@ div([innerHTML]="artboardScaleStyle | safe: 'html'")
                 
         div
             button.btn.btn-default(type="button", (click)='render()') Render
+
+        div(*ngIf="resultSrc")
+            img#resultSVG([attr.src]="resultSrc | safe: 'url'")

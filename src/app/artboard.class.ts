@@ -1,6 +1,8 @@
 import { DesignProperties } from './interfaces';
 import * as tool from './tools';
 
+var rasterizeHTML = require('rasterizeHTML');
+
 export class ArtboardClass {
     private template: string;
     private templateEnclosed: string;
@@ -64,6 +66,7 @@ export class ArtboardClass {
                     width: ${this.width};
                     height: ${this.height};
                     overflow: hidden;
+                    background: white;
                 }
             </style>
             <style>
@@ -84,9 +87,9 @@ export class ArtboardClass {
         return this;
     }
 
-    public drawAll(designProperties: DesignProperties): this {   
+    public drawAll(designProperties: DesignProperties): this {
         this.reset();
-                
+
         Object
             .keys(designProperties)
             .map(key => {
@@ -95,8 +98,29 @@ export class ArtboardClass {
 
         return this;
     }
+    
+    // Render image, return canvas element
+    public render(): Promise<HTMLScriptElement> {
 
-    public render() {
-        console.log('rendered')
+        var rawMaterial = this.output;
+        rawMaterial += window.document.getElementById('mainstyle').outerHTML;
+
+        var canvasEl = document.createElement('canvas');
+        canvasEl.setAttribute("width", this.width);
+        canvasEl.setAttribute("height", this.height);
+
+        return Promise.resolve(rasterizeHTML.drawHTML(rawMaterial, canvasEl)
+            .then(() => {
+                return canvasEl
+            }));
     }
+
+    // Slow Render
+    // public renderSlowly(): Promise<HTMLScriptElement> {
+    //     return new Promise(resolve => {
+    //         // Simulate server latency with 3 second delay
+    //         setTimeout(() => resolve(this.render()), 3000);
+    //     });
+    // }
+
 }
