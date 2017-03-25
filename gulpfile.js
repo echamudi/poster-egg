@@ -119,11 +119,11 @@ gulp.task('pug', () => {
 
 gulp.task('sass', () => {
     const options = {
-        outputStyle: minify ? 'nested' : 'compressed'
+        outputStyle: minify ? 'compressed' : 'nested'
     };
 
     const plugins = [
-        autoprefixer({ browsers: ['> 0%'] })
+        autoprefixer({ browsers: ['chrome >= 36', 'firefox >= 45'] })
     ];
 
     return gulp.src('src/**/*.scss')

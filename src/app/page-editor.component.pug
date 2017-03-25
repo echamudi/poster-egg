@@ -1,13 +1,12 @@
-.container
-    h1 The Editor
-    .row
-        .col-xs-6
-            div([innerHTML]="artboard.output | safe: 'html'")
-        .col-xs-6
-            ul
-                li(*ngFor='let designProperty of designPropertiesArray')
-                    div {{ designProperty.label }}
-                    div(*ngIf="designProperty.type === 'range'")
-                        input(type='range', [attr.designPropertyBinder]="designProperty.binder", [attr.value]="designProperty.value", (input)='onInputChange($event)', [attr.min]="designProperty.min", [attr.max]="designProperty.max") 
-                    div(*ngIf="designProperty.type === 'text'")
-                        input(type='text', [attr.designPropertyBinder]="designProperty.binder", (keyup)='onInputChange($event)', [attr.value]="designProperty.value")
+div([innerHTML]="artboardScaleStyle | safe: 'html'")
+.editor-container
+    .editor-content
+        #artboardContainer(artboardContainer="", [innerHTML]="artboard.output | safe: 'html'")
+    .editor-sidebar
+        ul
+            li(*ngFor='let designProperty of designPropertiesArray')
+                div {{ designProperty.label }}
+                div(*ngIf="designProperty.input === 'range'")
+                    input(type='range', [attr.designPropertyBinder]="designProperty.binder", [attr.value]="designProperty.value", (input)='onInputChange($event)', [attr.min]="designProperty.min", [attr.max]="designProperty.max") 
+                div(*ngIf="designProperty.input === 'text'")
+                    input(type='text', [attr.designPropertyBinder]="designProperty.binder", (keyup)='onInputChange($event)', [attr.value]="designProperty.value")

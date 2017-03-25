@@ -1,0 +1,21 @@
+.editor-container {
+    $top: 52px; // to skip navbar
+
+    position: absolute;
+    top: $top;
+    display: flex;
+    height: calc(100% - #{$top});
+    width: 100%;
+    overflow: hidden;
+}
+
+.editor-content {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+}
+
+.editor-sidebar {
+    width: 350px;
+}
+
