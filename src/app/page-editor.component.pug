@@ -3,10 +3,34 @@ div([innerHTML]="artboardScaleStyle | safe: 'html'")
     .editor-content
         #artboardContainer(artboardContainer="", [innerHTML]="artboard.output | safe: 'html'")
     .editor-sidebar
-        ul
-            li(*ngFor='let designProperty of designPropertiesArray')
-                div {{ designProperty.label }}
-                div(*ngIf="designProperty.input === 'range'")
-                    input(type='range', [attr.designPropertyBinder]="designProperty.binder", [attr.value]="designProperty.value", (input)='onInputChange($event)', [attr.min]="designProperty.min", [attr.max]="designProperty.max") 
-                div(*ngIf="designProperty.input === 'text'")
-                    input(type='text', [attr.designPropertyBinder]="designProperty.binder", (keyup)='onInputChange($event)', [attr.value]="designProperty.value")
+        div.form-group(*ngFor='let designProperty of designPropertiesArray')
+            label {{ designProperty.label }}
+
+            input(
+                *ngIf="designProperty.input === 'range'", 
+                type='range', 
+                [attr.designPropertyBinder]="designProperty.binder", 
+                [attr.value]="designProperty.value", 
+                [attr.min]="designProperty.min", 
+                [attr.max]="designProperty.max",
+                (input)='onInputChange($event)', 
+                ) 
+            
+            input(
+                *ngIf="designProperty.input === 'image'", 
+                type="file", 
+                accept="image/*",
+                [attr.designPropertyBinder]="designProperty.binder", 
+                (change)="onFileChange($event)", 
+                )
+
+            input.form-control(
+                *ngIf="designProperty.input === 'text'", 
+                type='text', 
+                [attr.designPropertyBinder]="designProperty.binder", 
+                [attr.value]="designProperty.value",
+                (keyup)='onInputChange($event)', 
+                )
+                
+        div
+            button.btn.btn-default(type="button", (click)='render()') Render

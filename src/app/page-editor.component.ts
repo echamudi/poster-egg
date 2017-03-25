@@ -1,26 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { PainterService } from './painter.service';
 import { DesignProperty, DesignProperties } from './interfaces';
 import { ArtboardClass } from './artboard.class';
 
+import { msftImage } from './demo-image';
+
 @Component({
     selector: 'page-editor',
     templateUrl: '/app/page-editor.component.html',
     styleUrls: ['app/page-editor.component.css'],
-    styles: [`
-        :host >>> #artboardContainer {
-            height: 100%;
-            width: 100%;
-        }
-
-        :host >>> #artboard {
-            border: solid 1px black;
-            position: absolute;
-            transform-origin: top left;
-        }
-    `],
     providers: [PainterService],
     host: {
         '(window:resize)': 'onWindowResize()'
@@ -47,6 +37,12 @@ export class PageEditorComponent {
             value : '90',
             min: 50,
             max: 95
+        },
+        background: {
+            type: 'text',
+            label: "Image BG",
+            input: 'image',
+            value : msftImage,
         }
     };
 
@@ -62,10 +58,10 @@ export class PageEditorComponent {
 
         this.artboard
             .setWidth(1024)
-            .setHeight(640)
+            .setHeight(1024)
             .setStyle(
                 `
-                    div[artboardElement] {
+                    #artboard div {
                         font-size: __size1__px
                     }
 
@@ -73,8 +69,9 @@ export class PageEditorComponent {
             )
             .setTemplate(
                 `
-                    <div artboardElement>__text1__</div>
-                    <div artboardElement>__text2__</div>
+                    <div>__text1__</div>
+                    <div>__text2__</div>
+                    <img src="__background__">
                 `
             )
             .capsulize()
@@ -86,6 +83,7 @@ export class PageEditorComponent {
         this.scaleArtboard();
     }
 
+    // For range, textarea, and text input
     onInputChange(arg: any) {
         // Get designPropertyBinder from the text input for designProperties and its value
         let key = arg.target.getAttribute('designPropertyBinder');
@@ -94,6 +92,31 @@ export class PageEditorComponent {
         this.designProperties[key].value = value.toString();
         
         this.artboard.drawAll(this.designProperties);
+    }
+
+    // For file input
+    onFileChange(arg: any) {
+        let key = arg.target.getAttribute('designPropertyBinder');
+
+        if (arg.target.files && arg.target.files[0]) {
+            var reader = new FileReader();
+
+            reader.readAsDataURL(arg.target.files[0]);
+
+            // If reading data successfuly loads picture
+            reader.onload =  (e: any) => {
+                this.designProperties[key].value = e.target.result;
+                
+                this.artboard.drawAll(this.designProperties);
+            }
+        } else {
+            console.log('Failed');
+        }
+
+    }
+
+    render() {
+        this.artboard.render();
     }
 
     scaleArtboard() {

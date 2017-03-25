@@ -1,5 +1,5 @@
 export interface DesignProperty {
-    type: "style" | "text"
+    type?: "style" | "text"
 
     group?: string,
     label: string,
@@ -7,7 +7,7 @@ export interface DesignProperty {
     binder?: string, // Same as objectKey, used for Array in designPropertiesArray
 
     // Input type
-    input: "text" | "textbox" | "range" | "radiobuttons",
+    input: "text" | "textbox" | "range" | "radiobuttons" | "image",
 
     // In range type : max and min value
     // In text type : max and min letters

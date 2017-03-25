@@ -1,0 +1,7 @@
+// Cross child component styling in Angular 4+
+// Reference: https://medium.com/google-developer-experts/angular-advanced-styling-guide-v4-f0765616e635
+@mixin angular-deep {
+  #{':host /deep/'} {
+    @content
+  };
+}

@@ -95,4 +95,8 @@ export class ArtboardClass {
 
         return this;
     }
+
+    public render() {
+        console.log('rendered')
+    }
 }
