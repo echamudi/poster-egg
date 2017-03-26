@@ -14,6 +14,8 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
+    "gulp-copy": "^1.0.0",
+    "gulp-debug": "^3.1.0",
     "gulp-exit": "0.0.2",
     "gulp-if": "^2.0.2",
     "gulp-postcss": "^6.3.0",

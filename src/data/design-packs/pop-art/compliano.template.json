@@ -1,0 +1,34 @@
+{
+    "order": 1,
+    "title": {
+        "en": "Compliano",
+        "id": "Banyak Mengeluh"
+    },
+    "designProperties": {
+        "text1": {
+            "label": "Text 1 Sample",
+            "input": "text",
+            "value": "Indonesia"
+        },
+        "text2": {
+            "label": "Text 2 Sample",
+            "input": "text",
+            "value": "Australia"
+        },
+        "separator": {
+            "input": "separator"
+        },
+        "size1": {
+            "label": "Text Size",
+            "input": "range",
+            "value": "90",
+            "min": 50,
+            "max": 95
+        },
+        "background": {
+            "label": "Image BG",
+            "input": "image",
+            "value": ""
+        }
+    }
+}

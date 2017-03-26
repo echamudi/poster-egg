@@ -19,6 +19,9 @@ const connect = require("gulp-connect");
 const del = require('del');
 const run = require('gulp-run');
 const yargs = require('yargs');
+const copy = require('gulp-copy');
+const debug = require('gulp-debug');
+const fs = require('fs');
 
 // Vinyl
 const browserify = require("browserify");
@@ -49,9 +52,8 @@ function swallowError(error) {
 
 /**
  * ------------------------------------------------------------------------
- * Browserify + Watchify
+ * App tasks
  * ------------------------------------------------------------------------
- * nice
  */
 
 const browserifyOptions = {
@@ -100,12 +102,6 @@ const bundle = (toBundle) => {
         .on('end', () => gutil.log('Finished \'' + gutil.colors.cyan('Bundle Function') + ' 📦\''))
 }
 
-/**
- * ------------------------------------------------------------------------
- * Other Tasks
- * ------------------------------------------------------------------------
- */
-
 gulp.task('pug', () => {
     const options = {
         pretty: !minify
@@ -144,20 +140,101 @@ gulp.task('sass', () => {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('connect', () => {
-    // var cors = function (req, res, next) {
-    // res.setHeader('Access-Control-Allow-Origin', '*');
-    // res.setHeader('Access-Control-Allow-Headers', 'headers_you_want_to_accept');
-    // next();
-    // };
+gulp.task('design-assets', () => {
+    return gulp
+        .src([ 'src/data/design-assets/**/*'])
+        .pipe(copy('dist/', {prefix: 1}))
+});
 
+gulp.task('all-designs-json', () => {
+    
+    var mainDir = 'src/data/design-packs/';
+
+    var finalDesignList = [];
+
+    // List all folders to get groupNames
+    fs.readdir(mainDir, (err, groupNames) => {
+
+        // Read each group name and push processed data to finalDesignList
+        groupNames.forEach((groupName) => {
+
+            // read _data.json file in the group
+            var groupData = JSON.parse(fs.readFileSync(mainDir + groupName + '/_data.json'));
+
+            // add folder name as ID
+            groupData.groupID = groupName;
+
+            // shift by -1 to fit array key
+            var groupOrder = groupData.order - 1;
+
+            // "order" property is not important now
+            delete groupData.order;
+
+            // add current group data to final design list
+            finalDesignList[groupOrder] = groupData;
+
+            // design list property
+            finalDesignList[groupOrder].designs = [];
+
+            // look for the designs themselves, read all files inside the group folder
+            fs.readdir(mainDir + '/' + groupName, (err, groupContents) => {
+
+                groupContents.forEach((fileName) => {
+
+                    // only *.template.json
+                    if(fileName.endsWith(".template.json")) {
+
+                        // read *.template.json
+                        var designData = JSON.parse(fs.readFileSync(mainDir + groupName + '/' + fileName));
+                        
+                        // add json file name
+                        designData.dataFile = fileName;
+
+                        // shift by -1 to fit array key
+                        var designOrder = designData.order - 1;
+
+                        // "order" property is not important now
+                        delete designData.order;
+
+                        // "designProperties" property is not required
+                        delete designData.designProperties;
+                        
+                        finalDesignList[groupOrder].designs[designOrder] = designData;
+                    }
+                })
+
+                // write it
+                fs.mkdir('dist/', () => {
+                    fs.mkdir('dist/data/', () => {
+                        fs.writeFile("dist/data/all-designs.json", JSON.stringify(finalDesignList), function(err) {
+                            if(err) {
+                                return console.log(err);
+                            }
+                        });
+                    });
+                })
+            });
+        });
+    });
+});
+
+gulp.task('clean-data', () => {
+    return del([
+        'dist/data'
+    ]);
+});
+
+/**
+ * ------------------------------------------------------------------------
+ * Other tasks
+ * ------------------------------------------------------------------------
+ */
+
+gulp.task('connect', () => {
     connect.server({
         root: ['dist'],
         fallback: 'dist/index.html',
-        https: false,
-        // middleware: function () {
-        // return [cors];
-        // }
+        https: false
     })
 });
 
@@ -199,9 +276,12 @@ gulp.task('newcomp', function () {
  * $ gulp       : Build and watch
  */
 
+
 gulp.task('build', ['clean'], () => {
     gulp.start('pug');
     gulp.start('sass');
+    gulp.start('design-assets');
+    gulp.start('all-designs-json');
     bundle(normalBrowserify);
 });
 
@@ -210,6 +290,8 @@ gulp.task('default', ['clean'], () => {
     // Initial Executes
     gulp.start('pug');
     gulp.start('sass');
+    gulp.start('design-assets');
+    gulp.start('all-designs-json');
     bundle(watchedBrowserify);
 
     // Enable Watches

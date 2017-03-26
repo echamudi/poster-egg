@@ -5,8 +5,6 @@ import { PainterService } from './painter.service';
 import { DesignProperty, DesignProperties } from './interfaces';
 import { ArtboardClass } from './artboard.class';
 
-import { msftImage } from './demo-image';
-
 @Component({
     selector: 'page-editor',
     templateUrl: '/app/page-editor.component.html',
@@ -19,19 +17,16 @@ import { msftImage } from './demo-image';
 export class PageEditorComponent {
     private designProperties: DesignProperties = {
         text1 : {
-            type: 'text',
             label: "Text 1 Sample",
             input: 'text',
             value : 'Indonesia'
         } ,
         text2: {
-            type: 'text',
             label: "Text 2 Sample",
             input: 'text',
             value : 'Australia'
         } ,
         size1: {
-            type: 'style',
             label: "Text Size",
             input: 'range',
             value : '90',
@@ -39,10 +34,9 @@ export class PageEditorComponent {
             max: 95
         },
         background: {
-            type: 'text',
             label: "Image BG",
             input: 'image',
-            value : msftImage,
+            value : '',
         }
     };
 
@@ -114,7 +108,6 @@ export class PageEditorComponent {
         } else {
             console.log('Failed');
         }
-
     }
 
     render() {
