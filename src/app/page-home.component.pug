@@ -2,11 +2,17 @@
     .row
         .col-xs-12
             h1 Choose Your Design Style
-            h2 Pop Art
-            p Cool and fun colours.
-    .row
-        .col-md-4
-            .panel.panel-default
-                .panel-heading Theme 1
-                .panel-body 
-                    a.btn.btn-default(routerLink="/editor") Choose This Design
+    div.form-group(*ngIf="!designList") Loading...
+    div.form-group(*ngFor='let group of designList')
+        .row
+            .col-xs-12
+                h2 {{ group.title.en }}
+                p {{ group.description.en }}
+        .row
+        div.form-group(*ngFor='let design of group.designs')
+            .col-md-4
+                .panel.panel-default
+                    .panel-heading {{ design.title.en }}
+                    .panel-body
+                        img([attr.src]="'/data/design-assets/thumbnails/' + design.designID + '.png'")
+                        a.btn.btn-default([routerLink]="['/editor', design.designID]") Choose This Design

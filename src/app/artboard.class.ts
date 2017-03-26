@@ -99,6 +99,11 @@ export class ArtboardClass {
         return this;
     }
     
+    public then(func: any): this {
+        func();
+        return this;
+    }
+
     // Render image, return canvas element
     public render(): Promise<HTMLScriptElement> {
 

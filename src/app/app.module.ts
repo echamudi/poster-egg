@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { SafePipe } from './safe.pipe';
 
@@ -15,7 +16,8 @@ import { PageEditorComponent } from './page-editor.component';
   imports: [
     BrowserModule, 
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   declarations: [
     RootComponent, 

@@ -1,7 +1,7 @@
 div([innerHTML]="artboardScaleStyle | safe: 'html'")
 .editor-container
     .editor-content
-        #artboardContainer(artboardContainer="", [innerHTML]="artboard.output | safe: 'html'")
+        #artboardContainer(artboardContainer="", (init)="alert('tom')", [innerHTML]="artboard.output | safe: 'html'")
     .editor-sidebar
         div.form-group(*ngFor='let designProperty of designPropertiesArray')
             label {{ designProperty.label }}

@@ -188,7 +188,7 @@ gulp.task('all-designs-json', () => {
                         var designData = JSON.parse(fs.readFileSync(mainDir + groupName + '/' + fileName));
                         
                         // add json file name
-                        designData.dataFile = fileName;
+                        designData.designID = fileName.replace(/.template.json/g,'');
 
                         // shift by -1 to fit array key
                         var designOrder = designData.order - 1;

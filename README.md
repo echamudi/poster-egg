@@ -4,6 +4,9 @@ A client-side poster maker using HTML5, CSS3, and Angular.
 
 > This app is still unusable and under heavy development. Please come back later to see the progress 😃
 
+## Todo
+
+- make designPromise request using Promise.
 
 ## Creator
 

@@ -16,27 +16,27 @@ import { ArtboardClass } from './artboard.class';
 })
 export class PageEditorComponent {
     private designProperties: DesignProperties = {
-        text1 : {
+        text1: {
             label: "Text 1 Sample",
             input: 'text',
-            value : 'Indonesia'
-        } ,
+            value: 'Indonesia'
+        },
         text2: {
             label: "Text 2 Sample",
             input: 'text',
-            value : 'Australia'
-        } ,
+            value: 'Australia'
+        },
         size1: {
             label: "Text Size",
             input: 'range',
-            value : '90',
+            value: '90',
             min: 50,
             max: 95
         },
         background: {
             label: "Image BG",
             input: 'image',
-            value : '',
+            value: '',
         }
     };
 
@@ -47,36 +47,28 @@ export class PageEditorComponent {
 
     private resultSrc: string;
 
-    constructor ( private painterService: PainterService ) {
-        this.designPropertiesArray = this.painterService.designPropertiesObjectToArray(this.designProperties);
+    constructor(private painterService: PainterService) { }
 
+    ngOnInit() {
         this.artboard = new ArtboardClass();
 
-        this.artboard
-            .setWidth(1024)
-            .setHeight(1024)
-            .setStyle(
-                `
-                    #artboard div {
-                        font-size: __size1__px
-                    }
+        this.painterService.getDesign().subscribe(
+            data => {
+                
+                this.designPropertiesArray = this.painterService.designPropertiesObjectToArray(this.designProperties);
 
-                `
-            )
-            .setTemplate(
-                `
-                    <div>__text1__</div>
-                    <div>__text2__</div>
-                    <img src="__background__">
-                `
-            )
-            .capsulize()
-            .drawAll(this.designProperties);
-    }
+                this.artboard
+                    .setWidth(1024)
+                    .setHeight(1024)
+                    .setStyle(data[1])
+                    .setTemplate(data[0])
+                    .capsulize()
+                    .drawAll(this.designProperties);
+                    
+                this.scaleArtboard();
+            }
+        );
 
-    ngAfterViewInit(){
-        // Trigger window resize to correct artboard size
-        this.scaleArtboard();
     }
 
     // For range, textarea, and text input
@@ -86,7 +78,7 @@ export class PageEditorComponent {
         let value = arg.target.value;
 
         this.designProperties[key].value = value.toString();
-        
+
         this.artboard.drawAll(this.designProperties);
     }
 
@@ -100,9 +92,9 @@ export class PageEditorComponent {
             reader.readAsDataURL(arg.target.files[0]);
 
             // If reading data successfuly loads picture
-            reader.onload =  (e: any) => {
+            reader.onload = (e: any) => {
                 this.designProperties[key].value = e.target.result;
-                
+
                 this.artboard.drawAll(this.designProperties);
             }
         } else {
@@ -138,12 +130,12 @@ export class PageEditorComponent {
         let artboardWidth: number = this.artboard.getWidth();
 
         let padding: number = 20; // Set padding between artboard border and artboardContainer border
-        let hRatio: number =  (containerElHeight - padding * 2) / artboardHeight;
-        let wRatio: number =  (containerElWidth - padding * 2) / artboardWidth;
+        let hRatio: number = (containerElHeight - padding * 2) / artboardHeight;
+        let wRatio: number = (containerElWidth - padding * 2) / artboardWidth;
 
         // Choose smaller ratio
         let finalRatio: number = hRatio > wRatio ? wRatio : hRatio;
-        
+
         // Make it a bit smaller
         finalRatio = finalRatio;
 
