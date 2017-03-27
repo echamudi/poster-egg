@@ -9,7 +9,7 @@ div([innerHTML]="artboardScaleStyle | safe: 'html'")
             input(
                 *ngIf="designProperty.input === 'range'", 
                 type='range', 
-                [attr.designPropertyBinder]="designProperty.binder", 
+                [attr.designPropertyBinder]="designProperty._objectKey", 
                 [attr.value]="designProperty.value", 
                 [attr.min]="designProperty.min", 
                 [attr.max]="designProperty.max",
@@ -20,14 +20,14 @@ div([innerHTML]="artboardScaleStyle | safe: 'html'")
                 *ngIf="designProperty.input === 'image'", 
                 type="file", 
                 accept="image/*",
-                [attr.designPropertyBinder]="designProperty.binder", 
+                [attr.designPropertyBinder]="designProperty._objectKey", 
                 (change)="onFileChange($event)", 
                 )
 
             input.form-control(
                 *ngIf="designProperty.input === 'text'", 
                 type='text', 
-                [attr.designPropertyBinder]="designProperty.binder", 
+                [attr.designPropertyBinder]="designProperty._objectKey", 
                 [attr.value]="designProperty.value",
                 (keyup)='onInputChange($event)', 
                 )

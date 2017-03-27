@@ -1,74 +1,63 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { PainterService } from './painter.service';
 import { DesignProperty, DesignProperties } from './interfaces';
 import { ArtboardClass } from './artboard.class';
 
+import * as tool from './tools';
+
 @Component({
+    moduleId: module.id,
     selector: 'page-editor',
-    templateUrl: '/app/page-editor.component.html',
-    styleUrls: ['app/page-editor.component.css'],
+    templateUrl: './app/page-editor.component.html',
+    styleUrls: ['./app/page-editor.component.css'],
     providers: [PainterService],
     host: {
         '(window:resize)': 'onWindowResize()'
     }
 })
 export class PageEditorComponent {
-    private designProperties: DesignProperties = {
-        text1: {
-            label: "Text 1 Sample",
-            input: 'text',
-            value: 'Indonesia'
-        },
-        text2: {
-            label: "Text 2 Sample",
-            input: 'text',
-            value: 'Australia'
-        },
-        size1: {
-            label: "Text Size",
-            input: 'range',
-            value: '90',
-            min: 50,
-            max: 95
-        },
-        background: {
-            label: "Image BG",
-            input: 'image',
-            value: '',
-        }
-    };
-
+    private designProperties: DesignProperties;
     private designPropertiesArray: DesignProperty[] = [];
+
+    private styleString: string;
+    private templateString: string;
 
     private artboard: ArtboardClass;
     private artboardScaleStyle: string;
 
     private resultSrc: string;
 
-    constructor(private painterService: PainterService) { }
+    constructor(private painterService: PainterService,         private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.artboard = new ArtboardClass();
 
-        this.painterService.getDesign().subscribe(
-            data => {
+        this.route.params
+            // doing get again, get design datas using params
+            .switchMap((params: Params) => this.painterService.getDesign(params['groupID'], params['designID']))
+            .subscribe(data => {
+                console.log(data);
                 
-                this.designPropertiesArray = this.painterService.designPropertiesObjectToArray(this.designProperties);
+                // extract data from the promise
+                this.styleString = data[1];
+                this.templateString = data[0];
+                this.designProperties = data[2].designProperties;
+
+                this.designPropertiesArray = tool.objToArray(this.designProperties);
 
                 this.artboard
                     .setWidth(1024)
                     .setHeight(1024)
-                    .setStyle(data[1])
-                    .setTemplate(data[0])
+                    .setStyle(this.styleString)
+                    .setTemplate(this.templateString)
                     .capsulize()
                     .drawAll(this.designProperties);
                     
                 this.scaleArtboard();
-            }
-        );
-
+            });
     }
 
     // For range, textarea, and text input

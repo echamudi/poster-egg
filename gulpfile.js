@@ -6,6 +6,12 @@
  * ------------------------------------------------------------------------
  */
 
+// Node JS
+
+const fs = require('fs');
+const mkdirp = require('mkdirp');
+var path = require('path');
+
 // Gulps
 const gulp = require('gulp');
 const sass = require('gulp-sass');
@@ -21,7 +27,6 @@ const run = require('gulp-run');
 const yargs = require('yargs');
 const copy = require('gulp-copy');
 const debug = require('gulp-debug');
-const fs = require('fs');
 
 // Vinyl
 const browserify = require("browserify");
@@ -49,6 +54,21 @@ function swallowError(error) {
     gutil.log(error)
     this.emit('end')
 }
+
+// writeFile
+
+function writeFile(filepath, contents, cb) {
+  mkdirp(path.dirname(filepath), function (err) {
+    if (err) return cb(err);
+
+    fs.writeFile(filepath, contents, function(err) {
+                            if(err) {
+                                return console.log(err);
+                            }
+                        });
+  });
+}
+
 
 /**
  * ------------------------------------------------------------------------
@@ -196,6 +216,8 @@ gulp.task('all-designs-json', () => {
                         // "order" property is not important now
                         delete designData.order;
 
+                        writeFile("dist/data/design-packs/" + groupName + '/' + fileName, JSON.stringify(designData));
+
                         // "designProperties" property is not required
                         delete designData.designProperties;
                         
@@ -204,15 +226,8 @@ gulp.task('all-designs-json', () => {
                 })
 
                 // write it
-                fs.mkdir('dist/', () => {
-                    fs.mkdir('dist/data/', () => {
-                        fs.writeFile("dist/data/all-designs.json", JSON.stringify(finalDesignList), function(err) {
-                            if(err) {
-                                return console.log(err);
-                            }
-                        });
-                    });
-                })
+
+                writeFile("dist/data/all-designs.json", JSON.stringify(finalDesignList));
             });
         });
     });

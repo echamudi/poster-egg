@@ -7,7 +7,7 @@ import { PageEditorComponent } from './page-editor.component';
 
 const routes: Routes = [
   { path: '', component: PageHomeComponent },
-  { path: 'editor/:designID', component: PageEditorComponent },
+  { path: 'editor/:groupID/:designID', component: PageEditorComponent },
   { path: 'editor', redirectTo: '/', pathMatch: 'full' }
 ];
 

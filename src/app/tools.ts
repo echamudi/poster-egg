@@ -17,3 +17,20 @@ export function escapeRegExp(string: string) {
 export function replaceAll(string: string, find: string, replace: string) {
     return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
+
+
+/**
+ * Object to Array
+ */
+export function objToArray(obj: any) {
+        let returney: any[] = [];
+
+        Object
+            .keys(obj)
+            .map((objectKey, Index) => {
+                returney[Index] = obj[objectKey];
+                returney[Index]._objectKey = objectKey;
+            });
+
+        return returney;
+}

@@ -17,24 +17,6 @@ export class PainterService {
 
     constructor(private http: Http) { }
 
-    /**
-     * Convert designProperties to designPropertiesArray
-     */
-    designPropertiesObjectToArray(designProperties: DesignProperties): DesignProperty[] {
-        let returney: DesignProperty[] = [];
-
-        Object
-            .keys(designProperties)
-            .map((objectKey, Index) => {
-                returney[Index] = designProperties[objectKey];
-
-                // Add binder attribute (aka designPropertiesKey) to the objects inside array.
-                returney[Index].binder = objectKey;
-            });
-
-        return returney;
-    }
-
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
@@ -47,19 +29,11 @@ export class PainterService {
             .catch(this.handleError);
     }
 
-    getDesign(): Observable<any> {
-        // a set of customer IDs was given to retrieve
-        var files: string[] = ['compliano.template.html', 'compliano.template.css'];
-
-        // map them into a array of observables and forkJoin
-        // return Observable.forkJoin(
-        //     files.map(
-        //         i => this.http.get('/data/design-packs/pop-art/' + i).map(res => res.json())
-        //     )
-        // )
+    getDesign(groupID: string, designID: string): Observable<any> {
         return Observable.forkJoin(
-            this.http.get('/data/design-packs/pop-art/compliano.template.html').map((res: Response) => res.text()),
-            this.http.get('/data/design-packs/pop-art/compliano.template.css').map((res: Response) => res.text())
+            this.http.get(`/data/design-packs/${groupID}/${designID}.template.html`).map((res: Response) => res.text()),
+            this.http.get(`/data/design-packs/${groupID}/${designID}.template.css`).map((res: Response) => res.text()),
+            this.http.get(`/data/design-packs/${groupID}/${designID}.template.json`).map((res: Response) => res.json())
         );
     }
 }

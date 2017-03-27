@@ -15,4 +15,4 @@
                     .panel-heading {{ design.title.en }}
                     .panel-body
                         img([attr.src]="'/data/design-assets/thumbnails/' + design.designID + '.png'")
-                        a.btn.btn-default([routerLink]="['/editor', design.designID]") Choose This Design
+                        a.btn.btn-default([routerLink]="['/editor', group.groupID, design.designID]") Choose This Design
