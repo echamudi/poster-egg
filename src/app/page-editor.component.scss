@@ -25,6 +25,12 @@
     overflow-y: auto;
 }
 
+textarea { 
+    resize: none; 
+    overflow-y: hidden;
+}
+
+
 @include angular-deep {
     #artboardContainer {
         height: 100%;
@@ -37,7 +43,5 @@
         position: absolute;
         transform-origin: top left;
         box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.1);
-        // user-select: none;
-        // cursor: default;
     }
 }

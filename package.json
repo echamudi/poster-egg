@@ -25,6 +25,7 @@
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.1.0",
     "gulp-util": "^3.0.8",
+    "gulp-webserver": "^0.9.1",
     "minimist": "^1.2.0",
     "tsify": "^3.0.1",
     "typescript": "^2.2.1",

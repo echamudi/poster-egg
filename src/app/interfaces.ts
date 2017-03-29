@@ -1,7 +1,7 @@
 export interface DesignProperty {
     group?: string,
     label?: string,
-    value?: string,
+    value?: any,
     binder?: string, // Same as objectKey, used for Array in designPropertiesArray
 
     // Input type

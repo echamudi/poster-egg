@@ -18,8 +18,8 @@ export class PageHomeComponent {
     ngOnInit() {
         this.painterService.getAllDesignList().then(data => {
             this.designList = data;
-
-            console.log(this.designList);
         });
+
+        console.log()
     }
 }

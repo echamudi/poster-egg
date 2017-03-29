@@ -6,13 +6,20 @@ div([innerHTML]="artboardScaleStyle | safe: 'html'")
         div.form-group(*ngFor='let designProperty of designPropertiesArray')
             label {{ designProperty.label }}
 
+            textarea.form-control(
+                *ngIf="designProperty.input === 'text'", 
+                type='text', 
+                [attr.designPropertyBinder]="designProperty._objectKey", 
+                (keyup)='onInputChange($event)', 
+                ) {{designProperty.value}}
+
             input(
                 *ngIf="designProperty.input === 'range'", 
                 type='range', 
                 [attr.designPropertyBinder]="designProperty._objectKey", 
-                [attr.value]="designProperty.value", 
                 [attr.min]="designProperty.min", 
                 [attr.max]="designProperty.max",
+                [attr.value]="designProperty.value", 
                 (input)='onInputChange($event)', 
                 ) 
             
@@ -23,17 +30,10 @@ div([innerHTML]="artboardScaleStyle | safe: 'html'")
                 [attr.designPropertyBinder]="designProperty._objectKey", 
                 (change)="onFileChange($event)", 
                 )
-
-            input.form-control(
-                *ngIf="designProperty.input === 'text'", 
-                type='text', 
-                [attr.designPropertyBinder]="designProperty._objectKey", 
-                [attr.value]="designProperty.value",
-                (keyup)='onInputChange($event)', 
-                )
                 
         div
             button.btn.btn-default(type="button", (click)='render()') Render
 
         div(*ngIf="resultSrc")
             img#resultSVG([attr.src]="resultSrc | safe: 'url'")
+            

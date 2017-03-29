@@ -313,6 +313,7 @@ gulp.task('default', ['clean'], () => {
     watchedBrowserify.on('update', () => bundle(watchedBrowserify));
     gulp.watch('src/**/*.pug', ['pug']);
     gulp.watch('src/**/*.scss', ['sass']);
+    gulp.watch('src/data/design-packs/**/*.json', ['all-designs-json']);
 
     // Connect
     gulp.start('connect');

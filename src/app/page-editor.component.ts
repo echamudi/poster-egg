@@ -30,20 +30,21 @@ export class PageEditorComponent {
 
     private resultSrc: string;
 
-    constructor(private painterService: PainterService,         private route: ActivatedRoute) { }
+    constructor(
+        private painterService: PainterService, 
+        private route: ActivatedRoute ) {}
 
     ngOnInit() {
         this.artboard = new ArtboardClass();
 
+        // getting params from url
         this.route.params
-            // doing get again, get design datas using params
+            // doing get again (get design data using params)
             .switchMap((params: Params) => this.painterService.getDesign(params['groupID'], params['designID']))
             .subscribe(data => {
-                console.log(data);
-                
                 // extract data from the promise
-                this.styleString = data[1];
                 this.templateString = data[0];
+                this.styleString = data[1];
                 this.designProperties = data[2].designProperties;
 
                 this.designPropertiesArray = tool.objToArray(this.designProperties);
@@ -54,19 +55,29 @@ export class PageEditorComponent {
                     .setStyle(this.styleString)
                     .setTemplate(this.templateString)
                     .capsulize()
-                    .drawAll(this.designProperties);
+                    .drawAll(this.designProperties)
                     
                 this.scaleArtboard();
             });
     }
 
-    // For range, textarea, and text input
+    // For textarea and range
     onInputChange(arg: any) {
         // Get designPropertyBinder from the text input for designProperties and its value
         let key = arg.target.getAttribute('designPropertyBinder');
         let value = arg.target.value;
 
-        this.designProperties[key].value = value.toString();
+        if(arg.target.tagName == "TEXTAREA") {
+            // resize text area based on its height 
+            arg.target.style.height = "auto";
+            arg.target.style.height = arg.target.scrollHeight + 20;
+    
+            // Change new line in input to <br>
+            this.designProperties[key].value = value.replace(/\r\n|\r|\n/g,"<br />");
+
+        } else {
+            this.designProperties[key].value = value.toString();
+        }
 
         this.artboard.drawAll(this.designProperties);
     }

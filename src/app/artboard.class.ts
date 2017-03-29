@@ -116,11 +116,11 @@ export class ArtboardClass {
     }
 
     // Slow Render
-    // public renderSlowly(): Promise<HTMLScriptElement> {
-    //     return new Promise(resolve => {
-    //         // Simulate server latency with 3 second delay
-    //         setTimeout(() => resolve(this.render()), 3000);
-    //     });
-    // }
+    public renderSlowly(): Promise<HTMLScriptElement> {
+        return new Promise(resolve => {
+            // Simulate server latency with 3 second delay
+            setTimeout(() => resolve(this.render()), 3000);
+        });
+    }
 
 }

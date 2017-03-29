@@ -6,24 +6,29 @@
     },
     "designProperties": {
         "text1": {
-            "label": "Text 1 Sample",
+            "label": "Teks 1",
             "input": "text",
-            "value": "Indonesia"
+            "value": "Banyak\nMengeluh"
         },
         "text2": {
-            "label": "Text 2 Sample",
+            "label": "Teks 2",
             "input": "text",
-            "value": "Australia"
+            "value": "Tidak mengubah apapun"
+        },
+        "text3": {
+            "label": "Teks 3",
+            "input": "text",
+            "value": "Mendoakannya, mendoakan negeri ini untuk jadi lebih baik"
         },
         "separator": {
             "input": "separator"
         },
-        "size1": {
-            "label": "Text Size",
+        "width": {
+            "label": "Main Width",
             "input": "range",
-            "value": "90",
-            "min": 50,
-            "max": 95
+            "value": 500,
+            "min": 300,
+            "max": 900
         },
         "background": {
             "label": "Image BG",
