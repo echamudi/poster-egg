@@ -1,4 +1,5 @@
-div([innerHTML]="artboardScaleStyle | safe: 'html'")
+div.hidden([innerHTML]="artboardScaleStyle | safe: 'html'")
+.hero
 .editor-container
     .editor-content
         #artboardContainer(artboardContainer="", (init)="alert('tom')", [innerHTML]="artboard.output | safe: 'html'")
