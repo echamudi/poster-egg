@@ -1,4 +1,5 @@
 import { DesignProperties } from './interfaces';
+
 import * as tool from './tools';
 
 var rasterizeHTML = require('rasterizeHTML');

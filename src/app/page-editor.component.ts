@@ -1,12 +1,15 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, ViewEncapsulation, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { PainterService } from './painter.service';
-import { DesignProperty, DesignProperties } from './interfaces';
-import { ArtboardClass } from './artboard.class';
+import { StorageService } from './storage.service';
 
 import { ModalComponent } from './modal.component';
+
+import { ArtboardClass } from './artboard.class';
+
+import { DesignProperty, DesignProperties } from './interfaces';
 
 import * as tool from './tools';
 
@@ -15,7 +18,7 @@ import * as tool from './tools';
     selector: 'page-editor',
     templateUrl: './app/page-editor.component.html',
     styleUrls: ['./app/page-editor.component.css'],
-    providers: [PainterService],
+    providers: [ PainterService],
     host: {
         '(window:resize)': 'onWindowResize()'
     }
@@ -32,12 +35,19 @@ export class PageEditorComponent {
 
     private resultSrc: string;
 
+    public hasChanges: boolean = false;
+
+    // For unsubscribing later at ngOnDestroy()
+    private alive: boolean = true;
+
     @ViewChild(ModalComponent)
-    public readonly modal: ModalComponent;
+    public modal: ModalComponent;
 
     constructor(
+        private storageService: StorageService,
         private painterService: PainterService, 
-        private route: ActivatedRoute ) {}
+        private route: ActivatedRoute,
+        private router: Router ) {}
 
     ngOnInit() {
         this.artboard = new ArtboardClass();
@@ -46,6 +56,7 @@ export class PageEditorComponent {
         this.route.params
             // doing get again (get design data using params)
             .switchMap((params: Params) => this.painterService.getDesign(params['groupID'], params['designID']))
+            .takeWhile(() => this.alive)
             .subscribe(data => {
                 // extract data from the promise
                 this.templateString = data[0];
@@ -71,6 +82,10 @@ export class PageEditorComponent {
         // Get designPropertyBinder from the text input for designProperties and its value
         let key = arg.target.getAttribute('designPropertyBinder');
         let value = arg.target.value;
+
+        this.hasChanges = true;
+        this.storageService.setData('value', value);
+        this.storageService.getData('value');
 
         if(arg.target.tagName == "TEXTAREA") {
             // resize text area based on its height 
@@ -157,12 +172,16 @@ export class PageEditorComponent {
         `
     }
 
-    routerCanDeactivate(){
-        console.log('bye')
-        // return false; // false stops navigation, true continue navigation
+    ngOnDestroy() {
+        
+        //Unsubscribe things
+        this.alive = false;
+
+        console.log('Leaving page-editor...');
     }
 
     onWindowResize() {
         this.scaleArtboard();
+        console.log('yep');
     }
 }

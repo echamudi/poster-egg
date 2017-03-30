@@ -7,7 +7,7 @@ modal
     .content-footer
         button.btn.btn-default(type='button', (click)='modal.hide()') Cancel
         .flex-1        
-        button.btn.btn-danger(type='button', routerLink="/") Don't Save
+        button.btn.btn-danger(type='button', (click)='this.hasChanges = false', routerLink="/") Don't Save
         button.btn.btn-go(type='button', routerLink="/") Save..
 .editor-container
     .editor-content
@@ -46,6 +46,6 @@ modal
                 img#resultSVG([attr.src]="resultSrc | safe: 'url'")
 
         .editor-actions
-            button.btn.btn-danger(type="button", (click)="modal.show()") Discard
+            button.btn.btn-danger(type="button", routerLink="/") Discard
             .separator
             button.btn.btn-go(type="button", (click)='render()') Save

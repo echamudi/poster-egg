@@ -4,13 +4,14 @@
 
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { DesignProperty, DesignProperties } from './interfaces';
 import { ArtboardClass } from './artboard.class';
 
-import * as tool from './tools';
 import { Observable } from 'rxjs/Rx';
-
 import 'rxjs/add/operator/toPromise';
+
+import { DesignProperty, DesignProperties } from './interfaces';
+
+import * as tool from './tools';
 
 @Injectable()
 export class PainterService {

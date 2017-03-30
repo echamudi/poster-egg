@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import * as tool from './tools';
 
@@ -12,7 +12,7 @@ export class ModalComponent {
     public visible = false;
     private visibleAnimate = false;
 
-    public show(any: string): void {
+    public show(): void {
         this.visible = true;
         setTimeout(() => this.visibleAnimate = true);
     }

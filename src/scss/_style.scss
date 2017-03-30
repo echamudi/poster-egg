@@ -33,9 +33,13 @@ $btn-go-border : darken($btn-go-bg, 5%);
 .navbar {
     border: none;
 }
+
 // Bootstrap Mod : Modal
 
 .modal {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
     background: rgba(0,0,0,0.8);
 
     &-content {
@@ -51,6 +55,25 @@ $btn-go-border : darken($btn-go-bg, 5%);
     .content-footer {
         display: flex;
     }
+
+    &.fade &-dialog {
+        transform: translate3D(0, -100%, 0);
+        transition: transform 0.15s ease-out;
+    }
+
+    &.in &-dialog {
+        transform: translate3D(0, 0, 0);
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            margin-top: -2px;
+        }
+    }
+}
+
+.fade {
+    transition: opacity 0.15s linear;
 }
 
 // Bootstrap Alt : Button Colours

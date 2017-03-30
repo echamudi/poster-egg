@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from './storage.service';
+
 import { PainterService } from './painter.service';
 
 @Component({
@@ -13,13 +15,15 @@ export class PageHomeComponent {
 
     private designList: any[];
     
-    constructor ( private painterService: PainterService ) {}
+    constructor(
+        private storageService: StorageService,
+        private painterService: PainterService) {}
 
     ngOnInit() {
         this.painterService.getAllDesignList().then(data => {
             this.designList = data;
         });
 
-        console.log()
+        console.log(this.storageService.getData('value'))
     }
 }

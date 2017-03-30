@@ -1,18 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { RootComponent } from './root.component';
-import { PageHomeComponent } from './page-home.component';
+import { UnsavedGuard } from './unsaved-guard.service';
+
 import { PageEditorComponent } from './page-editor.component';
+import { PageHomeComponent } from './page-home.component';
+import { RootComponent } from './root.component';
 
 const routes: Routes = [
-  { path: '', component: PageHomeComponent },
-  { path: 'editor/:groupID/:designID', component: PageEditorComponent },
-  { path: 'editor', redirectTo: '/', pathMatch: 'full' }
+    { 
+        path: '', 
+        component: PageHomeComponent 
+    },
+    { 
+        path: 'editor/:groupID/:designID', 
+        component: PageEditorComponent, 
+        canDeactivate: [ UnsavedGuard ] 
+    },
+    { 
+        path: 'editor', 
+        redirectTo: '/', 
+        pathMatch: 'full' 
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    providers : [ UnsavedGuard ],
+    imports : [ RouterModule.forRoot(routes) ],
+    exports : [ RouterModule ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
