@@ -9,6 +9,8 @@ import { SafePipe } from './safe.pipe';
 import { AppRoutingModule } from './app-routing.module';
 
 import { RootComponent } from './root.component';
+import { ModalComponent } from './modal.component';
+
 import { PageHomeComponent } from './page-home.component';
 import { PageEditorComponent } from './page-editor.component';
 
@@ -17,12 +19,13 @@ import { PageEditorComponent } from './page-editor.component';
     BrowserModule, 
     AppRoutingModule,
     FormsModule,
-    HttpModule
+    HttpModule,
   ],
   declarations: [
     RootComponent, 
     PageHomeComponent, 
     PageEditorComponent,
+    ModalComponent,
     SafePipe
   ],
   bootstrap: [

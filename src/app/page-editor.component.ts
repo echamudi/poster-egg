@@ -1,10 +1,12 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { PainterService } from './painter.service';
 import { DesignProperty, DesignProperties } from './interfaces';
 import { ArtboardClass } from './artboard.class';
+
+import { ModalComponent } from './modal.component';
 
 import * as tool from './tools';
 
@@ -29,6 +31,9 @@ export class PageEditorComponent {
     private artboardScaleStyle: string;
 
     private resultSrc: string;
+
+    @ViewChild(ModalComponent)
+    public readonly modal: ModalComponent;
 
     constructor(
         private painterService: PainterService, 
@@ -150,6 +155,11 @@ export class PageEditorComponent {
             }
         </style>
         `
+    }
+
+    routerCanDeactivate(){
+        console.log('bye')
+        // return false; // false stops navigation, true continue navigation
     }
 
     onWindowResize() {

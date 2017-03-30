@@ -1,4 +1,4 @@
-// Custom Vars
+// Bootstrap Mod : Vars
 
 $font-family-sans-serif:  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $text-color: #2c3e50;
@@ -12,17 +12,54 @@ $navbar-default-link-color: #FFFFFF;
 $navbar-default-link-hover-color: rgba(255, 255, 255, 0.8);
 $navbar-margin-bottom: 0px;
 
+$btn-border-radius-base: 0px;
 $input-border-radius: 0px;
+
+$border-radius-large: 0px;
+
+// Bootstrap Alt : Vars
+
+$btn-go-color : #FFFFFF;
+$btn-go-bg : #00B2FF;
+$btn-go-border : darken($btn-go-bg, 5%);
 
 // Imports
 
 @import 'mixins';
 @import 'bootstrap';
 
+// Bootstrap Mod : Navbar
+
 .navbar {
     border: none;
-    // box-shadow: 0px -10px 10px 10px rgb(17, 35, 66);
 }
+// Bootstrap Mod : Modal
+
+.modal {
+    background: rgba(0,0,0,0.8);
+
+    &-content {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    &-title {
+        font-weight: 600;
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .content-footer {
+        display: flex;
+    }
+}
+
+// Bootstrap Alt : Button Colours
+
+.btn-go {
+    @include button-variant($btn-go-color, $btn-go-bg, $btn-go-border);
+}
+
+// New Component : Hero
 
 .hero {
     background-image: linear-gradient(-180deg, #263A5E 0%, #425470 100%);
@@ -46,4 +83,25 @@ $input-border-radius: 0px;
     &-root {
         position: absolute;
     }
+}
+
+// New Component : Artboard
+
+#artboardContainer {
+    height: 100%;
+    width: 100%;
+}
+
+#artboard {
+    border: solid 2px #0e1e3a;
+    box-sizing: content-box;
+    position: absolute;
+    transform-origin: top left;
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+// Helpers
+
+.flex-1 {
+    flex: 1;
 }

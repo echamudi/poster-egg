@@ -6,7 +6,9 @@ A client-side poster maker using HTML5, CSS3, and Angular.
 
 ## Todo
 
-- make designPromise request using Promise.
+- ~~make designPromise request using Promise.~~
+- Separate render page
+- Enable bilingual
 
 ## Creator
 

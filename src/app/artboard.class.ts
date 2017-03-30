@@ -101,6 +101,7 @@ export class ArtboardClass {
 
     // Render image, return canvas element
     public render(): Promise<HTMLScriptElement> {
+        console.log('start rendering');
 
         var rawMaterial = this.output;
         rawMaterial += window.document.getElementById('mainstyle').outerHTML;
