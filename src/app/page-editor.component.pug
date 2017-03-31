@@ -11,6 +11,11 @@ modal
         button.btn.btn-go(type='button', routerLink="/") Save..
 .editor-container
     .editor-content
+        .loading.alert.alert-info(
+            [ngClass]="{'loading-still': somethingIsLoading}"
+            )
+            .loader.loader-info.loader-sm
+            span Loading materials ...
         #artboardContainer(artboardContainer="", (init)="alert('tom')", [innerHTML]="artboard.output | safe: 'html'")
     .editor-sidebar
         .editor-tools

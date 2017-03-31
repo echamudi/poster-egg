@@ -1,6 +1,6 @@
 /**
  * Save data temporarily to move between pages
- * Put StorageService in app.module to make it singleton between pages
+ * Put StorageService in app.module to make it singleton between different pages/routes
  */
 
 import { Injectable } from '@angular/core';

@@ -4,6 +4,9 @@
         "en": "Compliano",
         "id": "Banyak Mengeluh"
     },
+    "fonts" : {
+        "google": ["Fjalla One", "Open Sans Condensed:300"]
+    },
     "designProperties": {
         "text1": {
             "label": "Teks 1",

@@ -4,13 +4,19 @@ import * as tool from './tools';
 
 var rasterizeHTML = require('rasterizeHTML');
 
+declare global {
+    interface NodeList {
+        forEach?: (handler: Function) => void;
+    }
+}
+
 export class ArtboardClass {
     private template: string;
     private templateEnclosed: string;
 
     private style: string;
 
-    private output: string;
+    private output: string = " ";
 
     private width: string;
     private height: string;
@@ -77,6 +83,7 @@ export class ArtboardClass {
                 ${this.template}
             </div>
         `;
+
         this.init();
 
         return this;
@@ -107,9 +114,12 @@ export class ArtboardClass {
         var rawMaterial = this.output;
         rawMaterial += window.document.getElementById('mainstyle').outerHTML;
 
+        document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => rawMaterial += el.outerHTML);
+
         var canvasEl = document.createElement('canvas');
         canvasEl.setAttribute("width", this.width);
         canvasEl.setAttribute("height", this.height);
+
 
         return Promise.resolve(rasterizeHTML.drawHTML(rawMaterial, canvasEl)
             .then(() => {

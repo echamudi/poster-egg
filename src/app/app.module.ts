@@ -10,6 +10,7 @@ import { StorageService } from './storage.service';
 
 import { ModalComponent } from './modal.component';
 import { PageEditorComponent } from './page-editor.component';
+import { PageDoneComponent } from './page-done.component';
 import { PageHomeComponent } from './page-home.component';
 import { RootComponent } from './root.component';
 
@@ -26,13 +27,16 @@ import { SafePipe } from './safe.pipe';
         RootComponent, 
         PageHomeComponent, 
         PageEditorComponent,
+        PageDoneComponent,
         ModalComponent,
         SafePipe
     ],
     bootstrap: [
         RootComponent
     ],
-    providers: [StorageService]
+    providers: [
+        StorageService
+    ]
 
 })
 export class AppModule { }

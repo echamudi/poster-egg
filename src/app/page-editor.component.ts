@@ -13,6 +13,8 @@ import { DesignProperty, DesignProperties } from './interfaces';
 
 import * as tool from './tools';
 
+var WebFont = require('webfontloader');
+
 @Component({
     moduleId: module.id,
     selector: 'page-editor',
@@ -24,22 +26,28 @@ import * as tool from './tools';
     }
 })
 export class PageEditorComponent {
+    
     private designProperties: DesignProperties;
     private designPropertiesArray: DesignProperty[] = [];
 
-    private styleString: string;
-    private templateString: string;
+    private designStyle: string;
+    private designTemplate: string;
+    private designFonts: any;
 
     private artboard: ArtboardClass;
     private artboardScaleStyle: string;
 
-    private resultSrc: string;
-
-    public hasChanges: boolean = false;
-
     // For unsubscribing later at ngOnDestroy()
     private alive: boolean = true;
 
+    // For preventing changing router
+    public hasChanges: boolean = false;
+
+    // For loading spinner
+    public loadingThings: any = {};
+    public somethingIsLoading: boolean = false;
+
+    // Modal for changing router confirmation
     @ViewChild(ModalComponent)
     public modal: ModalComponent;
 
@@ -47,10 +55,12 @@ export class PageEditorComponent {
         private storageService: StorageService,
         private painterService: PainterService, 
         private route: ActivatedRoute,
-        private router: Router ) {}
+        private router: Router ) { }
 
     ngOnInit() {
         this.artboard = new ArtboardClass();
+
+        this.setLoading('webfont');
 
         // getting params from url
         this.route.params
@@ -58,32 +68,67 @@ export class PageEditorComponent {
             .switchMap((params: Params) => this.painterService.getDesign(params['groupID'], params['designID']))
             .takeWhile(() => this.alive)
             .subscribe(data => {
-                // extract data from the promise
-                this.templateString = data[0];
-                this.styleString = data[1];
-                this.designProperties = data[2].designProperties;
 
+                // extract data from the promise
+                this.designTemplate = data[0];
+                this.designStyle = data[1];
+                this.designProperties = data[2].designProperties;
+                this.designFonts = data[2].fonts;
+
+                // Load fonts
+                var webFontConfig: any = {
+                    classes: false,
+                    active: () => { 
+                        this.unsetLoading('webfont');
+                    },
+                };
+
+                if(this.designFonts.google) {
+                    webFontConfig.google = {
+                        families: this.designFonts.google
+                    }
+                }
+
+                WebFont.load(webFontConfig);
+
+                // Make it array, for design controllers on sidebar
                 this.designPropertiesArray = tool.objToArray(this.designProperties);
 
+                // Make artboards
                 this.artboard
                     .setWidth(1024)
                     .setHeight(1024)
-                    .setStyle(this.styleString)
-                    .setTemplate(this.templateString)
+                    .setStyle(this.designStyle)
+                    .setTemplate(this.designTemplate)
                     .capsulize()
                     .drawAll(this.designProperties)
-                    
+
                 this.scaleArtboard();
             });
     }
 
+    // Add key to loadingthings, a list that shows something (a key) is still loading;
+    setLoading(key: string):void {
+        this.loadingThings[key] = true;
+        this.somethingIsLoading = true;
+    }
+
+    unsetLoading(key: string):void {
+        delete this.loadingThings[key];
+
+        // If there's no more thing in this.loadingThings, make it false
+        this.somethingIsLoading = !!Object.keys(this.loadingThings).length;
+    }
+
+
     // For textarea and range
     onInputChange(arg: any) {
-        // Get designPropertyBinder from the text input for designProperties and its value
+        // Prevent exiting this page, turn on guard
+        this.hasChanges = true;
+
+        // Get designPropertyBinder from the text input and its value for designProperties
         let key = arg.target.getAttribute('designPropertyBinder');
         let value = arg.target.value;
-
-        this.hasChanges = true;
 
         if(arg.target.tagName == "TEXTAREA") {
             // resize text area based on its height 
@@ -102,6 +147,10 @@ export class PageEditorComponent {
 
     // For file input
     onFileChange(arg: any) {
+        // Prevent exiting this page, turn on guard
+        this.hasChanges = true;
+
+        // Get designPropertyBinder from the file input and its value for designProperties
         let key = arg.target.getAttribute('designPropertyBinder');
 
         if (arg.target.files && arg.target.files[0]) {
@@ -135,6 +184,8 @@ export class PageEditorComponent {
 
             aElement.click();
             aElement.parentNode.removeChild(aElement);
+
+            this.hasChanges = false;
         });
     }
 
@@ -170,12 +221,12 @@ export class PageEditorComponent {
         `
     }
 
+    onWindowResize() {
+        this.scaleArtboard();
+    }
+
     ngOnDestroy() {
         //Unsubscribe things
         this.alive = false;
-    }
-
-    onWindowResize() {
-        this.scaleArtboard();
     }
 }

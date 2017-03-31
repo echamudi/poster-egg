@@ -54,6 +54,28 @@
     }
 }
 
+.loading {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: opacity 0.1s linear, visibility 0.1s linear;
+
+    z-index: 1;
+    
+    &-still {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+
 textarea { 
     resize: none; 
     overflow-y: hidden;

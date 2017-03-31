@@ -54,6 +54,7 @@
     "jquery": "^3.2.1",
     "rasterizehtml": "^1.2.4",
     "rxjs": "^5.2.0",
+    "webfontloader": "^1.6.27",
     "zone.js": "^0.8.5"
   }
 }
