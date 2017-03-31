@@ -18,7 +18,7 @@ import * as tool from './tools';
     selector: 'page-editor',
     templateUrl: './app/page-editor.component.html',
     styleUrls: ['./app/page-editor.component.css'],
-    providers: [ PainterService],
+    providers: [ PainterService ],
     host: {
         '(window:resize)': 'onWindowResize()'
     }
@@ -84,8 +84,6 @@ export class PageEditorComponent {
         let value = arg.target.value;
 
         this.hasChanges = true;
-        this.storageService.setData('value', value);
-        this.storageService.getData('value');
 
         if(arg.target.tagName == "TEXTAREA") {
             // resize text area based on its height 
@@ -173,15 +171,11 @@ export class PageEditorComponent {
     }
 
     ngOnDestroy() {
-        
         //Unsubscribe things
         this.alive = false;
-
-        console.log('Leaving page-editor...');
     }
 
     onWindowResize() {
         this.scaleArtboard();
-        console.log('yep');
     }
 }

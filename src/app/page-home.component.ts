@@ -15,15 +15,11 @@ export class PageHomeComponent {
 
     private designList: any[];
     
-    constructor(
-        private storageService: StorageService,
-        private painterService: PainterService) {}
+    constructor(private painterService: PainterService) {}
 
     ngOnInit() {
         this.painterService.getAllDesignList().then(data => {
             this.designList = data;
         });
-
-        console.log(this.storageService.getData('value'))
     }
 }
