@@ -1,8 +1,15 @@
 # Posty Poster
 
-A client-side poster maker using HTML5, CSS3, and Angular.
+> This app is still under heavy development and not suitable for normal user 😃
 
-> This app is still unusable and under heavy development. Please come back later to see the progress 😃
+A client-side poster maker using HTML5, CSS3, and Angular. The code is written by using [VSCode](https://github.com/Microsoft/vscode).
+
+## How to Run
+
+```
+$ npm install
+$ gulp
+```
 
 ## Todo
 
