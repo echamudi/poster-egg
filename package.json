@@ -48,6 +48,7 @@
     "@angular/router": "^4.0.1",
     "@types/jquery": "^2.0.41",
     "@types/node": "^7.0.12",
+    "@types/webfontloader": "^1.6.28",
     "bootstrap-sass": "^3.3.7",
     "canvas-to-image": "^1.1.4",
     "core-js": "^2.4.1",
