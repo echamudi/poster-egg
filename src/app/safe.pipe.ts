@@ -1,4 +1,5 @@
 /**
+ * Force bind by bypassing security trust.
  * Source : https://forum.ionicframework.com/t/inserting-html-via-angular-2-use-of-domsanitizationservice-bypasssecuritytrusthtml/62562
  */
 
@@ -10,9 +11,7 @@ import { Pipe } from '@angular/core';
 })
 export class SafePipe {
 
-	constructor(protected _sanitizer: DomSanitizer) {
-
-	}
+	constructor(protected _sanitizer: DomSanitizer) { }
 
 	public transform(value: string, type: string = 'html'): SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl {
 		switch (type) {

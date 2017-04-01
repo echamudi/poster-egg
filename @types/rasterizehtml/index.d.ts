@@ -1,6 +1,8 @@
-// Type definitions for rasterizehtml 0.1
-// Project: Posty
-// Definitions by: Hernawan Fa'iz Abdillah <abdillah.me>
+/**
+ * Type definitions for rasterizehtml 0.1
+ * Project: Posty
+ * Definitions by: Hernawan Fa'iz Abdillah <abdillah.me>
+ */
 
 export as namespace rasterizehtml;
 
