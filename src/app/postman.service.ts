@@ -1,5 +1,5 @@
 /**
- * Painter is one stop service for requesting things, including design lists, and design templates. This is the postman. 📸 🖨 🎆
+ * Postman is one stop service for requesting things, including design lists, and design templates. 📸 🖨 🎆
  */
 
 import { Injectable } from '@angular/core';
@@ -14,7 +14,7 @@ import { DesignProperty, DesignProperties } from './interfaces';
 import * as tool from './tools';
 
 @Injectable()
-export class PainterService {
+export class PostmanService {
 
     constructor(private http: Http) { }
 

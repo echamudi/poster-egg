@@ -2,7 +2,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, ViewEncapsulation, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PainterService } from './painter.service';
+import { PostmanService } from './postman.service';
 import { StorageService } from './storage.service';
 
 import { ModalComponent } from './modal.component';
@@ -20,7 +20,7 @@ import WebFont = require('webfontloader');
     selector: 'page-editor',
     templateUrl: './app/page-editor.component.html',
     styleUrls: ['./app/page-editor.component.css'],
-    providers: [ PainterService ],
+    providers: [ PostmanService ],
     host: {
         '(window:resize)': 'onWindowResize()'
     }
@@ -53,7 +53,7 @@ export class PageEditorComponent {
 
     constructor(
         private storageService: StorageService,
-        private painterService: PainterService, 
+        private postmanService: PostmanService, 
         private route: ActivatedRoute,
         private router: Router ) { }
 
@@ -65,7 +65,7 @@ export class PageEditorComponent {
         // getting params from url
         this.route.params
             // doing get again (get design data using params)
-            .switchMap((params: Params) => this.painterService.getDesign(params['groupID'], params['designID']))
+            .switchMap((params: Params) => this.postmanService.getDesign(params['groupID'], params['designID']))
             .takeWhile(() => this.alive)
             .subscribe(data => {
 
