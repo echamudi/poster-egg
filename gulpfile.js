@@ -84,9 +84,13 @@ const browserifyOptions = {
     packageCache: {}
 };
 
-const normalBrowserify = browserify(browserifyOptions).plugin(tsify);
+const tsifyOptions = require('./tsconfig').compilerOptions;
 
-const watchedBrowserify = watchify(browserify(browserifyOptions)).plugin(tsify);
+const normalBrowserify = browserify(browserifyOptions)
+    .plugin(tsify, tsifyOptions);
+
+const watchedBrowserify = watchify(browserify(browserifyOptions))
+    .plugin(tsify, tsifyOptions);
 watchedBrowserify.on('log', gutil.log);
 
 // Browserify Functiom, use
