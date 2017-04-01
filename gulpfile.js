@@ -13,24 +13,25 @@ const mkdirp = require('mkdirp');
 var path = require('path');
 
 // Gulps
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-const pug = require('gulp-pug');
-const uglify = require('gulp-uglify');
-const sourcemaps = require('gulp-sourcemaps');
-const gulpif = require('gulp-if');
-const gutil = require("gulp-util");
-const exit = require("gulp-exit");
 const connect = require("gulp-connect");
-const del = require('del');
-const run = require('gulp-run');
-const yargs = require('yargs');
 const copy = require('gulp-copy');
 const debug = require('gulp-debug');
+const del = require('del');
+const exit = require("gulp-exit");
+const gulp = require('gulp');
+const gulpif = require('gulp-if');
+const gutil = require("gulp-util");
+const pug = require('gulp-pug');
+const run = require('gulp-run');
+const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
+const yargs = require('yargs');
 
 // Vinyl
 const browserify = require("browserify");
 const tsify = require("tsify");
+
 const watchify = require("watchify");
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
@@ -45,8 +46,8 @@ const autoprefixer = require('autoprefixer');
  * ------------------------------------------------------------------------
  */
 
-const minify = false; // True : Enable minify an all files
-const maps = true; // True : Create source maps
+let minify = false; // True : Enable minify on all files
+let maps = true; // True : Create source maps
 const argv = yargs.argv;
 
 // Prevents task to stop being watched on error
@@ -185,7 +186,7 @@ gulp.task('all-designs-json', () => {
             var groupData = JSON.parse(fs.readFileSync(mainDir + groupName + '/_data.json'));
 
             // add folder name as ID
-            groupData.groupID = groupName;
+            groupData.groupID = groupName.slice(0, -5);
 
             // shift by -1 to fit array key
             var groupOrder = groupData.order - 1;
@@ -301,6 +302,13 @@ gulp.task('build', ['clean'], () => {
     gulp.start('design-assets');
     gulp.start('all-designs-json');
     bundle(normalBrowserify);
+});
+
+gulp.task('build-prod', ['clean'], () => {
+    minify = true;
+    maps = false;
+    
+    gulp.start('build');
 });
 
 gulp.task('default', ['clean'], () => {

@@ -1,5 +1,5 @@
 /**
- * Painter is one stop service for processing design properties, artboard template, and rendering template 📸 🖨 🎆
+ * Painter is one stop service for requesting things, including design lists, and design templates. This is the postman. 📸 🖨 🎆
  */
 
 import { Injectable } from '@angular/core';
@@ -32,9 +32,9 @@ export class PainterService {
 
     getDesign(groupID: string, designID: string): Observable<any> {
         return Observable.forkJoin(
-            this.http.get(`/data/design-packs/${groupID}/${designID}.template.html`).map((res: Response) => res.text()),
-            this.http.get(`/data/design-packs/${groupID}/${designID}.template.css`).map((res: Response) => res.text()),
-            this.http.get(`/data/design-packs/${groupID}/${designID}.template.json`).map((res: Response) => res.json())
+            this.http.get(`/data/design-packs/${groupID}.pack/${designID}.template.html`).map((res: Response) => res.text()),
+            this.http.get(`/data/design-packs/${groupID}.pack/${designID}.template.css`).map((res: Response) => res.text()),
+            this.http.get(`/data/design-packs/${groupID}.pack/${designID}.template.json`).map((res: Response) => res.json())
         );
     }
 }

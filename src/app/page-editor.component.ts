@@ -91,7 +91,7 @@ export class PageEditorComponent {
 
                 WebFont.load(webFontConfig);
 
-                // Make it array, for design controllers on sidebar
+                // Make designPropertioes an array, so it can be looped for design controllers on sidebar
                 this.designPropertiesArray = tool.objToArray(this.designProperties);
 
                 // Make artboards
@@ -119,7 +119,6 @@ export class PageEditorComponent {
         // If there's no more thing in this.loadingThings, make it false
         this.somethingIsLoading = !!Object.keys(this.loadingThings).length;
     }
-
 
     // For textarea and range
     onInputChange(arg: any) {

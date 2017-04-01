@@ -7,19 +7,23 @@
     "fonts" : {
         "google": ["Fjalla One", "Open Sans Condensed:300"]
     },
+    "size" : {
+        "w": 1024,
+        "h": 1024
+    },
     "designProperties": {
         "text1": {
-            "label": "Teks 1",
+            "label": "Text 1",
             "input": "text",
             "value": "Banyak\nMengeluh"
         },
         "text2": {
-            "label": "Teks 2",
+            "label": "Text 2",
             "input": "text",
             "value": "Tidak mengubah apapun"
         },
         "text3": {
-            "label": "Teks 3",
+            "label": "Text 3",
             "input": "text",
             "value": "Mendoakannya, mendoakan negeri ini untuk jadi lebih baik"
         },

@@ -1,16 +1,18 @@
 {
     "include": [
-        "src/**/*"
+        "./src/**/*"
     ],
     "compilerOptions": {
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "target": "es5",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "lib": [ "es2015", "dom" ],
+        "lib": [
+            "es2015",
+            "dom"
+        ],
         "allowSyntheticDefaultImports": true,
-            "noEmitOnError": false
-
-
+        "noEmitOnError": false,
+        "outDir": "dist-tsc"
     }
 }

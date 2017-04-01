@@ -4,6 +4,12 @@
 
 A client-side poster maker using HTML5, CSS3, and Angular. The code is written by using [VSCode](https://github.com/Microsoft/vscode).
 
+## Browser Compatibility
+
+Chrome, Firefox, and Opera.
+
+Won't work in Safari, IE, and Edge. You can try this [codepen test](http://codepen.io/ezh/pen/RrLZqM) on those browsers. Anyone knows the workaround?
+
 ## How to Run
 
 ```
