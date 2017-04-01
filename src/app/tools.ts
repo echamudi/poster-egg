@@ -18,7 +18,6 @@ export function replaceAll(string: string, find: string, replace: string) {
     return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
-
 /**
  * Object to Array
  */
