@@ -2,7 +2,7 @@ import { DesignProperties } from './interfaces';
 
 import * as tool from './tools';
 
-var rasterizeHTML = require('rasterizehtml/dist/rasterizehtml');
+import rasterizeHTML = require('rasterizehtml');
 
 declare global {
     interface NodeList {

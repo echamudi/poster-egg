@@ -13,7 +13,7 @@ import { DesignProperty, DesignProperties } from './interfaces';
 
 import * as tool from './tools';
 
-var WebFont = require('webfontloader');
+import WebFont = require('webfontloader');
 
 @Component({
     moduleId: module.id,
