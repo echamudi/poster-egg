@@ -21,17 +21,18 @@
     "gulp-pug": "^3.3.0",
     "gulp-run": "^1.7.1",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.5.0",
     "gulp-uglify": "^2.1.0",
     "gulp-util": "^3.0.8",
     "gulp-webserver": "^0.9.1",
     "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
     "tsify": "^3.0.1",
+    "typescript": "^2.2.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.9.0",
-    "yargs": "^7.0.2",
-    "gulp-sourcemaps": "^2.5.0",
-    "typescript": "^2.2.2"
+    "yargs": "^7.0.2"
   },
   "dependencies": {
     "@angular/animations": "^4.0.1",
