@@ -8,6 +8,7 @@ import { StorageService } from './storage.service';
 import { ModalComponent } from './modal.component';
 
 import { ArtboardClass } from './artboard.class';
+import { RendererClass } from './renderer.class';
 
 import { DesignProperty, DesignProperties } from './interfaces';
 
@@ -33,6 +34,7 @@ export class PageEditorComponent {
     private designStyle: string;
     private designTemplate: string;
     private designFonts: any;
+    private designSize: any;
 
     private artboard: ArtboardClass;
     private artboardScaleStyle: string;
@@ -74,6 +76,7 @@ export class PageEditorComponent {
                 this.designStyle = data[1];
                 this.designProperties = data[2].designProperties;
                 this.designFonts = data[2].fonts;
+                this.designSize = data[2].size;
 
                 // Load fonts
                 var webFontConfig: any = {
@@ -96,8 +99,8 @@ export class PageEditorComponent {
 
                 // Make artboards
                 this.artboard
-                    .setWidth(1024)
-                    .setHeight(1024)
+                    .setWidth(this.designSize.w)
+                    .setHeight(this.designSize.h)
                     .setStyle(this.designStyle)
                     .setTemplate(this.designTemplate)
                     .capsulize()
@@ -173,19 +176,26 @@ export class PageEditorComponent {
         var today = new Date();
         var dataURL: string;
 
-        this.artboard.render().then((canvas: any) => {
-            dataURL = canvas.toDataURL();
-            aElement.href = dataURL;
-            aElement.setAttribute('download', `postyposter.com_${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.png`);
-            aElement.style.display = 'none';
+        let renderer = new RendererClass();
 
-            document.body.appendChild(aElement);
+        renderer
+            .setWidth(this.artboard.getWidth())
+            .setHeight(this.artboard.getHeight())
+            .setRawMaterial(this.artboard.getOutput())
+            .render()
+            .then((canvas: any) => {
+                dataURL = canvas.toDataURL();
+                aElement.href = dataURL;
+                aElement.setAttribute('download', `postyposter.com_${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.png`);
+                aElement.style.display = 'none';
 
-            aElement.click();
-            aElement.parentNode.removeChild(aElement);
+                document.body.appendChild(aElement);
 
-            this.hasChanges = false;
-        });
+                aElement.click();
+                aElement.parentNode.removeChild(aElement);
+
+                this.hasChanges = false;
+            });
     }
 
     scaleArtboard() {

@@ -2,7 +2,7 @@ import { DesignProperties } from './interfaces';
 
 import * as tool from './tools';
 
-import rasterizeHTML = require('rasterizehtml');
+// import rasterizeHTML = require('rasterizehtml');
 
 declare global {
     interface NodeList {
@@ -53,15 +53,19 @@ export class ArtboardClass {
         return this;
     }
 
+    public getOutput(): string {
+        return this.output;
+    }
+
     // Copy enclosed template to output
-    public init(): this {
+    private init(): this {
         this.output = this.templateEnclosed;
 
         return this;
     }
 
     // Overwrite dirty output with templateEnclosed (Alias of Init)
-    public reset(): this {
+    private reset(): this {
         return this.init();
     }
 
@@ -106,33 +110,4 @@ export class ArtboardClass {
 
         return this;
     }
-
-    // Render image, return canvas element
-    public render(): Promise<HTMLScriptElement> {
-        console.log('start rendering');
-
-        var rawMaterial = this.output;
-        rawMaterial += window.document.getElementById('mainstyle').outerHTML;
-
-        document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => rawMaterial += el.outerHTML);
-
-        var canvasEl = document.createElement('canvas');
-        canvasEl.setAttribute("width", this.width);
-        canvasEl.setAttribute("height", this.height);
-
-
-        return Promise.resolve(rasterizeHTML.drawHTML(rawMaterial, canvasEl)
-            .then(() => {
-                return canvasEl
-            }));
-    }
-
-    // Slow Render
-    public renderSlowly(): Promise<HTMLScriptElement> {
-        return new Promise(resolve => {
-            // Simulate server latency with 3 second delay
-            setTimeout(() => resolve(this.render()), 3000);
-        });
-    }
-
 }
