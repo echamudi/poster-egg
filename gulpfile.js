@@ -256,6 +256,7 @@ gulp.task('connect', () => {
     connect.server({
         root: ['dist'],
         fallback: 'dist/index.html',
+        port: 60571,
         https: false
     })
 });
