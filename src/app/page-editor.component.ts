@@ -132,19 +132,20 @@ export class PageEditorComponent {
         let key = arg.target.getAttribute('designPropertyBinder');
         let value = arg.target.value;
 
+        var renderableDesignProperties = this.designProperties;
         if(arg.target.tagName == "TEXTAREA") {
             // resize text area based on its height 
             arg.target.style.height = "auto";
             arg.target.style.height = arg.target.scrollHeight + 20;
     
             // Change new line in input to <br>
-            this.designProperties[key].value = value.replace(/\r\n|\r|\n/g,"<br />");
+            renderableDesignProperties[key].value = value.replace(/\r\n|\r|\n/g,"<br />");
 
         } else {
-            this.designProperties[key].value = value.toString();
+            renderableDesignProperties[key].value = value.toString();
         }
 
-        this.artboard.drawAll(this.designProperties);
+        this.artboard.drawAll(renderableDesignProperties);
     }
 
     // For file input
