@@ -6,7 +6,7 @@ A client-side poster maker using HTML5, CSS3, and Angular. The code is written b
 
 ## Browser Compatibility
 
-Chrome, Firefox, and Opera.
+This app is targeted to run on Chrome (>= 36), Firefox (>= 45), and Opera (Blink).
 
 Won't work in Safari, IE, and Edge. You can try this [codepen test](http://codepen.io/ezh/pen/RrLZqM) on those browsers. Anyone knows the workaround?
 
@@ -17,11 +17,11 @@ $ npm install
 $ gulp
 ```
 
+Make sure 'Bundle Function 📦' is finished before opening the server.
+
 ## Todo
 
-- ~~make designPromise request using Promise.~~
-- Separate render page
-- Enable bilingual
+Check [project](https://github.com/ezhmd/posty-poster/projects) page.
 
 ## Creator
 
