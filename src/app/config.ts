@@ -1,5 +1,5 @@
 'use strict';
 
-export const GLOBALS = {
+export const config = {
     appName: "Posty Poster"
 };

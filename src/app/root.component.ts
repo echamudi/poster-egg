@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GLOBALS } from './globals';
+import { config } from './config';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,5 @@ import { GLOBALS } from './globals';
   styleUrls: ['/app/app.component.css'],  
 })
 export class RootComponent {
-  appName: string = GLOBALS.appName;
+  appName: string = config.appName;
 }
