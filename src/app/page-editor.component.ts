@@ -79,7 +79,7 @@ export class PageEditorComponent {
                 this.designSize = data[2].size;
 
                 // Load fonts
-                var webFontConfig: any = {
+                let webFontConfig: any = {
                     classes: false,
                     active: () => { 
                         this.unsetLoading('webfont');
@@ -132,7 +132,8 @@ export class PageEditorComponent {
         let key = arg.target.getAttribute('designPropertyBinder');
         let value = arg.target.value;
 
-        var renderableDesignProperties = this.designProperties;
+        let renderableDesignProperties = this.designProperties;
+
         if(arg.target.tagName == "TEXTAREA") {
             // resize text area based on its height 
             arg.target.style.height = "auto";
@@ -157,7 +158,7 @@ export class PageEditorComponent {
         let key = arg.target.getAttribute('designPropertyBinder');
 
         if (arg.target.files && arg.target.files[0]) {
-            var reader = new FileReader();
+            let reader = new FileReader();
 
             reader.readAsDataURL(arg.target.files[0]);
 
@@ -173,9 +174,9 @@ export class PageEditorComponent {
     }
 
     render() {
-        var aElement = document.createElement('a');
-        var today = new Date();
-        var dataURL: string;
+        let aElement = document.createElement('a');
+        let today = new Date();
+        let dataURL: string;
 
         let renderer = new RendererClass();
 

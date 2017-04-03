@@ -32,7 +32,7 @@ export class RendererClass {
 
         document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => toBeRendered += el.outerHTML);
 
-        var canvasEl = document.createElement('canvas');
+        let canvasEl = document.createElement('canvas');
         canvasEl.setAttribute("width", this.width);
         canvasEl.setAttribute("height", this.height);
 
