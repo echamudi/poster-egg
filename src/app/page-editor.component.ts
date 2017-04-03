@@ -30,6 +30,7 @@ export class PageEditorComponent {
     
     private designProperties: DesignProperties;
     private designPropertiesArray: DesignProperty[] = [];
+    private designPropertiesRenderable: DesignProperties;
 
     private designStyle: string;
     private designTemplate: string;
@@ -77,6 +78,9 @@ export class PageEditorComponent {
                 this.designProperties = data[2].designProperties;
                 this.designFonts = data[2].fonts;
                 this.designSize = data[2].size;
+                
+                // For initial, designPropertiesRenderable is exactly the same as designProperties
+                this.designPropertiesRenderable = this.designProperties;
 
                 // Load fonts
                 let webFontConfig: any = {
@@ -130,23 +134,26 @@ export class PageEditorComponent {
 
         // Get designPropertyBinder from the text input and its value for designProperties
         let key = arg.target.getAttribute('designPropertyBinder');
-        let value = arg.target.value;
+    
+        // Put the value to designProperties
+        this.designProperties[key].value = arg.target.value;
 
-        let renderableDesignProperties = this.designProperties;
-
+        // If it's from textarea input
         if(arg.target.tagName == "TEXTAREA") {
             // resize text area based on its height 
             arg.target.style.height = "auto";
             arg.target.style.height = arg.target.scrollHeight + 20;
     
-            // Change new line in input to <br>
-            renderableDesignProperties[key].value = value.replace(/\r\n|\r|\n/g,"<br>");
-
-        } else {
-            renderableDesignProperties[key].value = value.toString();
+            // Change new line in input to <br> in output
+            this.designPropertiesRenderable[key].value = this.designProperties[key].value.replace(/\r\n|\r|\n/g, "<br>");
+        } 
+        
+        // If it's from range input
+        else {
+            this.designPropertiesRenderable[key].value = this.designProperties[key].value.toString();
         }
 
-        this.artboard.drawAll(renderableDesignProperties);
+        this.artboard.drawAll(this.designPropertiesRenderable);
     }
 
     // For file input
@@ -157,6 +164,7 @@ export class PageEditorComponent {
         // Get designPropertyBinder from the file input and its value for designProperties
         let key = arg.target.getAttribute('designPropertyBinder');
 
+        // If file is successfuly loaded
         if (arg.target.files && arg.target.files[0]) {
             let reader = new FileReader();
 
@@ -165,8 +173,9 @@ export class PageEditorComponent {
             // If reading data successfuly loads picture
             reader.onload = (e: any) => {
                 this.designProperties[key].value = e.target.result;
+                this.designPropertiesRenderable[key].value = e.target.result;
 
-                this.artboard.drawAll(this.designProperties);
+                this.artboard.drawAll(this.designPropertiesRenderable);
             }
         } else {
             console.log('Failed');
