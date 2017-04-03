@@ -22,4 +22,8 @@ export class PageHomeComponent {
             this.designList = data;
         });
     }
+
+    getDesignThumbnail(designID : string) : string {
+        return this.postmanService.getDesignThumbnail(designID);
+    }
 }

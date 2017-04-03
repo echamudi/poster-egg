@@ -1,5 +1,5 @@
 'use strict';
 
 export const config = {
-    appName: "Posty Poster"
+    designDataApi: "http://localhost:60571/data"
 };

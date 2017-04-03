@@ -7,5 +7,5 @@ import { config } from './config';
   styleUrls: ['/app/app.component.css'],  
 })
 export class RootComponent {
-  appName: string = config.appName;
+  appName: string = "Posty Poster";
 }

@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { DesignProperty, DesignProperties } from './interfaces';
 
+import { config } from './config';
 import * as tool from './tools';
 
 @Injectable()
@@ -24,7 +25,7 @@ export class PostmanService {
     }
 
     getAllDesignList(): Promise<any[]> {
-        return this.http.get('/data/all-designs.json')
+        return this.http.get(`${config.designDataApi}/all-designs.json`)
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
@@ -32,9 +33,13 @@ export class PostmanService {
 
     getDesign(groupID: string, designID: string): Observable<any> {
         return Observable.forkJoin(
-            this.http.get(`/data/design-packs/${groupID}.pack/${designID}.template.html`).map((res: Response) => res.text()),
-            this.http.get(`/data/design-packs/${groupID}.pack/${designID}.template.css`).map((res: Response) => res.text()),
-            this.http.get(`/data/design-packs/${groupID}.pack/${designID}.template.json`).map((res: Response) => res.json())
+            this.http.get(`${config.designDataApi}/design-packs/${groupID}.pack/${designID}.template.html`).map((res: Response) => res.text()),
+            this.http.get(`${config.designDataApi}/design-packs/${groupID}.pack/${designID}.template.css`).map((res: Response) => res.text()),
+            this.http.get(`${config.designDataApi}/design-packs/${groupID}.pack/${designID}.template.json`).map((res: Response) => res.json())
         );
+    }
+
+    getDesignThumbnail(designID : string) : string {
+        return `${config.designDataApi}/design-assets/thumbnails/${designID}.png`;
     }
 }
