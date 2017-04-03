@@ -139,7 +139,7 @@ export class PageEditorComponent {
             arg.target.style.height = arg.target.scrollHeight + 20;
     
             // Change new line in input to <br>
-            renderableDesignProperties[key].value = value.replace(/\r\n|\r|\n/g,"<br />");
+            renderableDesignProperties[key].value = value.replace(/\r\n|\r|\n/g,"<br>");
 
         } else {
             renderableDesignProperties[key].value = value.toString();
