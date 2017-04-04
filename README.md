@@ -12,14 +12,28 @@ Won't work in Safari, IE, and Edge. You can try this [codepen test](http://codep
 
 ## How to Run
 
+This project requires [posty-poster-data](https://github.com/ezhmd/posty-poster-data) to create data server
+
+```
+$ git clone https://github.com/ezhmd/posty-poster-data.git posty-poster/posty-poster-data
+$ cd posty-poster/posty-poster-data
+$ npm install
+$ gulp 
+```
+This will build and start data server at `60572` port, you can change the setting at gulpfile.js.
+
+Now we need to run the front-end of posty-server (this repo).
+
 ```
 $ git clone https://github.com/ezhmd/posty-poster.git posty-poster/posty-poster
 $ cd posty-poster/posty-poster
 $ npm install
 $ gulp
+$ open http://localhost:60571/
 ```
+The front end will run at `60571` port. If you changed the `posty-poster-data` server port, you'll need to modify designDataApi URL at `src/arr/config.ts`.
 
-Make sure 'Bundle Function 📦' is finished before opening the server.
+Make sure `Bundle Function 📦` is finished before opening the app.
 
 ## Todo
 
