@@ -3,5 +3,5 @@
 export const config = {
 
     // Url of design data, including design-packs and design-assets
-    designDataApi: "/data"
+    designDataApi: "http://localhost:60572/data"
 };

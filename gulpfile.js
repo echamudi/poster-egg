@@ -56,21 +56,6 @@ function swallowError(error) {
     this.emit('end')
 }
 
-// writeFile
-
-function writeFile(filepath, contents, cb) {
-    mkdirp(path.dirname(filepath), function (err) {
-        if (err) return cb(err);
-
-        fs.writeFile(filepath, contents, function (err) {
-            if (err) {
-                return console.log(err);
-            }
-        });
-    });
-}
-
-
 /**
  * ------------------------------------------------------------------------
  * App tasks
@@ -165,87 +150,6 @@ gulp.task('sass', () => {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('design-assets', () => {
-    return gulp
-        .src(['src/data/design-assets/**/*'])
-        .pipe(copy('dist/', { prefix: 1 }))
-});
-
-gulp.task('all-designs-json', () => {
-
-    var mainDir = 'src/data/design-packs/';
-
-    var finalDesignList = [];
-
-    // List all folders to get groupNames
-    fs.readdir(mainDir, (err, groupNames) => {
-
-        // .pack extensions only
-        groupNames = groupNames.filter((string) => /\.(pack)$/i.test(string) ? string : 0);
-
-        // Read each group name and push processed data to finalDesignList
-        groupNames.forEach((groupName) => {
-
-            // read _data.json file in the group
-            var groupData = JSON.parse(fs.readFileSync(mainDir + groupName + '/_data.json'));
-
-            // add folder name as ID
-            groupData.groupID = groupName.slice(0, -5);
-
-            // shift by -1 to fit array key
-            var groupOrder = groupData.order - 1;
-
-            // "order" property is not important now
-            delete groupData.order;
-
-            // add current group data to final design list
-            finalDesignList[groupOrder] = groupData;
-
-            // design list property
-            finalDesignList[groupOrder].designs = [];
-
-            // look for the designs themselves, read all files inside the group folder
-            fs.readdir(mainDir + '/' + groupName, (err, groupContents) => {
-
-                // .template.json extensions only
-                groupContents = groupContents.filter((string) => /\.(template\.json)$/i.test(string) ? string : 0);
-
-                groupContents.forEach((fileName) => {
-
-                    // read *.template.json
-                    var designData = JSON.parse(fs.readFileSync(mainDir + groupName + '/' + fileName));
-
-                    // add json file name
-                    designData.designID = fileName.replace(/.template.json/g, '');
-
-                    // shift by -1 to fit array key
-                    var designOrder = designData.order - 1;
-
-                    // "order" property is not important now
-                    delete designData.order;
-
-                    writeFile("dist/data/design-packs/" + groupName + '/' + fileName, JSON.stringify(designData));
-
-                    // "designProperties" property is not required
-                    delete designData.designProperties;
-
-                    finalDesignList[groupOrder].designs[designOrder] = designData;
-                });
-
-                // write it
-
-                writeFile("dist/data/all-designs.json", JSON.stringify(finalDesignList));
-            });
-        });
-    });
-});
-
-gulp.task('clean-data', () => {
-    return del([
-        'dist/data'
-    ]);
-});
-
 /**
  * ------------------------------------------------------------------------
  * Other tasks
@@ -304,8 +208,6 @@ gulp.task('newcomp', function () {
 gulp.task('build', ['clean'], () => {
     gulp.start('pug');
     gulp.start('sass');
-    gulp.start('design-assets');
-    gulp.start('all-designs-json');
     bundle(normalBrowserify);
 });
 
@@ -321,15 +223,12 @@ gulp.task('default', ['clean'], () => {
     // Initial Executes
     gulp.start('pug');
     gulp.start('sass');
-    gulp.start('design-assets');
-    gulp.start('all-designs-json');
     bundle(watchedBrowserify);
 
     // Enable Watches
     watchedBrowserify.on('update', () => bundle(watchedBrowserify));
     gulp.watch('src/**/*.pug', ['pug']);
     gulp.watch('src/**/*.scss', ['sass']);
-    gulp.watch('src/data/design-packs/**/*.json', ['all-designs-json']);
 
     // Connect
     gulp.start('connect');
