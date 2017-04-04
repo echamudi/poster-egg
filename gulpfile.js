@@ -194,8 +194,7 @@ gulp.task('newcomp', function () {
         .pipe(run('cp templates/new-component.component.ts.template src/app/' + nameDashed + '.component.ts'))
         .pipe(run("sed -i '' 's/compNameDashed/" + nameDashed + "/g' src/app/" + nameDashed + ".component.ts"))
         .pipe(run("sed -i '' 's/compNameCapitalized/" + nameCapitalized + "/g' src/app/" + nameDashed + ".component.ts"))
-        .pipe(gulp.dest('src/app'))
-        ;
+        .pipe(gulp.dest('src/app'));
 });
 
 /**
