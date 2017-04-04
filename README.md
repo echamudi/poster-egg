@@ -12,28 +12,50 @@ Won't work in Safari, IE, and Edge. You can try this [codepen test](http://codep
 
 ## How to Run
 
-This project requires [posty-poster-data](https://github.com/ezhmd/posty-poster-data) to create data server
+This project requires [posty-poster-data](https://github.com/ezhmd/posty-poster-data) to create data server. So, you need to clone it too.
 
 ```
-$ git clone https://github.com/ezhmd/posty-poster-data.git posty-poster/posty-poster-data
-$ cd posty-poster/posty-poster-data
+$ mkdir posty-poster-project
+$ cd posty-poster-project
+$ git clone https://github.com/ezhmd/posty-poster.git
+$ git clone https://github.com/ezhmd/posty-poster-data.git
+```
+
+If it's done correctly, the folder structure will look like this :
+
+```
+posty-poster-project
+├── posty-poster            # Front end
+└── posty-poster-data       # Data
+```
+
+The normal setup will run front-end server using port `60571` and data server using port `60572`. You can change these settings at vars section inside `gulpfile.js`. If you modified data server port, you'll need to modify designDataApi URL at the front-end part (`posty-poster/src/app/config.ts`).
+
+Now, let's build them. 
+
+```
+$ cd ./posty-poster 
 $ npm install
-$ gulp 
-```
-This will build and start data server at `60572` port, you can change the setting at gulpfile.js.
-
-Now we need to run the front-end of posty-server (this repo).
-
-```
-$ git clone https://github.com/ezhmd/posty-poster.git posty-poster/posty-poster
-$ cd posty-poster/posty-poster
+$ gulp build
+$ cd ../posty-poster-data
 $ npm install
-$ gulp
-$ open http://localhost:60571/
+$ gulp build
 ```
-The front end will run at `60571` port. If you changed the `posty-poster-data` server port, you'll need to modify designDataApi URL at `src/arr/config.ts`.
 
-Make sure `Bundle Function 📦` is finished before opening the app.
+Then, open 2 different terminal tabs to create server. 
+
+```
+$ # Terminal 1
+$ cd posty-poster-project/posty-poster
+$ gulp connect
+```
+```
+$ # Terminal 2
+$ cd posty-poster-project/posty-poster-data
+$ gulp connect
+```
+
+Open the site [http://localhost:60571/](http://localhost:60571/).
 
 ## Todo
 
