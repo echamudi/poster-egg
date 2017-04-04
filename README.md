@@ -13,6 +13,8 @@ Won't work in Safari, IE, and Edge. You can try this [codepen test](http://codep
 ## How to Run
 
 ```
+$ git clone https://github.com/ezhmd/posty-poster.git posty-poster/posty-poster
+$ cd posty-poster/posty-poster
 $ npm install
 $ gulp
 ```
