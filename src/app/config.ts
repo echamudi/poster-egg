@@ -1,5 +1,7 @@
 'use strict';
 
 export const config = {
-    designDataApi: "http://localhost:60571/data"
+
+    // Url of design data, including design-packs and design-assets
+    designDataApi: "/data"
 };
