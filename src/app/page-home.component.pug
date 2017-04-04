@@ -9,7 +9,7 @@
                 h2 {{ group.title.en }}
                 p {{ group.description.en }}
         .row
-        div.form-group(*ngFor='let design of group.designs')
+        div(*ngFor='let design of group.designs')
             .col-md-4
                 .panel.panel-default
                     .panel-heading {{ design.title.en }}
