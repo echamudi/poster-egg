@@ -8,11 +8,23 @@ A client-side poster maker using HTML5, CSS3, and Angular. The code is written b
 
 This app is targeted to run on Chrome (>= 36), Firefox (>= 45), and Opera (Blink).
 
-Won't work in Safari, IE, and Edge. You can try this [codepen test](http://codepen.io/ezh/pen/RrLZqM) on those browsers. Anyone knows the workaround?
+The app doesn't work in Safari, IE, and Edge. You can try this [codepen test](http://codepen.io/ezh/pen/RrLZqM) to test why the app can't work on those browsers. Anyone knows the workaround?
 
 ## How to Run
 
-This project requires [posty-poster-data](https://github.com/ezhmd/posty-poster-data) to create data server. So, you need to clone it too.
+TL;DR : 
+
+- clone this repo
+- npm instal
+- gulp build 
+- clone [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo
+- npm install
+- gulp build
+- open http://localhost:60571
+
+Long version :
+
+This repo only contains the web front-end part of Posty Poster project. It requires data from [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo, which contains design assets and templates. So, you need to clone both this repo and [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo.
 
 ```
 $ mkdir posty-poster-project
@@ -29,9 +41,11 @@ posty-poster-project
 └── posty-poster-data       # Data
 ```
 
-The normal setup will run front-end server using port `60571` and data server using port `60572`. You can change these settings at vars section inside `gulpfile.js`. If you modified data server port, you'll need to modify designDataApi URL at the front-end part (`posty-poster/src/app/config.ts`).
+Now, you need to build and run HTML server for both of them. This project includes gulp-connect as HTML server. 
 
-Now, let's build them. 
+The normal setup will run front-end server using port `60571` and data server using port `60572`. You can change these settings at vars section inside `gulpfile.js`. If you modify the data server port, you'll also need to modify `designDataApi` URL in `config.ts` file at the front-end part (`posty-poster/src/app/config.ts`).
+
+Let's build and run the server.
 
 ```
 $ cd ./posty-poster 
@@ -41,6 +55,7 @@ $ cd ../posty-poster-data
 $ npm install
 $ gulp build
 ```
+
 
 Then, open 2 different terminal tabs to create server. 
 
