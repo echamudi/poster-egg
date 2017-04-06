@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { DesignProperty, DesignProperties } from './interfaces';
 
-import { config } from './config';
+import { config } from '../config';
 import * as tool from './tools';
 
 @Injectable()

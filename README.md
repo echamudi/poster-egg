@@ -43,7 +43,7 @@ posty-poster-project
 
 Now, you need to build and run HTML server for both of them. This project includes gulp-connect as HTML server. 
 
-The normal setup will run front-end server using port `60571` and data server using port `60572`. You can change these settings at vars section inside `gulpfile.js`. If you modify the data server port, you'll also need to modify `designDataApi` URL in `config.ts` file at the front-end part (`posty-poster/src/app/config.ts`).
+The normal setup will run front-end server using port `60571` and data server using port `60572`. You can change these settings at vars section inside `gulpfile.js`. If you modify the data server port, you'll also need to modify `designDataApi` URL in `config.ts` file at the front-end part (`posty-poster/src/config.ts`).
 
 Let's build and run the server.
 
