@@ -15,4 +15,5 @@
                     .panel-heading {{ design.title.en }}
                     .panel-body
                         img.img-responsive([attr.src]="getDesignThumbnail(design.designID)")
-                        a.btn.btn-default([routerLink]="['/editor', group.groupID, design.designID]") Choose This Design
+                    .panel-footer
+                        a.btn.btn-go.btn-block([routerLink]="['/editor', group.groupID, design.designID]") Choose This Design
