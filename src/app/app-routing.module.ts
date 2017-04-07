@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UnsavedGuard } from './unsaved-guard.service';
 
+import { PageDoneComponent } from './page-done.component';
 import { PageEditorComponent } from './page-editor.component';
 import { PageHomeComponent } from './page-home.component';
 import { RootComponent } from './root.component';
@@ -15,6 +16,11 @@ const routes: Routes = [
     { 
         path: 'editor/:groupID/:designID', 
         component: PageEditorComponent, 
+        canDeactivate: [ UnsavedGuard ] 
+    },
+    { 
+        path: 'done', 
+        component: PageDoneComponent, 
         canDeactivate: [ UnsavedGuard ] 
     },
     { 

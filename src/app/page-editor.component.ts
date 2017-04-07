@@ -182,31 +182,26 @@ export class PageEditorComponent {
         }
     }
 
-    render() {
-        let aElement = document.createElement('a');
-        let today = new Date();
-        let dataURL: string;
+    finalize() {
 
-        let renderer = new RendererClass();
+        let toBeRendered = this.artboard.getOutput();
 
-        renderer
-            .setWidth(this.artboard.getWidth())
-            .setHeight(this.artboard.getHeight())
-            .setRawMaterial(this.artboard.getOutput())
-            .render()
-            .then((canvas: any) => {
-                dataURL = canvas.toDataURL();
-                aElement.href = dataURL;
-                aElement.setAttribute('download', `postyposter.com_${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.png`);
-                aElement.style.display = 'none';
+        // Get stylesheets from <head> to be included in artboard output HTML.
+        toBeRendered += window.document.getElementById('mainstyle').outerHTML;
+        document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => toBeRendered = el.outerHTML + toBeRendered);
 
-                document.body.appendChild(aElement);
+        // Remove 2px border
+        toBeRendered = `<style>#artboard { border: none !important; } </style>` + toBeRendered;
 
-                aElement.click();
-                aElement.parentNode.removeChild(aElement);
+        this.artboard.setOutput(toBeRendered);
 
-                this.hasChanges = false;
-            });
+        // Save the artboard to universal storage
+        this.storageService.setData('artboard', this.artboard);
+
+        // Go to renderer page
+        this.router.navigate(['done']);
+
+        this.hasChanges = false;
     }
 
     scaleArtboard() {

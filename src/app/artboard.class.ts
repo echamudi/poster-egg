@@ -57,6 +57,13 @@ export class ArtboardClass {
         return this.output;
     }
 
+    public setOutput(output: string): this {
+        this.output = output;
+
+        return this;
+    }
+
+
     // Copy enclosed template to output
     private init(): this {
         this.output = this.templateEnclosed;

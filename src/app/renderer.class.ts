@@ -24,20 +24,13 @@ export class RendererClass {
 
     // Render image, return canvas element
     public render(): Promise<HTMLScriptElement> {
-        console.log('start rendering');
-
-        // Add styles from head
-        let toBeRendered = this.rawMaterial;
-        toBeRendered += window.document.getElementById('mainstyle').outerHTML;
-
-        document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => toBeRendered += el.outerHTML);
+        console.log('renderer: start rendering');
 
         let canvasEl = document.createElement('canvas');
         canvasEl.setAttribute("width", this.width);
         canvasEl.setAttribute("height", this.height);
 
-
-        return Promise.resolve(rasterizeHTML.drawHTML(toBeRendered, canvasEl)
+        return Promise.resolve(rasterizeHTML.drawHTML(this.rawMaterial, canvasEl)
             .then(() => {
                 return canvasEl
             }));

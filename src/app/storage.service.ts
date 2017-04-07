@@ -20,7 +20,7 @@ export class StorageService {
         if(this.data.hasOwnProperty(key)) {
             return this.data[key];
         } else {
-            return "NOT FOUND"
+            return null;
         }
     }
 
