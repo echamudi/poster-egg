@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
+    moduleId: module.id,
     selector: 'compNameDashed',
-    templateUrl: '/app/compNameDashed.component.html',
-    styleUrls: ['/app/compNameDashed.component.css'],
+    templateUrl: './app/compNameDashed.component.html',
+    styleUrls: ['./app/compNameDashed.component.css'],
 })
 export class compNameCapitalizedComponent { }
