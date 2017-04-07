@@ -1,1 +1,23 @@
 .hero
+.container
+    .row
+        .col-md-2
+        .col-md-6.col-result
+            .panel.panel-default
+                .panel-body
+                    div(
+                        *ngIf='!resultImgSrc',
+                        [ngStyle]="{'width': artboard.getWidth(), 'height': artboard.getHeight()}"
+                        ) Now Rendering ...
+                    img.img-responsive(*ngIf='resultImgSrc', [attr.src]="resultImgSrc")
+        .col-md-2
+            h2 Actions
+            a.btn.btn-go.btn-block(
+                [attr.href]="resultImgSrc",
+                [attr.download]="fileName",
+                [ngClass]="{'disabled': !resultImgSrc}"
+                ) Download
+            a.btn.btn-default.btn-block((click)="back()") Edit again
+            a.btn.btn-default.btn-block((click)="discard()") Discard    
+            p Thanks for using posty poster        
+        .col-md-2

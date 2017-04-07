@@ -12,6 +12,10 @@ export class StorageService {
 
     constructor() { }
 
+    deleteData(key: string): void {
+        delete this.data[key];
+    }
+
     setData(key: string, data: any): void {
         this.data[key] = data;
     }

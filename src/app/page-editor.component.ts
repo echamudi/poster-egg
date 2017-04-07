@@ -67,6 +67,7 @@ export class PageEditorComponent {
 
         // getting params from url
         this.route.params
+
             // doing get again (get design data using params)
             .switchMap((params: Params) => this.postmanService.getDesign(params['groupID'], params['designID']))
             .takeWhile(() => this.alive)
@@ -75,21 +76,28 @@ export class PageEditorComponent {
                 // extract data from the promise
                 this.designTemplate = data[0];
                 this.designStyle = data[1];
-                this.designProperties = data[2].designProperties;
                 this.designFonts = data[2].fonts;
                 this.designSize = data[2].size;
+
+                // Check if the user is reediting
+                if(this.storageService.getData('designProperties')) {
+                    this.designProperties = this.storageService.getData('designProperties');
+                } else {
+                    this.designProperties = data[2].designProperties;
+                }
                 
                 // For initial, designPropertiesRenderable is exactly the same as designProperties
                 this.designPropertiesRenderable = this.designProperties;
 
                 // Load fonts
                 let webFontConfig: any = {
-                    classes: false,
+                    classes: true,
                     active: () => { 
                         this.unsetLoading('webfont');
                     },
                 };
 
+                // Add google property if design data json has google font
                 if(this.designFonts.google) {
                     webFontConfig.google = {
                         families: this.designFonts.google
@@ -186,8 +194,8 @@ export class PageEditorComponent {
 
         let toBeRendered = this.artboard.getOutput();
 
+
         // Get stylesheets from <head> to be included in artboard output HTML.
-        toBeRendered += window.document.getElementById('mainstyle').outerHTML;
         document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => toBeRendered = el.outerHTML + toBeRendered);
 
         // Remove 2px border
@@ -197,6 +205,9 @@ export class PageEditorComponent {
 
         // Save the artboard to universal storage
         this.storageService.setData('artboard', this.artboard);
+
+        // Save design properties to universal storage, incase the user is want to go back and edit again from the page-done page.
+        this.storageService.setData('designProperties', this.designProperties);
 
         // Go to renderer page
         this.router.navigate(['done']);
