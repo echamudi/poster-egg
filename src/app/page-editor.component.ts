@@ -194,10 +194,17 @@ export class PageEditorComponent {
 
         let toBeRendered = this.artboard.getOutput();
 
-
         // Get stylesheets from <head> to be included in artboard output HTML.
         document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => toBeRendered = el.outerHTML + toBeRendered);
 
+        // Unload webfontloader's google font stylesheets from head
+        window.document.querySelectorAll(`
+            head link[href^="http://fonts.googleapis.com"]:not(#mainfont), 
+            head link[href^="https://fonts.googleapis.com"]:not(#mainfont)
+            `).forEach(
+                (el: any) => el.parentNode.removeChild(el)
+            );
+        
         // Remove 2px border
         toBeRendered = `<style>#artboard { border: none !important; } </style>` + toBeRendered;
 
