@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from './storage.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+
+import { ModalComponent } from './modal.component';
 
 import { RendererClass } from './renderer.class';
 
@@ -15,6 +17,11 @@ export class PageDoneComponent {
     private artboard: any;
     private resultImgSrc: string;
     private fileName: string;
+
+    private hasBeenDownloaded: boolean;
+
+    @ViewChild(ModalComponent)
+    private modal: ModalComponent;
 
     constructor(
         private storageService: StorageService,
@@ -61,12 +68,48 @@ export class PageDoneComponent {
     }
 
     back() {
+        this.storageService.setData('backFromDone', true);
+
         this.location.back();
     }
 
-    discard() {
+    exit() {
+        if(!this.hasBeenDownloaded) {
+            this.exitAlert();
+        } else {
+            this.exitForce();
+        }
+    }
+
+    exitAlert() {
+        this.modal.show();
+    }
+
+    exitForce() {
         this.storageService.deleteData('artboard');
+        this.storageService.deleteData('hasChanges');
         this.storageService.deleteData('designProperties');
+
         this.router.navigate(['']);
+    }
+
+    download() {
+        let aElement = document.createElement('a');
+
+        aElement.href = this.resultImgSrc;
+        aElement.setAttribute('download', this.fileName);
+        aElement.style.display = 'none';
+
+        document.body.appendChild(aElement);
+
+        aElement.click();
+        aElement.parentNode.removeChild(aElement);
+
+        this.hasBeenDownloaded = true;
+    }
+
+    downloadAndExit() {
+        this.download();
+        this.exit();
     }
 }

@@ -1,4 +1,13 @@
 .hero
+modal
+    .content-body 
+        .modal-title Are you sure to exit without downloading it?
+        p Your changes will be lost if you don’t download them.
+    .content-footer
+        button.btn.btn-default(type='button', (click)='modal.hide()') Cancel
+        .flex-1        
+        button.btn.btn-default(type='button', (click)="exitForce()") Discard and exit
+        button.btn.btn-go(type='button', [ngClass]="{'disabled': !resultImgSrc}", (click)="downloadAndExit()") Download and exit
 .container
     .row
         .col-lg-1.visible-lg-block
@@ -11,12 +20,8 @@
                     img.img-responsive(*ngIf='resultImgSrc', [attr.src]="resultImgSrc")
         .col-md-4.col-lg-4
             h2 Actions
-            a.btn.btn-go.btn-block(
-                [attr.href]="resultImgSrc",
-                [attr.download]="fileName",
-                [ngClass]="{'disabled': !resultImgSrc}"
-                ) Download
+            a.btn.btn-go.btn-block([ngClass]="{'disabled': !resultImgSrc}", (click)="download()") Download
             a.btn.btn-default.btn-block((click)="back()") Edit again
-            a.btn.btn-default.btn-block((click)="discard()") Discard    
+            a.btn.btn-default.btn-block((click)="exit()") Exit    
             p Thanks for using posty poster        
         .col-lg-1.visible-lg-block

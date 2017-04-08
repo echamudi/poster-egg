@@ -61,6 +61,8 @@ export class PageEditorComponent {
         private router: Router ) { }
 
     ngOnInit() {
+        this.hasChanges = this.storageService.getData('hasChanges');
+
         this.artboard = new ArtboardClass();
 
         this.setLoading('webfont');
@@ -210,7 +212,10 @@ export class PageEditorComponent {
 
         this.artboard.setOutput(toBeRendered);
 
-        // Save the artboard to universal storage
+        // Save hasChanges universally, incase the user goes back from the final page
+        this.storageService.setData('hasChanges', this.hasChanges)
+        
+        // Save has Changes to universal storage
         this.storageService.setData('artboard', this.artboard);
 
         // Save design properties to universal storage, incase the user is want to go back and edit again from the page-done page.
