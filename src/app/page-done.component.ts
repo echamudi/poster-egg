@@ -28,11 +28,14 @@ export class PageDoneComponent {
 
         if (!this.artboard) {
 
-            this.router.navigate(['']);
+            // redirect to home if there's no artboard data
+            console.log('yer');
+
+            this.router.navigate(['/']);
 
         } else {
             let today = new Date();
-
+            
             this.fileName = `postyposter.com_${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.png`;
             this.render();
         }
