@@ -14,7 +14,6 @@ var path = require('path');
 
 // Gulps
 const connect = require("gulp-connect");
-const copy = require('gulp-copy');
 const debug = require('gulp-debug');
 const del = require('del');
 const exit = require("gulp-exit");
@@ -152,6 +151,15 @@ gulp.task('sass', () => {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('i18n', () => {
+    var sourceFiles = [ 'src/i18n/**/*'];
+    var destination = 'dist/i18n/';
+    
+    return gulp
+        .src(sourceFiles)
+        .pipe(gulp.dest(destination));
+});
+
 /**
  * ------------------------------------------------------------------------
  * Other tasks
@@ -209,6 +217,7 @@ gulp.task('newcomp', function () {
 gulp.task('build', ['clean'], () => {
     gulp.start('pug');
     gulp.start('sass');
+    gulp.start('i18n');
     bundle(normalBrowserify);
 });
 
@@ -224,12 +233,14 @@ gulp.task('default', ['clean'], () => {
     // Initial Executes
     gulp.start('pug');
     gulp.start('sass');
+    gulp.start('i18n');
     bundle(watchedBrowserify);
 
     // Enable Watches
     watchedBrowserify.on('update', () => bundle(watchedBrowserify));
     gulp.watch('src/**/*.pug', ['pug']);
     gulp.watch('src/**/*.scss', ['sass']);
+    gulp.watch('src/i18n/**/*.json', ['i18n']);
 
     // Connect
     gulp.start('connect');
