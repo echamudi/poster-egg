@@ -51,6 +51,6 @@ modal
                 img#resultSVG([attr.src]="resultSrc | safe: 'url'")
 
         .editor-actions
-            button.btn.btn-default(type="button", routerLink="/") Discard
+            button.btn.btn-default(type="button", routerLink="/") {{ "discard" | translate | capitalize }}
             .separator
             button.btn.btn-go(type="button", (click)='finalize()') Save

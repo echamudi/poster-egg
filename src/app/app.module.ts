@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -15,13 +16,23 @@ import { PageHomeComponent } from './page-home.component';
 import { RootComponent } from './root.component';
 
 import { SafePipe } from './safe.pipe';
+import { CapitalizePipe } from "./capitalize.pipe";
+
+import * as translate from './translate.functions';
 
 @NgModule({
     imports: [
         BrowserModule, 
-        AppRoutingModule,
-        FormsModule,
         HttpModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (translate.createTranslateLoader),
+                deps: [Http]
+            }
+        }),
+        AppRoutingModule,
+        FormsModule
     ],
     declarations: [
         RootComponent, 
@@ -29,7 +40,8 @@ import { SafePipe } from './safe.pipe';
         PageEditorComponent,
         PageDoneComponent,
         ModalComponent,
-        SafePipe
+        SafePipe,
+        CapitalizePipe
     ],
     bootstrap: [
         RootComponent
