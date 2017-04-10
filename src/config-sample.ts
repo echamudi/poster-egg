@@ -1,6 +1,6 @@
 /**
  * Config file
- * Duplicate this file and 
+ * Duplicate this file and rename it to config.ts.
  */
 
 'use strict';
