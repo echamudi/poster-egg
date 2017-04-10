@@ -12,18 +12,6 @@ The app doesn't work in Safari, IE, and Edge. You can try this [codepen test](ht
 
 ## How to Run
 
-TL;DR : 
-
-- clone this repo
-- npm instal
-- gulp build 
-- clone [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo
-- npm install
-- gulp build
-- open http://localhost:60571
-
-Long version :
-
 This repo only contains the web front-end part of Posty Poster project. It requires data from [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo, which contains design assets and templates. So, you need to clone both this repo and [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo.
 
 ```
@@ -41,11 +29,15 @@ posty-poster-project
 └── posty-poster-data       # Data
 ```
 
+Duplicate `config-sample.ts` inside `posty-poster-project/posty-poster/src` folder and rename it as `config.ts`.
+
 Now, you need to build and run HTML server for both of them. This project includes gulp-connect as HTML server. 
 
 The normal setup will run front-end server using port `60571` and data server using port `60572`. You can change these settings at vars section inside `gulpfile.js`. If you modify the data server port, you'll also need to modify `designDataApi` URL in `config.ts` file at the front-end part (`posty-poster/src/config.ts`).
 
-Let's build and run the server.
+Note : If you use your own HTML server, make sure that the fallback is `/index.html` file.
+
+Let's build and run the built in server.
 
 ```
 $ cd ./posty-poster 
@@ -55,7 +47,6 @@ $ cd ../posty-poster-data
 $ npm install
 $ gulp build
 ```
-
 
 Then, open 2 different terminal tabs to create server. 
 
