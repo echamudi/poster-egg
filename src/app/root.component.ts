@@ -3,9 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { config } from '../config';
 
 @Component({
+    moduleId: module.id,
     selector: 'app-root',
-    templateUrl: '/app/root.component.html',
-    styleUrls: ['/app/app.component.css'],
+    templateUrl: './app/root.component.html',
+    styleUrls: ['./app/root.component.css'],
 })
 export class RootComponent {
     constructor(translate: TranslateService) {

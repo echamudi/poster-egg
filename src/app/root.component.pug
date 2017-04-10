@@ -1,18 +1,16 @@
 nav.navbar.navbar-default
     .container-fluid
         .navbar-header
-            //- button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-collapse-1', aria-expanded='false')
-            //-     span.sr-only Toggle navigation
-            //-     span.icon-bar
-            //-     span.icon-bar
-            //-     span.icon-bar
             a.navbar-brand(routerLink="/") {{ "brand" | translate }}
-        //- #navbar-collapse-1.collapse.navbar-collapse
-        //-     ul.nav.navbar-nav.navbar-right
-        //-         li
-        //-             a() Language
-        //-         li
-        //-             a() Blog
-        //-         li
-        //-             a() About
+        .collapse.navbar-collapse
+            ul.nav.navbar-nav
+            ul.nav.navbar-nav.navbar-right
+                li
+                    a(href="https://github.com/ezhmd/posty-poster") Github
+
 router-outlet
+.flex-1
+.container-fluid.container-footer
+    .row
+        .col-xs-12.text-center
+            p.p-footer {{ "brand" | translate }} is made by #[a(href="https://www.facebook.com/ezhmd") Ezzat Chamudi], licensed under #[a(href="http://www.gnu.org/licenses/agpl-3.0.html") AGPLv3].
