@@ -19,9 +19,10 @@ modal
                         ) Now Rendering ...
                     img.img-responsive(*ngIf='resultImgSrc', [attr.src]="resultImgSrc")
         .col-md-4.col-lg-4
-            h2 {{ "options" | translate | titleize }}
-            a.btn.btn-go.btn-block([ngClass]="{'disabled': !resultImgSrc}", (click)="download()") {{ "download" | translate | titleize }}
-            a.btn.btn-default.btn-block((click)="back()") {{ "edit again" | translate | titleize }}
-            a.btn.btn-default.btn-block((click)="exit()") {{ "exit" | translate | titleize }}
-            p {{ "Thanks for using Posty Poster." | translate | titleize }}        
+            .panel.panel-default.panel-actions
+                .panel-body
+                    a.btn.btn-go.btn-block([ngClass]="{'disabled': !resultImgSrc}", (click)="download()") {{ "download" | translate | titleize }}
+                    a.btn.btn-default.btn-block((click)="back()") {{ "edit again" | translate | titleize }}
+                    a.btn.btn-default.btn-block((click)="exit()") {{ "exit" | translate | titleize }}
+                    p.ending-words {{ "Thanks for using Posty Poster." | translate }}        
         .col-lg-1.visible-lg-block
