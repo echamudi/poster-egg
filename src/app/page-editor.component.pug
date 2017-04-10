@@ -20,7 +20,7 @@ modal
     .editor-sidebar
         .editor-tools
             div.form-group(*ngFor='let designProperty of designPropertiesArray')
-                label {{ designProperty.label }}
+                label(*ngIf="designProperty.label") {{ designProperty.label[translate.currentLang] }}
 
                 textarea.form-control(
                     *ngIf="designProperty.input === 'text'", 
@@ -47,6 +47,10 @@ modal
                     (change)="onFileChange($event)", 
                     )
                     
+                hr(
+                    *ngIf="designProperty.input === 'separator'", 
+                    ) 
+
             div(*ngIf="resultSrc")
                 img#resultSVG([attr.src]="resultSrc | safe: 'url'")
 

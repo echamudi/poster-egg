@@ -1,6 +1,7 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, ViewEncapsulation, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 import { PostmanService } from './postman.service';
 import { StorageService } from './storage.service';
@@ -58,7 +59,9 @@ export class PageEditorComponent {
         private storageService: StorageService,
         private postmanService: PostmanService, 
         private route: ActivatedRoute,
-        private router: Router ) { }
+        private router: Router,
+        private translate: TranslateService
+ ) { }
 
     ngOnInit() {
         
