@@ -1,4 +1,22 @@
 {
     "brand": "Desainmu 3",
-    "discard": "buang desain"
+
+    "cancel": "batal",
+    "choose this design": "pilih desain ini",
+    "choose your design style": "pilih gaya desainmu",
+    "discard and exit": "buang dan keluar",
+    "discard": "buang desain",
+    "don't save": "jangan simpan",
+    "download and exit": "download dan keluar",
+    "download": "download",
+    "edit again": "edit kembali",
+    "exit": "keluar",
+    "options": "opsi",
+    "save": "simpan",
+    
+    "Are you sure to exit without downloading the poster?": "Apakah kamu mau keluar tanpa mendownload poster ini?",
+    "Do you want to save the changes made to the poster?": "Apakah kamu mau menyimpan poster ini?",
+    "Thanks for using Posty Poster.": "Terima kasih telah menggunakan Desainmu 3.",
+    "Your changes will be lost if you don’t download it.": "Poster akan hilang jika kamu tidak mendownloadnya.",
+    "Your changes will be lost if you don’t save them.": "Hasil editan akan hilang jika kamu tidak menyimpan poster ini."
 }

@@ -16,7 +16,7 @@ import { PageHomeComponent } from './page-home.component';
 import { RootComponent } from './root.component';
 
 import { SafePipe } from './safe.pipe';
-import { CapitalizePipe } from "./capitalize.pipe";
+import { TitleizePipe } from "./titleize.pipe";
 
 import * as translate from './translate.functions';
 
@@ -41,7 +41,7 @@ import * as translate from './translate.functions';
         PageDoneComponent,
         ModalComponent,
         SafePipe,
-        CapitalizePipe
+        TitleizePipe
     ],
     bootstrap: [
         RootComponent

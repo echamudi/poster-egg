@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from './storage.service';
 
+import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from './storage.service';
 import { PostmanService } from './postman.service';
 
 @Component({
@@ -15,7 +16,10 @@ export class PageHomeComponent {
 
     private designList: any[];
     
-    constructor(private postmanService: PostmanService) {}
+    constructor(
+        private postmanService: PostmanService, 
+        private translate: TranslateService
+        ) {}
 
     ngOnInit() {
         this.postmanService.getAllDesignList().then(data => {

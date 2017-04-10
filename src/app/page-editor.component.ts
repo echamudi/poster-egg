@@ -61,6 +61,7 @@ export class PageEditorComponent {
         private router: Router ) { }
 
     ngOnInit() {
+        
         this.hasChanges = this.storageService.getData('hasChanges');
 
         this.artboard = new ArtboardClass();

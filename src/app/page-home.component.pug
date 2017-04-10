@@ -1,18 +1,18 @@
 .hero
     .container
-        h1 Choose Your Design Style
+        h1 {{ "choose your design style" | translate | titleize }}
 .container
     div.form-group(*ngIf="!designList") Loading...
     div.form-group(*ngFor='let group of designList')
         .row
             .col-xs-12
-                h2 {{ group.title.en }}
-                p {{ group.description.en }}
+                h2 {{ group.title[translate.currentLang] }}
+                p {{ group.description[translate.currentLang] }}
         .row
             .col-md-4(*ngFor='let design of group.designs')
                 .panel.panel-default
-                    .panel-heading {{ design.title.en }}
+                    .panel-heading {{ design.title[translate.currentLang] }}
                     .panel-body
                         img.img-responsive([attr.src]="getDesignThumbnail(design.designID)")
                     .panel-footer
-                        a.btn.btn-go.btn-block([routerLink]="['/editor', group.groupID, design.designID]") Choose This Design
+                        a.btn.btn-go.btn-block([routerLink]="['/editor', group.groupID, design.designID]")  {{ "choose this design" | translate | titleize }}

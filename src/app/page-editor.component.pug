@@ -2,13 +2,13 @@ div.hidden([innerHTML]="artboardScaleStyle | safe: 'html'")
 .hero
 modal
     .content-body 
-        .modal-title Do you want to save the changes made to the poster?
-        p Your changes will be lost if you don’t save them.
+        .modal-title {{ "Do you want to save the changes made to the poster?" | translate }}
+        p {{ "Your changes will be lost if you don’t save them." | translate }}
     .content-footer
-        button.btn.btn-default(type='button', (click)='modal.hide()') Cancel
+        button.btn.btn-default(type='button', (click)='modal.hide()')  {{ "cancel" | translate | titleize }}
         .flex-1        
-        button.btn.btn-default(type='button', (click)='this.hasChanges = false', routerLink="/") Don't Save
-        button.btn.btn-go(type='button', routerLink="/") Save..
+        button.btn.btn-default(type='button', (click)='this.hasChanges = false', routerLink="/")  {{ "don't save" | translate | titleize }}
+        button.btn.btn-go(type='button', routerLink="/")  {{ "save" | translate | titleize }} ...
 .editor-container
     .editor-content
         .loading.alert.alert-info(
@@ -51,6 +51,6 @@ modal
                 img#resultSVG([attr.src]="resultSrc | safe: 'url'")
 
         .editor-actions
-            button.btn.btn-default(type="button", routerLink="/") {{ "discard" | translate | capitalize }}
+            button.btn.btn-default(type="button", routerLink="/") {{ "discard" | translate | titleize }}
             .separator
-            button.btn.btn-go(type="button", (click)='finalize()') Save
+            button.btn.btn-go(type="button", (click)='finalize()') {{ "save" | translate | titleize }}

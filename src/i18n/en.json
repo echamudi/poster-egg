@@ -1,4 +1,22 @@
 {
     "brand": "Posty Poster",
-    "discard": "discard"
+
+    "cancel": "cancel",
+    "choose this design": "choose this design",
+    "choose your design style": "choose your design style",
+    "discard and exit": "discard and exit",
+    "discard": "discard",
+    "don't save": "don't save",
+    "download and exit": "download and exit",
+    "download": "download",
+    "edit again": "edit again",
+    "exit": "exit",
+    "options": "options",
+    "save": "save",
+    
+    "Are you sure to exit without downloading the poster?": "Are you sure to exit without downloading it?",
+    "Do you want to save the changes made to the poster?": "Do you want to save the changes made to the poster?",
+    "Thanks for using Posty Poster.": "Thanks for using Posty Poster.",
+    "Your changes will be lost if you don’t download it.": "Your changes will be lost if you don’t download it.",
+    "Your changes will be lost if you don’t save them.": "Your changes will be lost if you don’t save them."
 }
