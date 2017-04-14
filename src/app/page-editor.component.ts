@@ -147,6 +147,32 @@ export class PageEditorComponent {
         this.somethingIsLoading = !!Object.keys(this.loadingThings).length;
     }
 
+    textareaResize(arg: HTMLTextAreaElement) {
+
+            // resize text area based on its height 
+            arg.style.height = "auto";
+            arg.style.height = arg.scrollHeight + 20 + 'px';
+    }
+    
+    textareaProcess(designProperty: DesignProperty): string {
+
+        // Resize textarea initially, before any input in sidebar is touched
+        if(!this.inputTouched) {
+            let textAreaElement: any = document.querySelector(`textarea[designpropertybinder="${designProperty._objectKey}"]`);
+
+            textAreaElement.style.height = "auto";
+            textAreaElement.style.height = textAreaElement.scrollHeight + 20;
+        }
+
+        let textareaValue: string = designProperty.value;
+
+        // Convert <br> to \n
+        textareaValue = textareaValue.replace(/<br\s*[\/]?>/gi, "\n");
+
+        return textareaValue;
+    }
+
+
     // For textarea and range
     onInputChange(arg: any) {
         // Prevent exiting this page, turn on guard
@@ -161,10 +187,6 @@ export class PageEditorComponent {
         // If it's from textarea input
         if(arg.target.tagName == "TEXTAREA") {
 
-            // resize text area based on its height 
-            arg.target.style.height = "auto";
-            arg.target.style.height = arg.target.scrollHeight + 20;
-            
             // Escape HTMLs and change new line in input to <br> in output
             let text = createTextVersion(this.designProperties[key].value.replace(/\r\n|\r|\n/g, "[[NEWLINE]]")).replace(/\[\[NEWLINE\]\]/g, "<br>");
             this.designPropertiesRenderable[key].value = text;
@@ -273,24 +295,6 @@ export class PageEditorComponent {
             }
         </style>
         `
-    }
-
-    textareaProcess(designProperty: DesignProperty): string {
-
-        // Resize textarea initially, before any input in sidebar is touched
-        if(!this.inputTouched) {
-            let textAreaElement: any = document.querySelector(`textarea[designpropertybinder="${designProperty._objectKey}"]`);
-
-            textAreaElement.style.height = "auto";
-            textAreaElement.style.height = textAreaElement.scrollHeight + 20;
-        }
-
-        let textareaValue: string = designProperty.value;
-
-        // Convert <br> to \n
-        textareaValue = textareaValue.replace(/<br\s*[\/]?>/gi, "\n");
-
-        return textareaValue;
     }
 
     onWindowResize() {
