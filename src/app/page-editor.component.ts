@@ -160,8 +160,7 @@ export class PageEditorComponent {
         if(!this.inputTouched) {
             let textAreaElement: any = document.querySelector(`textarea[designpropertybinder="${designProperty._objectKey}"]`);
 
-            textAreaElement.style.height = "auto";
-            textAreaElement.style.height = textAreaElement.scrollHeight + 20;
+            this.textareaResize(textAreaElement);
         }
 
         let textareaValue: string = designProperty.value;
