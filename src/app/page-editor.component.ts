@@ -17,6 +17,8 @@ import * as tool from './tools';
 
 import WebFont = require('webfontloader');
 
+let createTextVersion = require("textversionjs");
+
 @Component({
     moduleId: module.id,
     selector: 'page-editor',
@@ -163,8 +165,9 @@ export class PageEditorComponent {
             arg.target.style.height = "auto";
             arg.target.style.height = arg.target.scrollHeight + 20;
             
-            // Change new line in input to <br> in output
-            this.designPropertiesRenderable[key].value = this.designProperties[key].value.replace(/\r\n|\r|\n/g, "<br>");
+            // Escape HTMLs and change new line in input to <br> in output
+            let text = createTextVersion(this.designProperties[key].value.replace(/\r\n|\r|\n/g, "[[NEWLINE]]")).replace(/\[\[NEWLINE\]\]/g, "<br>");
+            this.designPropertiesRenderable[key].value = text;
         } 
         
         // If it's from range input
@@ -172,6 +175,7 @@ export class PageEditorComponent {
             this.designPropertiesRenderable[key].value = this.designProperties[key].value.toString();
         }
 
+        // Mark input has been modified
         this.inputTouched = true;
         this.artboard.drawAll(this.designPropertiesRenderable);
     }
@@ -194,7 +198,8 @@ export class PageEditorComponent {
             reader.onload = (e: any) => {
                 this.designProperties[key].value = e.target.result;
                 this.designPropertiesRenderable[key].value = e.target.result;
-
+                
+                // Mark input has been modified
                 this.inputTouched = true;
                 this.artboard.drawAll(this.designPropertiesRenderable);
             }
