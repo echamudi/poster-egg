@@ -12,6 +12,9 @@ export interface DesignProperty {
     min?: number,
     max?: number,
 
+    // In range type : step differences
+    step?: number,
+
     // In radiobuttons type : list of options
     options?: string[],
 
