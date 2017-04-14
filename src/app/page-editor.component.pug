@@ -27,7 +27,7 @@ modal
                     type='text', 
                     [attr.designPropertyBinder]="designProperty._objectKey", 
                     (keyup)='onInputChange($event)',
-                    ) {{ breakToLine(designProperty.value) }}
+                    ) {{ textareaProcess(designProperty) }}
 
                 input(
                     *ngIf="designProperty.input === 'range'", 

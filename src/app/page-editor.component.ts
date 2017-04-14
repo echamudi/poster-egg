@@ -44,6 +44,9 @@ export class PageEditorComponent {
     // For unsubscribing later at ngOnDestroy()
     private alive: boolean = true;
 
+    // Detect whether inputs in sidebar has been touched or not
+    private inputTouched: boolean = false;
+
     // For preventing changing router
     public hasChanges: boolean = false;
 
@@ -138,7 +141,7 @@ export class PageEditorComponent {
     unsetLoading(key: string):void {
         delete this.loadingThings[key];
 
-        // If there's no more thing in this.loadingThings, make it false
+        // If there's no more thing in this.loadingThings, make somethingIsLoading false. It will hide the spinner
         this.somethingIsLoading = !!Object.keys(this.loadingThings).length;
     }
 
@@ -159,7 +162,7 @@ export class PageEditorComponent {
             // resize text area based on its height 
             arg.target.style.height = "auto";
             arg.target.style.height = arg.target.scrollHeight + 20;
-    
+            
             // Change new line in input to <br> in output
             this.designPropertiesRenderable[key].value = this.designProperties[key].value.replace(/\r\n|\r|\n/g, "<br>");
         } 
@@ -169,6 +172,7 @@ export class PageEditorComponent {
             this.designPropertiesRenderable[key].value = this.designProperties[key].value.toString();
         }
 
+        this.inputTouched = true;
         this.artboard.drawAll(this.designPropertiesRenderable);
     }
 
@@ -191,6 +195,7 @@ export class PageEditorComponent {
                 this.designProperties[key].value = e.target.result;
                 this.designPropertiesRenderable[key].value = e.target.result;
 
+                this.inputTouched = true;
                 this.artboard.drawAll(this.designPropertiesRenderable);
             }
         } else {
@@ -265,9 +270,22 @@ export class PageEditorComponent {
         `
     }
 
-    // Convert <br> to \n , mainly for textarea input
-    breakToLine(text: string) {
-        return text.replace(/<br\s*[\/]?>/gi, "\n")
+    textareaProcess(designProperty: DesignProperty): string {
+
+        // Resize textarea initially, before any input in sidebar is touched
+        if(!this.inputTouched) {
+            let textAreaElement: any = document.querySelector(`textarea[designpropertybinder="${designProperty._objectKey}"]`);
+
+            textAreaElement.style.height = "auto";
+            textAreaElement.style.height = textAreaElement.scrollHeight + 20;
+        }
+
+        let textareaValue: string = designProperty.value;
+
+        // Convert <br> to \n
+        textareaValue = textareaValue.replace(/<br\s*[\/]?>/gi, "\n");
+
+        return textareaValue;
     }
 
     onWindowResize() {

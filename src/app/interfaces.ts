@@ -13,7 +13,9 @@ export interface DesignProperty {
     max?: number,
 
     // In radiobuttons type : list of options
-    options?: string[]
+    options?: string[],
+
+    _objectKey?: string
 }
 
 export interface DesignProperties {
