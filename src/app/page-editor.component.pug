@@ -26,8 +26,8 @@ modal
                     *ngIf="designProperty.input === 'text'", 
                     type='text', 
                     [attr.designPropertyBinder]="designProperty._objectKey", 
-                    (keyup)='onInputChange($event)', 
-                    ) {{designProperty.value}}
+                    (keyup)='onInputChange($event)',
+                    ) {{ breakToLine(designProperty.value) }}
 
                 input(
                     *ngIf="designProperty.input === 'range'", 

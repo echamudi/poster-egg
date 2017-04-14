@@ -88,6 +88,7 @@ export class PageEditorComponent {
                 // Check if the user is reediting
                 if(this.storageService.getData('designProperties')) {
                     this.designProperties = this.storageService.getData('designProperties');
+                    this.storageService.deleteData('designProperties');
                 } else {
                     this.designProperties = data[2].designProperties;
                 }
@@ -154,6 +155,7 @@ export class PageEditorComponent {
 
         // If it's from textarea input
         if(arg.target.tagName == "TEXTAREA") {
+
             // resize text area based on its height 
             arg.target.style.height = "auto";
             arg.target.style.height = arg.target.scrollHeight + 20;
@@ -261,6 +263,11 @@ export class PageEditorComponent {
             }
         </style>
         `
+    }
+
+    // Convert <br> to \n , mainly for textarea input
+    breakToLine(text: string) {
+        return text.replace(/<br\s*[\/]?>/gi, "\n")
     }
 
     onWindowResize() {
