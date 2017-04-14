@@ -169,7 +169,7 @@ gulp.task('i18n', () => {
 gulp.task('connect', () => {
     connect.server({
         root: ['dist'],
-        fallback: 'dist/index.html',
+        // fallback: 'dist/index.html', // Enable this if not using angular HashLocationStrategy
         port: hostPort,
         https: false
     })

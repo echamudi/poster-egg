@@ -4,6 +4,7 @@ import { HttpModule, Http } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HashLocationStrategy, Location, LocationStrategy } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -47,7 +48,11 @@ import * as translate from './translate.functions';
         RootComponent
     ],
     providers: [
-        StorageService
+        StorageService,
+        {
+            provide: LocationStrategy, 
+            useClass: HashLocationStrategy
+        }
     ]
 
 })
