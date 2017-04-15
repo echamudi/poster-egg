@@ -227,6 +227,7 @@ gulp.task('build', ['clean'], () => {
     gulp.start('pug');
     gulp.start('sass');
     gulp.start('i18n');
+    gulp.start('assets');
     bundle(normalBrowserify);
 });
 
