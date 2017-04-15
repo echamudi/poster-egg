@@ -33,7 +33,6 @@ export class PageEditorComponent {
     
     private designProperties: DesignProperties;
     private designPropertiesArray: DesignProperty[] = [];
-    private designPropertiesRenderable: DesignProperties;
 
     private designStyle: string;
     private designTemplate: string;
@@ -97,9 +96,6 @@ export class PageEditorComponent {
                 } else {
                     this.designProperties = data[2].designProperties;
                 }
-                
-                // For initial, designPropertiesRenderable is exactly the same as designProperties
-                this.designPropertiesRenderable = this.designProperties;
 
                 // Load fonts
                 let webFontConfig: any = {
@@ -188,17 +184,12 @@ export class PageEditorComponent {
 
             // Escape HTMLs and change new line in input to <br> in output
             let text = createTextVersion(this.designProperties[key].value.replace(/\r\n|\r|\n/g, "[[NEWLINE]]")).replace(/\[\[NEWLINE\]\]/g, "<br>");
-            this.designPropertiesRenderable[key].value = text;
+            this.designProperties[key].value = text;
         } 
-        
-        // If it's from range input
-        else {
-            this.designPropertiesRenderable[key].value = this.designProperties[key].value.toString();
-        }
 
         // Mark input has been modified
         this.inputTouched = true;
-        this.artboard.drawAll(this.designPropertiesRenderable);
+        this.artboard.drawAll(this.designProperties);
     }
 
     // For file input
@@ -218,11 +209,10 @@ export class PageEditorComponent {
             // If reading data successfuly loads picture
             reader.onload = (e: any) => {
                 this.designProperties[key].value = e.target.result;
-                this.designPropertiesRenderable[key].value = e.target.result;
                 
                 // Mark input has been modified
                 this.inputTouched = true;
-                this.artboard.drawAll(this.designPropertiesRenderable);
+                this.artboard.drawAll(this.designProperties);
             }
         } else {
             console.log('Failed');
