@@ -4,8 +4,6 @@ import * as tool from './tools';
 
 import { config } from '../config';
 
-// import rasterizeHTML = require('rasterizehtml');
-
 declare global {
     interface NodeList {
         forEach?: (handler: Function) => void;
