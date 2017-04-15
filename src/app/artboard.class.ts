@@ -2,6 +2,8 @@ import { DesignProperties } from './interfaces';
 
 import * as tool from './tools';
 
+import { config } from '../config';
+
 // import rasterizeHTML = require('rasterizehtml');
 
 declare global {
@@ -114,6 +116,9 @@ export class ArtboardClass {
             .map(key => {
                 this.drawSingle(key, designProperties[key].value);
             });
+
+        // It's needed when putting image url in designdata json
+        this.drawSingle('designDataUrl', config.designDataApi)
 
         return this;
     }
