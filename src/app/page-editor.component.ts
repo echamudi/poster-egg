@@ -81,53 +81,125 @@ export class PageEditorComponent {
             // doing get again (get design data using params)
             .switchMap((params: Params) => this.postmanService.getDesign(params['groupID'], params['designID']))
             .takeWhile(() => this.alive)
-            .subscribe(data => {
+            .subscribe(dataDesign => {
 
-                // extract data from the promise
-                this.designTemplate = data[0];
-                this.designStyle = data[1];
-                this.designFonts = data[2].fonts;
-                this.designSize = data[2].size;
+                // Check data if it extends another design template or not
+                if(dataDesign[2].extends) {
 
-                // Check if the user is reediting
-                if(this.storageService.getData('designProperties')) {
-                    this.designProperties = this.storageService.getData('designProperties');
-                    this.storageService.deleteData('designProperties');
+                    // If yes, we'll get it too and merge it
+                    this.postmanService.getDesign(dataDesign[2].extends.groupID, dataDesign[2].extends.designID)
+                        .takeWhile(() => this.alive)
+                        .subscribe(dataDesignParent => {
+                            this.initiateArtboard(this.mergeDataDesigns(dataDesignParent, dataDesign));
+                        });
+
                 } else {
-                    this.designProperties = data[2].designProperties;
+
+                    this.initiateArtboard(dataDesign);
                 }
-
-                // Load fonts
-                let webFontConfig: any = {
-                    classes: true,
-                    active: () => { 
-                        this.unsetLoading('webfont');
-                    },
-                };
-
-                // Add google property if design data json has google font
-                if(this.designFonts.google) {
-                    webFontConfig.google = {
-                        families: this.designFonts.google
-                    }
-                }
-
-                WebFont.load(webFontConfig);
-
-                // Make designPropertioes an array, so it can be looped for design controllers on sidebar
-                this.designPropertiesArray = tool.objToArray(this.designProperties);
-
-                // Make artboards
-                this.artboard
-                    .setWidth(this.designSize.w)
-                    .setHeight(this.designSize.h)
-                    .setStyle(this.designStyle)
-                    .setTemplate(this.designTemplate)
-                    .capsulize()
-                    .drawAll(this.designProperties)
-
-                this.scaleArtboard();
             });
+    }
+
+    mergeDataDesigns(dataDesignParent: any, dataDesignChild: any): any {
+        let dataDesignMerged: any = [];
+
+        // Check if the child wants to extends HTML (no merge)
+        switch(dataDesignChild[2].extends.mergeBehaviour.html) {
+            case "use-parent":
+                dataDesignMerged[0] = dataDesignParent[0];
+                break;
+            case "use-child":
+            default:
+                dataDesignMerged[0] = dataDesignChild[0];
+                break;
+        }
+
+        // Check if the child wants to extends CSS,
+        switch(dataDesignChild[2].extends.mergeBehaviour.css) {
+            case "use-parent":
+                dataDesignMerged[1] = dataDesignParent[1];
+                break;
+            case "parent-then-child":
+                dataDesignMerged[1] = dataDesignParent[1] + dataDesignChild[1];
+                break;
+            case "child-then-parent":
+                dataDesignMerged[1] = dataDesignChild[1] + dataDesignParent[1];
+                break;
+            case "use-child":
+            default:
+                dataDesignMerged[1] = dataDesignChild[1];
+                break;
+        }
+
+        // Clone the child json to the merged json
+        dataDesignMerged[2] = Object.assign({}, dataDesignChild[2]);
+
+        // If the child json doesn't have fonts and size, we will take them from parent json
+        dataDesignMerged[2].fonts = dataDesignMerged[2].fonts ? dataDesignMerged[2].fonts : dataDesignParent[2].fonts;
+        dataDesignMerged[2].size = dataDesignMerged[2].size ? dataDesignMerged[2].size : dataDesignParent[2].size;
+
+        // Merging designProperties
+        // This merging designed to merge properties that already exist in parent,
+        // dataDesignChild shouldn't add new property that isn't defined in dataDesignParent
+        dataDesignMerged[2].designProperties = dataDesignParent[2].designProperties;
+        Object.keys(dataDesignChild[2].designProperties).forEach((key) => {
+            dataDesignMerged[2].designProperties[key] = Object.assign(
+                {}, 
+                dataDesignParent[2].designProperties[key],
+                dataDesignChild[2].designProperties[key]
+                );
+        });
+
+        return dataDesignMerged;
+    }
+
+    // Initiate Artboard, use the return of postmanService.getDesign() as parameter
+    initiateArtboard(dataDesign: any) {
+
+        // extract data from the postmanService.getDesign() promise
+        this.designTemplate = dataDesign[0];
+        this.designStyle = dataDesign[1];
+        this.designFonts = dataDesign[2].fonts;
+        this.designSize = dataDesign[2].size;
+
+        // Check if the user is reediting (coming back from page-done)
+        if(this.storageService.getData('designProperties')) {
+            this.designProperties = this.storageService.getData('designProperties');
+            this.storageService.deleteData('designProperties');
+        } else {
+            this.designProperties = dataDesign[2].designProperties;
+        }
+
+        // Webfontloader configuration
+        let webFontConfig: any = {
+            classes: true,
+            active: () => { 
+                this.unsetLoading('webfont');
+            },
+        };
+
+        // Add google property if design data json has google font
+        if(this.designFonts.google) {
+            webFontConfig.google = {
+                families: this.designFonts.google
+            }
+        }
+
+        WebFont.load(webFontConfig);
+
+        // Make designPropertioes an array, so it can be looped for design controllers on sidebar
+        this.designPropertiesArray = tool.objToArray(this.designProperties);
+
+        // Make artboards
+        this.artboard
+            .setWidth(this.designSize.w)
+            .setHeight(this.designSize.h)
+            .setStyle(this.designStyle)
+            .setTemplate(this.designTemplate)
+            .capsulize()
+            .drawAll(this.designProperties)
+
+        this.scaleArtboard();
     }
 
     // Add key to loadingthings, a list that shows something (a key) is still loading;
