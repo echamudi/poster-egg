@@ -13,6 +13,9 @@
                 .panel.panel-default
                     .panel-heading {{ design.title[translate.currentLang] }}
                     .panel-body
-                        img.img-responsive([attr.src]="getDesignThumbnail(design.designID)")
+                        img.img-responsive(
+                            [attr.src]="getDesignThumbnail(design.designID)", 
+                            [routerLink]="['/editor', group.groupID, design.designID]",
+                            (error)="$event.target.src = '/assets/no-preview.svg'")
                     .panel-footer
                         a.btn.btn-go.btn-block([routerLink]="['/editor', group.groupID, design.designID]")  {{ "choose this design" | translate | titleize }}

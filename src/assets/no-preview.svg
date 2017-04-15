@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #F2F2F2;">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>no-preview</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="no-preview">
+            <g id="image" transform="translate(108.800000, 64.000000)"></g>
+            <g id="Group-2" transform="translate(108.800000, 75.200000)">
+                <g id="Group" transform="translate(48.000000, 262.400000)" font-weight="normal">
+                    <text id="No-Preview" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="41.6" fill="#727272">
+                        <tspan x="0.6704" y="41">No Preview</tspan>
+                    </text>
+                    <text id="Click-to-see" font-family="SourceSansPro-It, Source Sans Pro" font-size="36.8" font-style="italic" fill="#9C9C9C">
+                        <tspan x="16.7768" y="90.4">Click to see</tspan>
+                    </text>
+                </g>
+                <path d="M278.96,0.623529412 L15.44,0.623529412 C7.34408,0.623529412 0.8,7.15958971 0.8,15.2455882 L0.8,219.954412 C0.8,228.025788 7.34408,234.576471 15.44,234.576471 L278.96,234.576471 C287.05592,234.576471 293.6,228.025788 293.6,219.954412 L293.6,15.2455882 C293.6,7.17421176 287.05592,0.623529412 278.96,0.623529412 Z M264.32,205.332353 L30.08,205.332353 L30.08,29.8676471 L264.32,29.8676471 L264.32,205.332353 Z M210.3716,130.423546 L163.06976,153.89195 L107.87696,64.6827691 L59.36,176.088235 L235.04,176.088235 L210.3716,130.423546 Z M194.78,102.977941 C204.8816,102.977941 213.08,94.7895882 213.08,84.7003676 C213.08,74.6111471 204.8816,66.4227941 194.78,66.4227941 C184.6784,66.4227941 176.48,74.6111471 176.48,84.7003676 C176.48,94.7895882 184.6784,102.977941 194.78,102.977941 Z" id="Shape" fill-opacity="0.0783231431" fill="#747474" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

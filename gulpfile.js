@@ -160,6 +160,15 @@ gulp.task('i18n', () => {
         .pipe(gulp.dest(destination));
 });
 
+gulp.task('assets', () => {
+    var sourceFiles = [ 'src/assets/**/*'];
+    var destination = 'dist/assets/';
+    
+    return gulp
+        .src(sourceFiles)
+        .pipe(gulp.dest(destination));
+});
+
 /**
  * ------------------------------------------------------------------------
  * Other tasks
@@ -234,6 +243,7 @@ gulp.task('default', ['clean'], () => {
     gulp.start('pug');
     gulp.start('sass');
     gulp.start('i18n');
+    gulp.start('assets');
     bundle(watchedBrowserify);
 
     // Enable Watches
@@ -241,6 +251,7 @@ gulp.task('default', ['clean'], () => {
     gulp.watch('src/**/*.pug', ['pug']);
     gulp.watch('src/**/*.scss', ['sass']);
     gulp.watch('src/i18n/**/*.json', ['i18n']);
+    gulp.watch('src/assets/**/*.json', ['assets']);
 
     // Connect
     gulp.start('connect');
