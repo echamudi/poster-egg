@@ -35,8 +35,6 @@ Now, you need to build and run HTML server for both of them. This project includ
 
 The normal setup will run front-end server using port `60571` and data server using port `60572`. You can change these settings at vars section inside `gulpfile.js`. If you modify the data server port, you'll also need to modify `designDataApi` URL in `config.ts` file at the front-end part (`posty-poster/src/config.ts`).
 
-Note : If you use your own HTML server, make sure that the fallback is `/index.html` file.
-
 Let's build and run the built in server.
 
 ```
