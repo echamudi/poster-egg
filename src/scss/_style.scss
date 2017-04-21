@@ -30,6 +30,16 @@ $btn-go-border : darken($btn-go-bg, 5%);
 @import 'mixins';
 @import 'bootstrap';
 
+// Bootstrap Mod : More responsive utilities
+
+.visible-min-sm-block {
+    display: none !important;
+
+    @media (min-width: $screen-sm-min) {
+        display: block !important;
+    }
+}
+
 // Bootstrap Mod : Navbar
 
 .navbar {
