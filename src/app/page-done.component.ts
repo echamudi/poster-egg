@@ -59,8 +59,7 @@ export class PageDoneComponent {
             .setHeight(this.artboard.getHeight())
             .setRawMaterial(this.artboard.getOutput())
             .render()
-            .then((canvas: any) => {
-                dataURL = canvas.toDataURL();
+            .then((dataURL: any) => {
                 this.resultImgSrc = dataURL;
 
                 console.log('renderer: done rendering');

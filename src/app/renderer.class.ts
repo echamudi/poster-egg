@@ -32,7 +32,7 @@ export class RendererClass {
 
         return Promise.resolve(rasterizeHTML.drawHTML(this.rawMaterial, canvasEl)
             .then(() => {
-                return canvasEl
+                return canvasEl.toDataURL();
             }));
     }
 }
