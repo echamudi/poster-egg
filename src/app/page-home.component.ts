@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './storage.service';
 import { PostmanService } from './postman.service';
+import { RendererClass } from './renderer.class';
 
 @Component({
     moduleId: module.id,
@@ -15,6 +16,9 @@ import { PostmanService } from './postman.service';
 export class PageHomeComponent {
 
     private designList: any[];
+
+    // Assume current browser is supported (true)
+    private browserSupport: boolean = true;
     
     constructor(
         private postmanService: PostmanService, 
@@ -25,6 +29,13 @@ export class PageHomeComponent {
         this.postmanService.getAllDesignList().then(data => {
             this.designList = data;
         });
+
+        // Check if user's browser can render HTML, mainly for detecting Safari
+        RendererClass.prototype.renderTest().then(testResult => {
+            if(!testResult) {
+                this.browserSupport = false;
+            }
+        })
     }
 
     getDesignThumbnail(designID : string) : string {

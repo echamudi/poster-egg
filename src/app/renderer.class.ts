@@ -24,15 +24,39 @@ export class RendererClass {
 
     // Render image, return canvas element
     public render(): Promise<HTMLScriptElement> {
-        console.log('renderer: start rendering');
-
         let canvasEl = document.createElement('canvas');
         canvasEl.setAttribute("width", this.width);
         canvasEl.setAttribute("height", this.height);
 
         return Promise.resolve(rasterizeHTML.drawHTML(this.rawMaterial, canvasEl)
             .then(() => {
-                return canvasEl.toDataURL();
+                try {
+                    let dataURL = canvasEl.toDataURL();
+                    return dataURL;
+                }
+                catch(e) {
+                    console.log('Failed to render')
+                    return 'error image src';
+                }
+            }));
+    }
+
+    // Test render 
+    public renderTest(): Promise<any> {
+        let canvasEl = document.createElement('canvas');
+        canvasEl.setAttribute("width", '10px');
+        canvasEl.setAttribute("height", '10px');
+
+        return Promise.resolve(rasterizeHTML.drawHTML(this.rawMaterial, canvasEl)
+            .then(() => {
+                try {
+                    canvasEl.toDataURL();
+                    return true;
+                }
+                catch(e) {
+                    console.log('Failed to render')
+                    return false;
+                }
             }));
     }
 }

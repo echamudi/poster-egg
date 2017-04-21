@@ -61,8 +61,6 @@ export class PageDoneComponent {
             .render()
             .then((dataURL: any) => {
                 this.resultImgSrc = dataURL;
-
-                console.log('renderer: done rendering');
             });
     }
 
