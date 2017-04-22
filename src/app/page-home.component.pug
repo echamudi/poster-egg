@@ -7,19 +7,19 @@
             .col-xs-12
                 .alert.alert-danger #[strong Unsupported Browser:] Your browser is not supported. Please download the latest #[a(href="https://www.google.com/chrome/browser/desktop/index.html") Google Chrome] or #[a(href="http://www.opera.com/download") Opera] browser on desktop to use this website. You can still try this website, but you might encounter unexpected behaviours and not be able to download the final poster.
     div(*ngIf="!designList") Loading...
-    div(*ngFor='let group of designList')
-        .row.group-heading
+    div(*ngFor='let pack of designList')
+        .row.pack-heading
             .col-xs-12
-                h2.group-title {{ group.title[translate.currentLang] }}
-                p.group-description {{ group.description[translate.currentLang] }}
-        .row.group-content
-            .col-sm-6.col-md-4.col-lg-3(*ngFor='let design of group.designs')
+                h2.pack-title {{ pack.title[translate.currentLang] }}
+                p.pack-description {{ pack.description[translate.currentLang] }}
+        .row.pack-content
+            .col-sm-6.col-md-4.col-lg-3(*ngFor='let design of pack.designs')
                 .panel.panel-design
                     .panel-heading {{ design.title[translate.currentLang] }}
                     .panel-body
                         img.img-responsive(
                             [attr.src]="getDesignThumbnail(design.designID)", 
-                            [routerLink]="['/editor', group.groupID, design.designID]",
+                            [routerLink]="['/editor', pack.packID, design.designID]",
                             (error)="$event.target.src = '/assets/no-preview.svg'")
                     .panel-footer
-                        a.btn.btn-go.btn-block([routerLink]="['/editor', group.groupID, design.designID]")  {{ "choose this design" | translate | titleize }}
+                        a.btn.btn-go.btn-block([routerLink]="['/editor', pack.packID, design.designID]")  {{ "choose this design" | translate | titleize }}

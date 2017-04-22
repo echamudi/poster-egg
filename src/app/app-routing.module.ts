@@ -14,7 +14,7 @@ const routes: Routes = [
         component: PageHomeComponent 
     },
     { 
-        path: 'editor/:groupID/:designID', 
+        path: 'editor/:packID/:designID', 
         component: PageEditorComponent, 
         canDeactivate: [ UnsavedGuard ] 
     },

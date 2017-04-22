@@ -79,7 +79,7 @@ export class PageEditorComponent {
         this.route.params
 
             // doing get again (get design data using params)
-            .switchMap((params: Params) => this.postmanService.getDesign(params['groupID'], params['designID']))
+            .switchMap((params: Params) => this.postmanService.getDesign(params['packID'], params['designID']))
             .takeWhile(() => this.alive)
             .subscribe(dataDesign => {
 
@@ -87,7 +87,7 @@ export class PageEditorComponent {
                 if(dataDesign[2].extends) {
 
                     // If yes, we'll get it too and merge it
-                    this.postmanService.getDesign(dataDesign[2].extends.groupID, dataDesign[2].extends.designID)
+                    this.postmanService.getDesign(dataDesign[2].extends.packID, dataDesign[2].extends.designID)
                         .takeWhile(() => this.alive)
                         .subscribe(dataDesignParent => {
                             this.initiateArtboard(this.mergeDataDesigns(dataDesignParent, dataDesign));

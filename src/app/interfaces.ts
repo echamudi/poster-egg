@@ -1,5 +1,5 @@
 export interface DesignProperty {
-    group?: string,
+    pack?: string,
     label?: string,
     value?: any,
     binder?: string, // Same as objectKey, used for Array in designPropertiesArray
