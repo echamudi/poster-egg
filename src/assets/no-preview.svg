@@ -9,10 +9,10 @@
             <g id="image" transform="translate(108.800000, 64.000000)"></g>
             <g id="Group-2" transform="translate(108.800000, 75.200000)">
                 <g id="Group" transform="translate(48.000000, 262.400000)" font-weight="normal">
-                    <text id="No-Preview" font-family="SourceSansPro-Regular, Source Sans Pro" font-size="41.6" fill="#727272">
+                    <text id="No-Preview" font-family="Source Sans Pro" font-size="41.6" fill="#727272">
                         <tspan x="0.6704" y="41">No Preview</tspan>
                     </text>
-                    <text id="Click-to-see" font-family="SourceSansPro-It, Source Sans Pro" font-size="36.8" font-style="italic" fill="#9C9C9C">
+                    <text id="Click-to-see" font-family="Source Sans Pro" font-size="36.8" font-style="italic" fill="#9C9C9C">
                         <tspan x="16.7768" y="90.4">Click to see</tspan>
                     </text>
                 </g>
