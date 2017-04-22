@@ -15,7 +15,7 @@ import { RendererClass } from './renderer.class';
 })
 export class PageHomeComponent {
 
-    private designList: any[];
+    private packs: any[];
 
     // Assume current browser is supported (true)
     private browserSupport: boolean = true;
@@ -26,8 +26,8 @@ export class PageHomeComponent {
         ) {}
 
     ngOnInit() {
-        this.postmanService.getAllDesignList().then(data => {
-            this.designList = data;
+        this.postmanService.getAllPacks().then(data => {
+            this.packs = data;
         });
 
         // Check if user's browser can render HTML, mainly for detecting Safari

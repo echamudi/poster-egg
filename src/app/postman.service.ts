@@ -24,8 +24,8 @@ export class PostmanService {
         return Promise.reject(error.message || error);
     }
 
-    getAllDesignList(): Promise<any[]> {
-        return this.http.get(`${config.designDataApi}/all-designs.json`)
+    getAllPacks(): Promise<any[]> {
+        return this.http.get(`${config.designDataApi}/all-packs.json`)
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
