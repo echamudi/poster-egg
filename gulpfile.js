@@ -252,7 +252,7 @@ gulp.task('default', ['clean'], () => {
     gulp.watch('src/**/*.pug', ['pug']);
     gulp.watch('src/**/*.scss', ['sass']);
     gulp.watch('src/i18n/**/*.json', ['i18n']);
-    gulp.watch('src/assets/**/*.json', ['assets']);
+    gulp.watch('src/assets/**/*.*', ['assets']);
 
     // Connect
     gulp.start('connect');
