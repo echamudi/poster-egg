@@ -99,7 +99,7 @@ export class ArtboardClass {
                     opacity: 0.5;
 
                     padding: 10px;
-                    border-top-left-radius: 2px;
+                    border-top-left-radius: 4px;
 
                     color: white;
                     font-size: 20px;
