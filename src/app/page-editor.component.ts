@@ -83,6 +83,10 @@ export class PageEditorComponent {
             .takeWhile(() => this.alive)
             .subscribe(dataDesign => {
 
+                // dataDesign[0] --> json
+                // dataDesign[1] --> html
+                // dataDesign[2] --> css
+
                 // Check data if it extends another design template or not
                 if(dataDesign[0].extends) {
 
