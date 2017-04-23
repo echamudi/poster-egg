@@ -31,11 +31,23 @@ export class PostmanService {
             .catch(this.handleError);
     }
 
-    getDesign(packID: string, designID: string): Observable<any> {
+    getDesign(packID: string, designID: string, getHTML: boolean, getCSS: boolean ): Observable<any> {
         return Observable.forkJoin(
+
+            // Get the json
             this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.json`).map((res: Response) => res.json()),
-            this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.html`).map((res: Response) => res.text()),
-            this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.css`).map((res: Response) => res.text()),
+
+            // Get HTML if it's requested
+            getHTML ? 
+                this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.html`).map((res: Response) => res.text()) 
+                : 
+                Promise.resolve(null),
+
+            // Get CSS if it's requested
+            getHTML ? 
+                this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.css`).map((res: Response) => res.text())
+                :
+                Promise.resolve(null)
         );
     }
 
