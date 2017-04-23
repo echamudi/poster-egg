@@ -18,38 +18,34 @@ export class ArtboardClass {
 
     private output: string = " ";
 
-    private width: string;
-    private height: string;
+    private width: number;
+    private height: number;
 
     public setHeight(height: number): this {
-        this.height = height + "px";
-
+        this.height = height;
         return this
     }
 
     public getHeight(): number {
-        return parseInt(this.height, 10);
+        return this.height;
     }
 
     public setWidth(width: number): this {
-        this.width = width + "px";
-
+        this.width = width;
         return this
     }
 
     public getWidth(): number {
-        return parseInt(this.width, 10);
+        return this.width;
     }
 
     public setStyle(style: string): this {
         this.style = style;
-
         return this;
     }
 
     public setTemplate(template: string): this {
         this.template = template;
-
         return this;
     }
 
@@ -59,7 +55,6 @@ export class ArtboardClass {
 
     public setOutput(output: string): this {
         this.output = output;
-
         return this;
     }
 
@@ -82,8 +77,8 @@ export class ArtboardClass {
             <style>
                 #artboard {
                     position: relative;
-                    width: ${this.width};
-                    height: ${this.height};
+                    width: ${this.width}px;
+                    height: ${this.height}px;
                     overflow: hidden;
                     background: white;
                     user-select: none !important; 
@@ -117,6 +112,8 @@ export class ArtboardClass {
                 ${this.template}
             </div>
         `;
+
+        console.log(this.templateEnclosed);
 
         this.init();
 
