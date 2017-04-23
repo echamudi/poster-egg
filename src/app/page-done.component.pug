@@ -14,9 +14,8 @@ modal
         .col-md-8.col-lg-6.col-result
             .panel.panel-default
                 .panel-body
-                    div(
-                        *ngIf='!resultImgSrc',
-                        ) Now Rendering ...
+                    .progress(*ngIf='!resultImgSrc') 
+                        .progress-bar.progress-bar-striped.active(role='progressbar', style='width: 100%') {{ "processing" | translate | titleize }}...
                     img.img-responsive(*ngIf='resultImgSrc', [attr.src]="resultImgSrc")
         .col-md-4.col-lg-4
             .panel.panel-default.panel-actions
@@ -26,3 +25,4 @@ modal
                     a.btn.btn-default.btn-block((click)="exit()") {{ "exit" | translate | titleize }}
                     p.ending-words {{ "Thanks for using Posty Poster." | translate }}        
         .col-lg-1.visible-lg-block
+        
