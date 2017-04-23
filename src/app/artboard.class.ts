@@ -81,10 +81,33 @@ export class ArtboardClass {
         this.templateEnclosed = `
             <style>
                 #artboard {
+                    position: relative;
                     width: ${this.width};
                     height: ${this.height};
                     overflow: hidden;
                     background: white;
+                    user-select: none !important; 
+                }
+
+                #artboard:before {
+                    content: "${config.watermarkLabel}";
+
+                    position: fixed;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 100;
+                    opacity: 0.5;
+
+                    padding: 10px;
+                    border-top-left-radius: 2px;
+
+                    color: white;
+                    font-size: 20px;
+                    font-family: 'Source Sans Pro', sans-serif;
+
+                    background: rgba(0, 0, 0, 0.5);
+                    
+                    user-select: none !important; 
                 }
             </style>
             <style>
