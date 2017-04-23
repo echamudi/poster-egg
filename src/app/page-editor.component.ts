@@ -259,7 +259,7 @@ export class PageEditorComponent {
         if(arg.target.tagName == "TEXTAREA") {
 
             // Escape HTMLs and change new line in input to <br> in output
-            let text = createTextVersion(this.designProperties[key].value.replace(/\r\n|\r|\n/g, "[[NEWLINE]]")).replace(/\[\[NEWLINE\]\]/g, "<br>");
+            let text = createTextVersion(this.designProperties[key].value.replace(/\r\n|\r|\n/g, "[[BR]]")).replace(/\[\[BR\]\]/g, "<br>");
             this.designProperties[key].value = text;
         } 
 
