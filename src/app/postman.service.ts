@@ -35,18 +35,26 @@ export class PostmanService {
         return Observable.forkJoin(
 
             // Get the json
-            this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.json`).map((res: Response) => res.json()),
+            this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.json`)
+                .toPromise() 
+                .then(res => res.json()),
 
             // Get HTML if it's requested
             getHTML ? 
-                this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.html`).map((res: Response) => res.text()) 
+                this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.html`)
+                .toPromise() 
+                .then(res => res.text())
+                .catch(() => null)
                 : 
                 Promise.resolve(null),
 
             // Get CSS if it's requested
-            getHTML ? 
-                this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.css`).map((res: Response) => res.text())
-                :
+            getCSS ? 
+                this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.css`)
+                .toPromise() 
+                .then(res => res.text())
+                .catch(() => null)
+                : 
                 Promise.resolve(null)
         );
     }
