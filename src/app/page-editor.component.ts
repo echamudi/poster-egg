@@ -65,7 +65,7 @@ export class PageEditorComponent {
         private route: ActivatedRoute,
         private router: Router,
         private translate: TranslateService
- ) { }
+    ) { }
 
     ngOnInit() {
         
@@ -84,10 +84,10 @@ export class PageEditorComponent {
             .subscribe(dataDesign => {
 
                 // Check data if it extends another design template or not
-                if(dataDesign[2].extends) {
+                if(dataDesign[0].extends) {
 
                     // If yes, we'll get it too and merge it
-                    this.postmanService.getDesign(dataDesign[2].extends.packID, dataDesign[2].extends.designID)
+                    this.postmanService.getDesign(dataDesign[0].extends.packID, dataDesign[0].extends.designID)
                         .takeWhile(() => this.alive)
                         .subscribe(dataDesignParent => {
                             this.initiateArtboard(this.mergeDataDesigns(dataDesignParent, dataDesign));
@@ -104,26 +104,9 @@ export class PageEditorComponent {
         let dataDesignMerged: any = [];
 
         // Check if the child wants to extends HTML (no merge)
-        switch(dataDesignChild[2].extends.mergeBehaviour.html) {
-            case "use-parent":
-                dataDesignMerged[0] = dataDesignParent[0];
-                break;
-            case "use-child":
-            default:
-                dataDesignMerged[0] = dataDesignChild[0];
-                break;
-        }
-
-        // Check if the child wants to extends CSS,
-        switch(dataDesignChild[2].extends.mergeBehaviour.css) {
+        switch(dataDesignChild[0].extends.mergeBehaviour.html) {
             case "use-parent":
                 dataDesignMerged[1] = dataDesignParent[1];
-                break;
-            case "parent-then-child":
-                dataDesignMerged[1] = dataDesignParent[1] + dataDesignChild[1];
-                break;
-            case "child-then-parent":
-                dataDesignMerged[1] = dataDesignChild[1] + dataDesignParent[1];
                 break;
             case "use-child":
             default:
@@ -131,22 +114,39 @@ export class PageEditorComponent {
                 break;
         }
 
+        // Check if the child wants to extends CSS,
+        switch(dataDesignChild[0].extends.mergeBehaviour.css) {
+            case "use-parent":
+                dataDesignMerged[2] = dataDesignParent[2];
+                break;
+            case "parent-then-child":
+                dataDesignMerged[2] = dataDesignParent[2] + dataDesignChild[2];
+                break;
+            case "child-then-parent":
+                dataDesignMerged[2] = dataDesignChild[2] + dataDesignParent[2];
+                break;
+            case "use-child":
+            default:
+                dataDesignMerged[2] = dataDesignChild[2];
+                break;
+        }
+
         // Clone the child json to the merged json
-        dataDesignMerged[2] = Object.assign({}, dataDesignChild[2]);
+        dataDesignMerged[0] = Object.assign({}, dataDesignChild[0]);
 
         // If the child json doesn't have fonts and size, we will take them from parent json
-        dataDesignMerged[2].fonts = dataDesignMerged[2].fonts ? dataDesignMerged[2].fonts : dataDesignParent[2].fonts;
-        dataDesignMerged[2].size = dataDesignMerged[2].size ? dataDesignMerged[2].size : dataDesignParent[2].size;
+        dataDesignMerged[0].fonts = dataDesignMerged[0].fonts ? dataDesignMerged[0].fonts : dataDesignParent[0].fonts;
+        dataDesignMerged[0].size = dataDesignMerged[0].size ? dataDesignMerged[0].size : dataDesignParent[0].size;
 
         // Merging designProperties
         // This merging designed to merge properties that already exist in parent,
         // dataDesignChild shouldn't add new property that isn't defined in dataDesignParent
-        dataDesignMerged[2].designProperties = dataDesignParent[2].designProperties;
-        Object.keys(dataDesignChild[2].designProperties).forEach((key) => {
-            dataDesignMerged[2].designProperties[key] = Object.assign(
+        dataDesignMerged[0].designProperties = dataDesignParent[0].designProperties;
+        Object.keys(dataDesignChild[0].designProperties).forEach((key) => {
+            dataDesignMerged[0].designProperties[key] = Object.assign(
                 {}, 
-                dataDesignParent[2].designProperties[key],
-                dataDesignChild[2].designProperties[key]
+                dataDesignParent[0].designProperties[key],
+                dataDesignChild[0].designProperties[key]
                 );
         });
 
@@ -157,17 +157,17 @@ export class PageEditorComponent {
     initiateArtboard(dataDesign: any) {
 
         // extract data from the postmanService.getDesign() promise
-        this.designTemplate = dataDesign[0];
-        this.designStyle = dataDesign[1];
-        this.designFonts = dataDesign[2].fonts;
-        this.designSize = dataDesign[2].size;
+        this.designFonts = dataDesign[0].fonts;
+        this.designSize = dataDesign[0].size;
+        this.designTemplate = dataDesign[1];
+        this.designStyle = dataDesign[2];
 
         // Check if the user is reediting (coming back from page-done)
         if(this.storageService.getData('designProperties')) {
             this.designProperties = this.storageService.getData('designProperties');
             this.storageService.deleteData('designProperties');
         } else {
-            this.designProperties = dataDesign[2].designProperties;
+            this.designProperties = dataDesign[0].designProperties;
         }
 
         // Webfontloader configuration

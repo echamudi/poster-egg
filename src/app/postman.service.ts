@@ -33,9 +33,9 @@ export class PostmanService {
 
     getDesign(packID: string, designID: string): Observable<any> {
         return Observable.forkJoin(
+            this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.json`).map((res: Response) => res.json()),
             this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.html`).map((res: Response) => res.text()),
             this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.css`).map((res: Response) => res.text()),
-            this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.json`).map((res: Response) => res.json())
         );
     }
 
