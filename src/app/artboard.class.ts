@@ -4,12 +4,6 @@ import * as tool from './tools';
 
 import { config } from '../config';
 
-declare global {
-    interface NodeList {
-        forEach?: (handler: Function) => void;
-    }
-}
-
 export class ArtboardClass {
     
     // templateRaw is the exact html template taken from posty-poster-data

@@ -24,3 +24,9 @@ export interface DesignProperty {
 export interface DesignProperties {
     [key: string]: DesignProperty
 }
+
+declare global {
+    interface NodeList {
+        forEach?: (handler: Function) => void;
+    }
+}
