@@ -11,15 +11,23 @@ declare global {
 }
 
 export class ArtboardClass {
-    private template: string;
-    private templateEnclosed: string;
+    
+    // templateRaw is the exact html template taken from posty-poster-data
+    private templateRaw: string;
 
-    private style: string;
+    // stlyeRaw is the exact css taken from posty-poster-data
+    private styleRaw: string;
+
+    // processed style+template
+    private templateEnclosed: string;
 
     private output: string = " ";
 
     private width: number;
     private height: number;
+
+    readonly regex1: RegExp = /__(.*?)__/g;
+    readonly regex2: RegExp = /\[\[%#-->\[(.*?)]{([^]*?)}<--#%]]/g;
 
     public setHeight(height: number): this {
         this.height = height;
@@ -39,13 +47,13 @@ export class ArtboardClass {
         return this.width;
     }
 
-    public setStyle(style: string): this {
-        this.style = style;
+    public setStyle(styleRaw: string): this {
+        this.styleRaw = styleRaw;
         return this;
     }
 
-    public setTemplate(template: string): this {
-        this.template = template;
+    public setTemplate(templateRaw: string): this {
+        this.templateRaw = templateRaw;
         return this;
     }
 
@@ -58,17 +66,11 @@ export class ArtboardClass {
         return this;
     }
 
-
     // Copy enclosed template to output
     private init(): this {
         this.output = this.templateEnclosed;
 
         return this;
-    }
-
-    // Overwrite dirty output with templateEnclosed (Alias of Init)
-    private reset(): this {
-        return this.init();
     }
 
     // Combine artboard style, template, and artboard size
@@ -106,37 +108,48 @@ export class ArtboardClass {
                 }
             </style>
             <style>
-                ${this.style}
+                ${this.styleRaw}
             </style>
             <div id="artboard" artboard>
-                ${this.template}
+                ${this.templateRaw}
             </div>
         `;
 
-        console.log(this.templateEnclosed);
+        this.templateEnclosed = this.templateEnclosed.replace(this.regex1, "[[%#-->[$1]{}<--#%]]");
+        this.output = this.templateEnclosed.replace(this.regex2, "$2");
 
-        this.init();
+        return this;
+    }
 
+    private printOutput(): this {
         return this;
     }
 
     public drawSingle(key: string, replace: string): this {
-        this.output = tool.replaceAll(this.output, "__" + key + "__", replace);
+        let regex = new RegExp(`\\[\\[%#-->\\[${key}]{([^]*?)}<--#%]]`,"g");
 
+        this.templateEnclosed = this.templateEnclosed.replace(
+            regex, 
+            `[[%#-->[${key}]{${replace}}<--#%]]`
+            );
+
+        this.output = this.templateEnclosed.replace(this.regex2, "$2");
         return this;
     }
 
     public drawAll(designProperties: DesignProperties): this {
-        this.reset();
+        
+        // console.log(this.templateEnclosed);
 
         Object
             .keys(designProperties)
             .map(key => {
+                
                 this.drawSingle(key, designProperties[key].value);
             });
 
-        // It's needed when putting image url in designdata json
-        this.drawSingle('designDataUrl', config.designDataApi)
+        // console.log("======================================================================");
+        // console.log(this.templateEnclosed);
 
         return this;
     }

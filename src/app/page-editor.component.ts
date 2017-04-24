@@ -12,6 +12,7 @@ import { ArtboardClass } from './artboard.class';
 import { RendererClass } from './renderer.class';
 
 import { DesignProperty, DesignProperties } from './interfaces';
+import { config } from '../config';
 
 import * as tool from './tools';
 
@@ -191,6 +192,15 @@ export class PageEditorComponent {
 
         WebFont.load(webFontConfig);
 
+        // Look for __designDataUrl__ in design properties value, and change it with real API url
+        Object
+            .keys(this.designProperties)
+            .map(key => {
+                if(typeof this.designProperties[key].value == "string" && this.designProperties[key].value.match(/__designDataUrl__/g)) {
+                    this.designProperties[key].value = this.designProperties[key].value.replace(/__designDataUrl__/g, config.designDataApi);
+                }
+            });
+
         // Make designPropertioes an array, so it can be looped for design controllers on sidebar
         this.designPropertiesArray = tool.objToArray(this.designProperties);
 
@@ -243,7 +253,6 @@ export class PageEditorComponent {
         return textareaValue;
     }
 
-
     // For textarea and range
     onInputChange(arg: any) {
         // Prevent exiting this page, turn on guard
@@ -265,11 +274,12 @@ export class PageEditorComponent {
 
         // Mark input has been modified
         this.inputTouched = true;
-        this.artboard.drawAll(this.designProperties);
+        this.artboard.drawSingle(key, this.designProperties[key].value);
     }
 
     // For file input
     onFileChange(arg: any) {
+        
         // Prevent exiting this page, turn on guard
         this.hasChanges = true;
 
@@ -288,7 +298,7 @@ export class PageEditorComponent {
                 
                 // Mark input has been modified
                 this.inputTouched = true;
-                this.artboard.drawAll(this.designProperties);
+                this.artboard.drawSingle(key, this.designProperties[key].value);
             }
         } else {
             console.log('Failed');
