@@ -10,6 +10,7 @@ import { ModalComponent } from './modal.component';
 
 import { ArtboardClass } from './artboard.class';
 import { RendererClass } from './renderer.class';
+import { BitmapperClass } from './bitmapper.class';
 
 import { DesignProperty, DesignProperties } from './interfaces';
 import { config } from '../config';
@@ -288,7 +289,8 @@ export class PageEditorComponent {
 
     // For file input
     onFileChange(arg: any) {
-        
+        this.setLoading('processingFileInput');
+
         // Prevent exiting this page, turn on guard
         this.hasChanges = true;
 
@@ -303,11 +305,23 @@ export class PageEditorComponent {
 
             // If reading data successfuly loads picture
             reader.onload = (e: any) => {
-                this.designProperties[key].value = e.target.result;
                 
-                // Mark input has been modified
-                this.inputTouched = true;
-                this.artboard.drawSingle(key, this.designProperties[key].value);
+                // Resize the image
+
+                let bitmapper = new BitmapperClass();
+
+                bitmapper
+                    .setImage(e.target.result)
+                    .resizeCoverImage(this.designSize.w, this.designSize.h)
+                    .then((processedImage) => {
+                        this.unsetLoading('processingFileInput');
+
+                        this.designProperties[key].value = processedImage;
+                        
+                        this.inputTouched = true;
+                        this.artboard.drawSingle(key, this.designProperties[key].value);
+                    })
+
             }
         } else {
             console.log('Failed');
