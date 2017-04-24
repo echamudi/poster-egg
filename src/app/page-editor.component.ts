@@ -13,6 +13,8 @@ import { RendererClass } from './renderer.class';
 
 import { DesignProperty, DesignProperties } from './interfaces';
 import { config } from '../config';
+import { Observable, ObservableInput } from 'rxjs/Observable';
+
 
 import * as tool from './tools';
 
@@ -56,6 +58,9 @@ export class PageEditorComponent {
     public loadingThings: any = {};
     public somethingIsLoading: boolean = false;
 
+    public dataDesign: any;
+    public dataDesignParent: any;
+
     // Modal for changing router confirmation
     @ViewChild(ModalComponent)
     public modal: ModalComponent;
@@ -78,30 +83,34 @@ export class PageEditorComponent {
 
         // getting params from url
         this.route.params
+            .takeWhile(() => this.alive)
 
             // doing get again (get design data using params)
             .switchMap((params: Params) => this.postmanService.getDesign(params['packID'], params['designID'], true, true))
-            .takeWhile(() => this.alive)
-            .subscribe(dataDesign => {
 
+            // Check the first json, if it needs to extend, we'll request again, if not, done.
+            .takeWhile((value) => {
+
+                this.dataDesign = value;
+
+                // Data Design array format
                 // dataDesign[0] --> json
                 // dataDesign[1] --> html
                 // dataDesign[2] --> css
 
-                // Check data if it extends another design template or not
-                if(dataDesign[0].extends) {
-
-                    // If yes, we'll get it too and merge it
-                    this.postmanService.getDesign(dataDesign[0].extends.packID, dataDesign[0].extends.designID, true, true)
-                        .takeWhile(() => this.alive)
-                        .subscribe(dataDesignParent => {
-                            this.initiateArtboard(this.mergeDataDesigns(dataDesignParent, dataDesign));
-                        });
-
+                if(this.dataDesign[0].hasOwnProperty('extends')) {
+                    return true;
                 } else {
-
-                    this.initiateArtboard(dataDesign);
+                    this.initiateArtboard(this.dataDesign);
+                    return false;
                 }
+            })
+            .concatMap((): ObservableInput<{}> => {
+                return this.postmanService.getDesign(this.dataDesign[0].extends.packID, this.dataDesign[0].extends.designID, true, true);
+            })
+            .subscribe(value => {                
+                this.dataDesignParent = value;
+                this.initiateArtboard(this.mergeDataDesigns(this.dataDesignParent, this.dataDesign));
             });
     }
 
