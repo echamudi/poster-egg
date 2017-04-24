@@ -57,6 +57,7 @@
 
         @media (min-width: $screen-sm-min) {
             overflow-y: auto;
+            overflow-x: hidden;
         }
     }
 
