@@ -312,7 +312,7 @@ export class PageEditorComponent {
 
                 bitmapper
                     .setImage(e.target.result)
-                    .resizeCoverImage(this.designSize.w, this.designSize.h)
+                    .resizeCoverImage(this.designSize.w / 1.9, this.designSize.h / 1.9)
                     .then((processedImage) => {
                         this.unsetLoading('processingFileInput');
 
