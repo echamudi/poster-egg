@@ -34,8 +34,12 @@ let createTextVersion = require("textversionjs");
     }
 })
 export class PageEditorComponent {
+
+    private browserSupport: boolean = true;
     
     private designProperties: DesignProperties;
+
+    // Array version of designProperties, cause we need it to be looped in template later
     private designPropertiesArray: DesignProperty[] = [];
 
     private designStyle: string;
@@ -75,7 +79,10 @@ export class PageEditorComponent {
     ) { }
 
     ngOnInit() {
-        
+
+        // Check if user's browser can render HTML, mainly for detecting Safari
+        RendererClass.prototype.renderTest().then((value) => { this.browserSupport = value; });
+
         this.hasChanges = this.storageService.getData('hasChanges');
 
         this.artboard = new ArtboardClass();

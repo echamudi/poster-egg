@@ -31,11 +31,7 @@ export class PageHomeComponent {
         });
 
         // Check if user's browser can render HTML, mainly for detecting Safari
-        RendererClass.prototype.renderTest().then(testResult => {
-            if(!testResult) {
-                this.browserSupport = false;
-            }
-        })
+        RendererClass.prototype.renderTest().then((value) => { this.browserSupport = value; });
     }
 
     getDesignThumbnail(designID : string) : string {
