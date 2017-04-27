@@ -15,6 +15,7 @@ import { PageEditorComponent } from './page-editor.component';
 import { PageDoneComponent } from './page-done.component';
 import { PageHomeComponent } from './page-home.component';
 import { RootComponent } from './root.component';
+import { BrowserSupportComponent } from './browser-support.component';
 
 import { SafePipe } from './safe.pipe';
 import { TitleizePipe } from "./titleize.pipe";
@@ -39,6 +40,7 @@ import * as translate from './translate.functions';
         RootComponent, 
         PageHomeComponent, 
         PageEditorComponent,
+        BrowserSupportComponent,
         PageDoneComponent,
         ModalComponent,
         SafePipe,
