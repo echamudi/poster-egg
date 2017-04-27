@@ -35,32 +35,32 @@ export class BitmapperClass {
     }
 
     // Resize and stretch image
-    public resizeImage(width: number, height: number): this {
-        this.observerable = this.observerable.concatMap((value: string) => Observable.create((observer: Subject<any>) => {
+    // public resizeImage(width: number, height: number): this {
+    //     this.observerable = this.observerable.concatMap((value: string) => Observable.create((observer: Subject<any>) => {
             
-            var img = new Image();
-            img.src = this.processedImage;
+    //         var img = new Image();
+    //         img.src = this.processedImage;
 
-            img.onload =  () => {
-                // We create a canvas and get its context.
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
+    //         img.onload =  () => {
+    //             // We create a canvas and get its context.
+    //             var canvas = document.createElement('canvas');
+    //             var ctx = canvas.getContext('2d');
 
-                canvas.width = width;
-                canvas.height = height;
+    //             canvas.width = width;
+    //             canvas.height = height;
 
-                // We resize the image with the canvas method drawImage();
-                ctx.drawImage(<any>img, 0, 0, width, height);
+    //             // We resize the image with the canvas method drawImage();
+    //             ctx.drawImage(<any>img, 0, 0, width, height);
 
-                this.processedImage = canvas.toDataURL();
+    //             this.processedImage = canvas.toDataURL();
 
-                // console.log('resizeImage');
-                observer.next();
-                observer.complete();
-            }
-        }));
-        return this;
-    }
+    //             // console.log('resizeImage');
+    //             observer.next();
+    //             observer.complete();
+    //         }
+    //     }));
+    //     return this;
+    // }
 
     // resize by limiting the px and keeping image ratio
     public resizeLimitPx(targetPixels: number): this {
@@ -110,56 +110,56 @@ export class BitmapperClass {
     }
 
     // Find the shorther side of image, and resize it to target number by keeping the ratio
-    public resizeCoverImage(targetWidth: number, targetHeight: number): this {
-        this.observerable = this.observerable.concatMap((value: string) => Observable.create((observer: Subject<any>) => {
+    // public resizeCoverImage(targetWidth: number, targetHeight: number): this {
+    //     this.observerable = this.observerable.concatMap((value: string) => Observable.create((observer: Subject<any>) => {
 
-            var img = new Image();
-            img.src = this.processedImage;
+    //         var img = new Image();
+    //         img.src = this.processedImage;
             
-            img.onload =  () => {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
+    //         img.onload =  () => {
+    //             var canvas = document.createElement('canvas');
+    //             var ctx = canvas.getContext('2d');
 
-                let originalRatio = img.width / img.height;
-                let targetRatio = targetWidth / targetHeight;
+    //             let originalRatio = img.width / img.height;
+    //             let targetRatio = targetWidth / targetHeight;
 
-                let finalHeight: number;
-                let finalWidth: number;
+    //             let finalHeight: number;
+    //             let finalWidth: number;
 
-                // If one of the side is smaller than the target respectively, we'll return as it is
-                if ((img.height < targetHeight) || (img.width < targetWidth)) {
-                    observer.next();
-                    observer.complete();
-                }
+    //             // If one of the side is smaller than the target respectively, we'll return as it is
+    //             if ((img.height < targetHeight) || (img.width < targetWidth)) {
+    //                 observer.next();
+    //                 observer.complete();
+    //             }
 
-                // If the original image is more landscape-shaped than the target ratio
-                if (originalRatio > targetRatio) {
-                    finalHeight = targetHeight;
-                    finalWidth = finalHeight * originalRatio;
-                } 
-                // If the original image is less landscape-shaped than the target ratio
-                else {
-                    finalWidth = targetWidth;
-                    finalHeight = finalWidth / originalRatio;
-                }
+    //             // If the original image is more landscape-shaped than the target ratio
+    //             if (originalRatio > targetRatio) {
+    //                 finalHeight = targetHeight;
+    //                 finalWidth = finalHeight * originalRatio;
+    //             } 
+    //             // If the original image is less landscape-shaped than the target ratio
+    //             else {
+    //                 finalWidth = targetWidth;
+    //                 finalHeight = finalWidth / originalRatio;
+    //             }
 
-                finalWidth = Math.round(finalWidth);
-                finalHeight = Math.round(finalHeight);
+    //             finalWidth = Math.round(finalWidth);
+    //             finalHeight = Math.round(finalHeight);
 
-                canvas.width = finalWidth;
-                canvas.height = finalHeight;
+    //             canvas.width = finalWidth;
+    //             canvas.height = finalHeight;
 
-                ctx.drawImage(<any>img, 0, 0, finalWidth, finalHeight);
+    //             ctx.drawImage(<any>img, 0, 0, finalWidth, finalHeight);
 
-                this.processedImage = canvas.toDataURL();
+    //             this.processedImage = canvas.toDataURL();
 
-                // console.log(`did resizeCoverImage image to ${finalWidth}x${finalHeight}` );
-                observer.next();
-                observer.complete();
-            }
-        }));
-        return this;
-    }
+    //             // console.log(`did resizeCoverImage image to ${finalWidth}x${finalHeight}` );
+    //             observer.next();
+    //             observer.complete();
+    //         }
+    //     }));
+    //     return this;
+    // }
 
     public then(then: (processedImage: string) => any) {
         return this.observerable.subscribe(() => {
