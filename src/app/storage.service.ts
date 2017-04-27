@@ -3,9 +3,6 @@
  * Put StorageService in app.module to make it singleton between different pages/routes
  */
 
-import { Injectable } from '@angular/core';
-
-@Injectable()
 export class StorageService {
 
     private data: any = {};
