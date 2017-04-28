@@ -25,6 +25,7 @@
     "gulp-util": "^3.0.8",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "rtltextarea": "^1.0.1",
     "tsify": "^3.0.1",
     "typescript": "^2.2.2",
     "vinyl-buffer": "^1.0.0",

@@ -119,14 +119,17 @@ export class ArtboardClass {
         return this;
     }
 
-    public drawSingle(key: string, replace: string): this {
+    public drawSingle(key: string, replace: string, rtlize?: boolean): this {
         let regex = new RegExp(`\\[\\[%#-->\\[${key}]{([^]*?)}<--#%]]`,"g");
+
+        replace = rtlize ? `<span dir="rtl">${replace}</span>` : replace;
 
         this.templateEnclosed = this.templateEnclosed.replace(
             regex, 
             `[[%#-->[${key}]{${replace}}<--#%]]`
             );
 
+        
         this.output = this.templateEnclosed.replace(this.regex2, "$2");
         return this;
     }
@@ -138,8 +141,13 @@ export class ArtboardClass {
         Object
             .keys(designProperties)
             .map(key => {
-                
-                this.drawSingle(key, designProperties[key].value);
+
+                // If it's a text input and RTL, capsulize the text with span rtl.
+                if(designProperties[key].input == "text" && tool.detectRTL(designProperties[key].value)) {
+                    this.drawSingle(key, '<span dir="rtl">' + designProperties[key].value + '</span>');
+                } else {
+                    this.drawSingle(key, designProperties[key].value);
+                }
             });
 
         // console.log("======================================================================");

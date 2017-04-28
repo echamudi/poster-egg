@@ -212,6 +212,10 @@ export class PageEditorComponent {
 
     // For textarea and range
     onInputChange(arg: any) {
+                
+        // Declare rtlize, for later if the text is detected as RTL
+        let rtlize: boolean = false;
+
         // Prevent exiting this page, turn on guard
         this.hasChanges = true;
 
@@ -226,12 +230,16 @@ export class PageEditorComponent {
 
             // Escape HTMLs and change new line in input to <br> in output
             let text = createTextVersion(this.designProperties[key].value.replace(/\r\n|\r|\n/g, "[[BR]]")).replace(/\[\[BR\]\]/g, "<br>");
+            
+            // Check if the text is RTL enough
+            rtlize = tool.detectRTL(createTextVersion(text));
+
             this.designProperties[key].value = text;
         } 
 
         // Mark input has been modified
         this.inputTouched = true;
-        this.artboard.drawSingle(key, this.designProperties[key].value);
+        this.artboard.drawSingle(key, this.designProperties[key].value, rtlize);
     }
 
     // For file input
