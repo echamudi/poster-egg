@@ -9,7 +9,7 @@ import { StorageService } from './storage.service';
 import { ModalComponent } from './modal.component';
 
 import { ArtboardClass } from './artboard.class';
-import { RendererClass } from './renderer.class';
+import { RendererService } from './renderer.service';
 import { BitmapperClass } from './bitmapper.class';
 
 import { DesignProperty, DesignProperties } from './interfaces';
@@ -30,7 +30,7 @@ let createTextVersion = require("textversionjs");
     styleUrls: ['./app/page-editor.component.css'],
     providers: [ 
         PostmanService, 
-        RendererClass 
+        RendererService 
         ],
     host: {
         '(window:resize)': 'onWindowResize()'
@@ -76,7 +76,7 @@ export class PageEditorComponent {
     constructor(
         private storageService: StorageService,
         private postmanService: PostmanService, 
-        private rendererClass: RendererClass,
+        private rendererService: RendererService,
         private route: ActivatedRoute,
         private router: Router,
         private translate: TranslateService
@@ -85,7 +85,7 @@ export class PageEditorComponent {
     ngOnInit() {
 
         // Check if user's browser can render HTML, mainly for detecting Safari
-        this.rendererClass.renderTest().then((value) => { this.browserSupport = value; });
+        this.rendererService.renderTest().then((value) => { this.browserSupport = value; });
 
         this.hasChanges = this.storageService.getData('hasChanges');
 

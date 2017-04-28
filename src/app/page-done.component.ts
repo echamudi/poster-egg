@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { ModalComponent } from './modal.component';
 
-import { RendererClass } from './renderer.class';
+import { RendererService } from './renderer.service';
 
 @Component({
     moduleId: module.id,
@@ -13,7 +13,7 @@ import { RendererClass } from './renderer.class';
     templateUrl: './app/page-done.component.html',
     styleUrls: ['./app/page-done.component.css'],
     providers: [
-        RendererClass
+        RendererService
     ]
 })
 export class PageDoneComponent {
@@ -28,7 +28,7 @@ export class PageDoneComponent {
 
     constructor(
         private storageService: StorageService,
-        private rendererClass: RendererClass,
+        private rendererService: RendererService,
         private router: Router,
         private location: Location
     ) { }
@@ -56,7 +56,7 @@ export class PageDoneComponent {
         let aElement = document.createElement('a');
         let dataURL: string;
 
-        this.rendererClass
+        this.rendererService
             .setWidth(this.artboard.getWidth())
             .setHeight(this.artboard.getHeight())
             .setRawMaterial(this.artboard.getOutput())

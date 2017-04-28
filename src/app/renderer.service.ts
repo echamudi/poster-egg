@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 
 @Injectable()
-export class RendererClass {
+export class RendererService {
     private rawMaterial: string;
     private width: string;
     private height: string;

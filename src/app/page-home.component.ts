@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './storage.service';
 import { PostmanService } from './postman.service';
-import { RendererClass } from './renderer.class';
+import { RendererService } from './renderer.service';
 
 @Component({
     moduleId: module.id,
@@ -12,7 +12,7 @@ import { RendererClass } from './renderer.class';
     styleUrls: ['./app/page-home.component.css'],
     providers: [ 
         PostmanService, 
-        RendererClass 
+        RendererService 
         ]
 })
 export class PageHomeComponent {
@@ -24,7 +24,7 @@ export class PageHomeComponent {
     
     constructor(
         private postmanService: PostmanService, 
-        private rendererClass: RendererClass,
+        private rendererService: RendererService,
         private translate: TranslateService
         ) {}
 
@@ -34,7 +34,7 @@ export class PageHomeComponent {
         });
 
         // Check if user's browser can render HTML, mainly for detecting Safari
-        this.rendererClass.renderTest().then((value) => { this.browserSupport = value; });
+        this.rendererService.renderTest().then((value) => { this.browserSupport = value; });
     }
 
     getDesignThumbnail(designID : string) : string {
