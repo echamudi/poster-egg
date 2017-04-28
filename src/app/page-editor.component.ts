@@ -186,11 +186,18 @@ export class PageEditorComponent {
         this.somethingIsLoading = !!Object.keys(this.loadingThings).length;
     }
 
-    textareaResize(arg: HTMLTextAreaElement) {
-
-            // resize text area based on its height 
-            arg.style.height = "auto";
-            arg.style.height = arg.scrollHeight + 20 + 'px';
+    textareaFitter(arg: HTMLTextAreaElement) {
+        
+        // textarea dir rtl if its value is rtl
+        if(tool.detectRTL(arg.value)) {
+            arg.setAttribute('dir', 'rtl')
+        } else {
+            arg.setAttribute('dir', 'ltr')
+        }
+        
+        // resize text area based on its height 
+        arg.style.height = "auto";
+        arg.style.height = arg.scrollHeight + 20 + 'px';
     }
     
     textareaProcess(designProperty: DesignProperty): string {
@@ -199,7 +206,7 @@ export class PageEditorComponent {
         if(!this.inputTouched) {
             let textAreaElement: any = document.querySelector(`textarea[designpropertybinder="${designProperty._objectKey}"]`);
 
-            this.textareaResize(textAreaElement);
+            this.textareaFitter(textAreaElement);
         }
 
         let textareaValue: string = designProperty.value;
