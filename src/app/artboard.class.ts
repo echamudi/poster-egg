@@ -126,7 +126,7 @@ export class ArtboardClass {
 
         if(text) {
             // Escape HTMLs and change new line in input to <br> in output
-            replace = createTextVersion(replace.replace(/\r\n|\r|\n/g, "[[BR]]")).replace(/\[\[BR\]\]/g, "<br>")
+            replace = createTextVersion(replace.replace(/\n|<br>/g, "[[BR]]")).replace(/\[\[BR\]\]/g, "<br>")
             replace = tool.detectRTL(createTextVersion(replace)) ? `<span dir="rtl">${replace}</span>` : replace;
         }
 
