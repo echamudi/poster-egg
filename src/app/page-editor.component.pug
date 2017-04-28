@@ -28,7 +28,7 @@ modal
                     *ngIf="designProperty.input === 'text'", 
                     type='text', 
                     [attr.designPropertyBinder]="designProperty._objectKey", 
-                    (keyup)='onInputChange($event)',
+                    (keyup)='onInputChange($event); textareaResize($event.target)',
                     (keydown)='textareaResize($event.target)',
                     ) {{ textareaProcess(designProperty) }}
 
