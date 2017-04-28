@@ -19,7 +19,7 @@ modal
         #artboardContainer(artboardContainer="", (init)="alert('tom')", [innerHTML]="artboard.output | safe: 'html'")
     .editor-sidebar
         .editor-tools
-            div(*ngIf="!browserSupport")
+            div
                 browser-support
             div.form-group(*ngFor='let designProperty of designPropertiesArray')
                 label(*ngIf="designProperty.label") {{ designProperty.label[translate.currentLang] }}

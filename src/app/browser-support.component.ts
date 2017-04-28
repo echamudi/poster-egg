@@ -1,8 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RendererService } from './renderer.service';
 
 @Component({
     moduleId: module.id,
     selector: 'browser-support',
-    templateUrl: './app/browser-support.component.html'
+    templateUrl: './app/browser-support.component.html',
+        providers: [ 
+        RendererService, 
+        ]
+
 })
-export class BrowserSupportComponent {}
+export class BrowserSupportComponent {
+
+    // Assume current browser is supported (true)
+    private browserSupport: boolean = true;
+
+    constructor(
+        private rendererService: RendererService
+    ) {}
+
+    ngOnInit() {
+
+        // Check if user's browser can render HTML, mainly for detecting Safari
+        this.rendererService.renderTest().then((value) => { this.browserSupport = value; });
+
+    }
+}
