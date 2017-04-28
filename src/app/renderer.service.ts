@@ -1,6 +1,7 @@
-import rasterizeHTML = require('rasterizehtml');
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
+
+import rasterizeHTML = require('rasterizehtml');
 
 @Injectable()
 export class RendererService {
@@ -14,13 +15,11 @@ export class RendererService {
 
     public setHeight(height: number): this {
         this.height = height + "px";
-
         return this
     }
 
     public setWidth(width: number): this {
         this.width = width + "px";
-
         return this
     }
 
@@ -52,7 +51,7 @@ export class RendererService {
     public renderTest(): Promise<any> {
         
         if (this.storageService.hasData('renderSupport')) {
-            console.log('Render Test: From Storage')
+            // console.log('Render Test: From Storage')
             return Promise.resolve(this.storageService.getData('renderSupport'));
         }
 
@@ -63,13 +62,13 @@ export class RendererService {
         return Promise.resolve(rasterizeHTML.drawHTML(this.rawMaterial, canvasEl)
             .then(() => {
                 try {
-                    console.log('Render Test: Success')
+                    // console.log('Render Test: Success')
                     canvasEl.toDataURL();
                     this.storageService.setData('renderSupport', true);
                     return true;
                 }
                 catch(e) {
-                    console.log('Render Test: Failed to render')
+                    // console.log('Render Test: Failed to render')
                     this.storageService.setData('renderSupport', false);
                     return false;
                 }
