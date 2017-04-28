@@ -1,9 +1,16 @@
 import rasterizeHTML = require('rasterizehtml');
+import { Injectable } from '@angular/core';
+import { StorageService } from './storage.service';
 
+@Injectable()
 export class RendererClass {
     private rawMaterial: string;
     private width: string;
     private height: string;
+
+    constructor(
+        private storageService: StorageService
+    ) { }
 
     public setHeight(height: number): this {
         this.height = height + "px";
@@ -43,6 +50,12 @@ export class RendererClass {
 
     // Test render 
     public renderTest(): Promise<any> {
+        
+        if (this.storageService.hasData('renderSupport')) {
+            console.log('Render Test: From Storage')
+            return Promise.resolve(this.storageService.getData('renderSupport'));
+        }
+
         let canvasEl = document.createElement('canvas');
         canvasEl.setAttribute("width", '10px');
         canvasEl.setAttribute("height", '10px');
@@ -50,11 +63,14 @@ export class RendererClass {
         return Promise.resolve(rasterizeHTML.drawHTML(this.rawMaterial, canvasEl)
             .then(() => {
                 try {
+                    console.log('Render Test: Success')
                     canvasEl.toDataURL();
+                    this.storageService.setData('renderSupport', true);
                     return true;
                 }
                 catch(e) {
-                    console.log('Failed to render')
+                    console.log('Render Test: Failed to render')
+                    this.storageService.setData('renderSupport', false);
                     return false;
                 }
             }));

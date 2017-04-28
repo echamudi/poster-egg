@@ -12,6 +12,9 @@ import { RendererClass } from './renderer.class';
     selector: 'page-done',
     templateUrl: './app/page-done.component.html',
     styleUrls: ['./app/page-done.component.css'],
+    providers: [
+        RendererClass
+    ]
 })
 export class PageDoneComponent {
     private artboard: any;
@@ -25,6 +28,7 @@ export class PageDoneComponent {
 
     constructor(
         private storageService: StorageService,
+        private rendererClass: RendererClass,
         private router: Router,
         private location: Location
     ) { }
@@ -52,9 +56,7 @@ export class PageDoneComponent {
         let aElement = document.createElement('a');
         let dataURL: string;
 
-        let renderer = new RendererClass();
-
-        renderer
+        this.rendererClass
             .setWidth(this.artboard.getWidth())
             .setHeight(this.artboard.getHeight())
             .setRawMaterial(this.artboard.getOutput())

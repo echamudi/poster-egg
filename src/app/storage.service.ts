@@ -13,6 +13,10 @@ export class StorageService {
         delete this.data[key];
     }
 
+    hasData(key: string): boolean {
+        return this.data.hasOwnProperty(key);
+    }
+
     setData(key: string, data: any): void {
         this.data[key] = data;
     }

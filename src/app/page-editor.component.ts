@@ -28,7 +28,10 @@ let createTextVersion = require("textversionjs");
     selector: 'page-editor',
     templateUrl: './app/page-editor.component.html',
     styleUrls: ['./app/page-editor.component.css'],
-    providers: [ PostmanService ],
+    providers: [ 
+        PostmanService, 
+        RendererClass 
+        ],
     host: {
         '(window:resize)': 'onWindowResize()'
     }
@@ -73,6 +76,7 @@ export class PageEditorComponent {
     constructor(
         private storageService: StorageService,
         private postmanService: PostmanService, 
+        private rendererClass: RendererClass,
         private route: ActivatedRoute,
         private router: Router,
         private translate: TranslateService
@@ -81,7 +85,7 @@ export class PageEditorComponent {
     ngOnInit() {
 
         // Check if user's browser can render HTML, mainly for detecting Safari
-        RendererClass.prototype.renderTest().then((value) => { this.browserSupport = value; });
+        this.rendererClass.renderTest().then((value) => { this.browserSupport = value; });
 
         this.hasChanges = this.storageService.getData('hasChanges');
 

@@ -10,8 +10,10 @@ import { RendererClass } from './renderer.class';
     selector: 'app-page-home',
     templateUrl: './app/page-home.component.html',
     styleUrls: ['./app/page-home.component.css'],
-    providers: [PostmanService]
-
+    providers: [ 
+        PostmanService, 
+        RendererClass 
+        ]
 })
 export class PageHomeComponent {
 
@@ -22,6 +24,7 @@ export class PageHomeComponent {
     
     constructor(
         private postmanService: PostmanService, 
+        private rendererClass: RendererClass,
         private translate: TranslateService
         ) {}
 
@@ -31,7 +34,7 @@ export class PageHomeComponent {
         });
 
         // Check if user's browser can render HTML, mainly for detecting Safari
-        RendererClass.prototype.renderTest().then((value) => { this.browserSupport = value; });
+        this.rendererClass.renderTest().then((value) => { this.browserSupport = value; });
     }
 
     getDesignThumbnail(designID : string) : string {
