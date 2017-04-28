@@ -37,12 +37,16 @@ export function objToArray(obj: any) {
  * Detect if a string RTL
  */
 export function detectRTL(text: string) {
-      var rtlChar = /[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg;
-      
-      var totalRTL = text.match(rtlChar) ? text.match(rtlChar).length : 0;
-      var totalLTR = text.length - totalRTL;
-      
-      var ratio = totalRTL / totalLTR;
-      
-      return ratio >= 1 ? true : false;
+    
+    // don't count spaces and new line
+    text = text.replace(/[\n ]/g, "");
+
+    var rtlChar = /[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg;
+    
+    var totalRTL = text.match(rtlChar) ? text.match(rtlChar).length : 0;
+    var totalLTR = text.length - totalRTL;
+    
+    var ratio = totalRTL / totalLTR;
+    
+    return ratio >= 1 ? true : false;
 }
