@@ -4,6 +4,8 @@ import * as tool from './tools';
 
 import { config } from '../config';
 
+let createTextVersion = require("textversionjs");
+
 export class ArtboardClass {
     
     // templateRaw is the exact html template taken from posty-poster-data
@@ -119,10 +121,14 @@ export class ArtboardClass {
         return this;
     }
 
-    public drawSingle(key: string, replace: string, rtlize?: boolean): this {
+    public drawSingle(key: string, replace: string, text?: boolean): this {
         let regex = new RegExp(`\\[\\[%#-->\\[${key}]{([^]*?)}<--#%]]`,"g");
 
-        replace = rtlize ? `<span dir="rtl">${replace}</span>` : replace;
+        if(text) {
+            // Escape HTMLs and change new line in input to <br> in output
+            replace = createTextVersion(replace.replace(/\r\n|\r|\n/g, "[[BR]]")).replace(/\[\[BR\]\]/g, "<br>")
+            replace = tool.detectRTL(createTextVersion(replace)) ? `<span dir="rtl">${replace}</span>` : replace;
+        }
 
         this.templateEnclosed = this.templateEnclosed.replace(
             regex, 
@@ -143,8 +149,8 @@ export class ArtboardClass {
             .map(key => {
 
                 // If it's a text input and RTL, capsulize the text with span rtl.
-                if(designProperties[key].input == "text" && tool.detectRTL(designProperties[key].value)) {
-                    this.drawSingle(key, '<span dir="rtl">' + designProperties[key].value + '</span>');
+                if(designProperties[key].input == "text") {
+                    this.drawSingle(key, designProperties[key].value, true);
                 } else {
                     this.drawSingle(key, designProperties[key].value);
                 }
