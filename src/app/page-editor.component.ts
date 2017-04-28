@@ -10,11 +10,11 @@ import { ModalComponent } from './modal.component';
 
 import { ArtboardClass } from './artboard.class';
 import { BitmapperClass } from './bitmapper.class';
+import { DataDesignProcessorClass } from './data-design-processor.class';
 
 import { DesignProperty, DesignProperties } from './interfaces';
 import { config } from '../config';
 import { Observable, ObservableInput } from 'rxjs/Observable';
-
 
 import * as tool from './tools';
 
@@ -62,9 +62,6 @@ export class PageEditorComponent {
     public loadingThings: any = {};
     public somethingIsLoading: boolean = false;
 
-    public dataDesign: any;
-    public dataDesignParent: any;
-
     // Modal for changing router confirmation
     @ViewChild(ModalComponent)
     public modal: ModalComponent;
@@ -85,6 +82,8 @@ export class PageEditorComponent {
 
         this.setLoading('webfont');
 
+        let dataDesignProcessor = new DataDesignProcessorClass();
+
         // getting params from url
         this.route.params
             .takeWhile(() => this.alive)
@@ -94,85 +93,30 @@ export class PageEditorComponent {
 
             // Check the first json, if it needs to extend, we'll request again, if not, done.
             .takeWhile((value) => {
+                dataDesignProcessor.setDataDesignChild(value);
 
-                this.dataDesign = value;
-
-                // Data Design array format
-                // dataDesign[0] --> json
-                // dataDesign[1] --> html
-                // dataDesign[2] --> css
-
-                if(this.dataDesign[0].hasOwnProperty('extends')) {
+                if(dataDesignProcessor.getChildWantsExtend()) {
                     return true;
                 } else {
-                    this.initiateArtboard(this.dataDesign);
+                    this.initiateArtboard(dataDesignProcessor.getDataDesignChild());
                     return false;
                 }
             })
-            .concatMap((): ObservableInput<{}> => {
-                return this.postmanService.getDesign(this.dataDesign[0].extends.packID, this.dataDesign[0].extends.designID, true, true);
+            .concatMap((): ObservableInput<any[]> => {
+                return this.postmanService.getDesign(
+                    dataDesignProcessor.getParentID().packID, 
+                    dataDesignProcessor.getParentID().designID, 
+                    true, 
+                    true);
             })
             .subscribe(value => {                
-                this.dataDesignParent = value;
-                this.initiateArtboard(this.mergeDataDesigns(this.dataDesignParent, this.dataDesign));
+                dataDesignProcessor.setDataDesignParent(value);
+                this.initiateArtboard(dataDesignProcessor.merge().getDataDesignMerged());
             });
     }
 
-    mergeDataDesigns(dataDesignParent: any, dataDesignChild: any): any {
-        let dataDesignMerged: any = [];
-
-        // Check if the child wants to extends HTML (no merge)
-        switch(dataDesignChild[0].extends.mergeBehaviour.html) {
-            case "use-parent":
-                dataDesignMerged[1] = dataDesignParent[1];
-                break;
-            case "use-child":
-            default:
-                dataDesignMerged[1] = dataDesignChild[1];
-                break;
-        }
-
-        // Check if the child wants to extends CSS,
-        switch(dataDesignChild[0].extends.mergeBehaviour.css) {
-            case "use-parent":
-                dataDesignMerged[2] = dataDesignParent[2];
-                break;
-            case "parent-then-child":
-                dataDesignMerged[2] = dataDesignParent[2] + dataDesignChild[2];
-                break;
-            case "child-then-parent":
-                dataDesignMerged[2] = dataDesignChild[2] + dataDesignParent[2];
-                break;
-            case "use-child":
-            default:
-                dataDesignMerged[2] = dataDesignChild[2];
-                break;
-        }
-
-        // Clone the child json to the merged json
-        dataDesignMerged[0] = Object.assign({}, dataDesignChild[0]);
-
-        // If the child json doesn't have fonts and size, we will take them from parent json
-        dataDesignMerged[0].fonts = dataDesignMerged[0].fonts ? dataDesignMerged[0].fonts : dataDesignParent[0].fonts;
-        dataDesignMerged[0].size = dataDesignMerged[0].size ? dataDesignMerged[0].size : dataDesignParent[0].size;
-
-        // Merging designProperties
-        // This merging designed to merge properties that already exist in parent,
-        // dataDesignChild shouldn't add new property that isn't defined in dataDesignParent
-        dataDesignMerged[0].designProperties = dataDesignParent[0].designProperties;
-        Object.keys(dataDesignChild[0].designProperties).forEach((key) => {
-            dataDesignMerged[0].designProperties[key] = Object.assign(
-                {}, 
-                dataDesignParent[0].designProperties[key],
-                dataDesignChild[0].designProperties[key]
-                );
-        });
-
-        return dataDesignMerged;
-    }
-
     // Initiate Artboard, use the return of postmanService.getDesign() as parameter
-    initiateArtboard(dataDesign: any) {
+    private initiateArtboard(dataDesign: any) {
 
         // extract data from the postmanService.getDesign() promise
         this.designFonts = dataDesign[0].fonts;
