@@ -3,8 +3,13 @@
  * Source : https://forum.ionicframework.com/t/inserting-html-via-angular-2-use-of-domsanitizationservice-bypasssecuritytrusthtml/62562
  */
 
-import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { SafeScript } from '@angular/platform-browser';
+import { SafeStyle } from '@angular/platform-browser';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Pipe({
 	name: 'safe'

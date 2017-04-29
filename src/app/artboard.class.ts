@@ -1,8 +1,7 @@
+import { config } from '../config';
 import { DesignProperties } from './interfaces';
 
 import * as tool from './tools';
-
-import { config } from '../config';
 
 let createTextVersion = require("textversionjs");
 

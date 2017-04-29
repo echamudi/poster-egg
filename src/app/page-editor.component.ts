@@ -12,9 +12,13 @@ import { ArtboardClass } from './artboard.class';
 import { BitmapperClass } from './bitmapper.class';
 import { DataDesignProcessorClass } from './data-design-processor.class';
 
-import { DesignProperty, DesignProperties } from './interfaces';
 import { config } from '../config';
-import { Observable, ObservableInput } from 'rxjs/Observable';
+
+import { DesignProperties } from './interfaces';
+import { DesignProperty } from './interfaces';
+
+import { Observable } from 'rxjs/Observable';
+import { ObservableInput } from 'rxjs/Observable';
 
 import * as tool from './tools';
 

@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { StorageService } from './storage.service';
+import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { ModalComponent } from './modal.component';
+import { ViewChild } from '@angular/core';
 
 import { RendererService } from './renderer.service';
+import { StorageService } from './storage.service';
+
+import { ModalComponent } from './modal.component';
 
 @Component({
     moduleId: module.id,

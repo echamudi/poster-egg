@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
-import { StorageService } from './storage.service';
+
 import { PostmanService } from './postman.service';
+import { StorageService } from './storage.service';
 
 @Component({
     moduleId: module.id,

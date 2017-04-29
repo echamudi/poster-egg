@@ -1,24 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
+import { HashLocationStrategy } from '@angular/common';
+import { Http } from '@angular/http';
+import { HttpModule } from '@angular/http';
+import { Location } from '@angular/common';
+import { LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HashLocationStrategy, Location, LocationStrategy } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
+
+import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { StorageService } from './storage.service';
 
-import { ModalComponent } from './modal.component';
-import { PageEditorComponent } from './page-editor.component';
-import { PageDoneComponent } from './page-done.component';
-import { PageHomeComponent } from './page-home.component';
-import { RootComponent } from './root.component';
-import { BrowserSupportComponent } from './browser-support.component';
-
 import { SafePipe } from './safe.pipe';
 import { TitleizePipe } from "./titleize.pipe";
+
+import { BrowserSupportComponent } from './browser-support.component';
+import { ModalComponent } from './modal.component';
+import { PageDoneComponent } from './page-done.component';
+import { PageEditorComponent } from './page-editor.component';
+import { PageHomeComponent } from './page-home.component';
+import { RootComponent } from './root.component';
 
 import * as translate from './translate.functions';
 

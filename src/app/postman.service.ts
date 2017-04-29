@@ -2,16 +2,21 @@
  * Postman is one stop service for requesting things, including design lists, and design templates. 📸 🖨 🎆
  */
 
+import { config } from '../config';
+
+import { DesignProperties } from './interfaces';
+import { DesignProperty } from './interfaces';
+
+import { Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Rx';
+
 import { ArtboardClass } from './artboard.class';
 
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/toPromise';
-
-import { DesignProperty, DesignProperties } from './interfaces';
-
-import { config } from '../config';
 import * as tool from './tools';
 
 @Injectable()

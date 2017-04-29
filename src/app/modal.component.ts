@@ -1,5 +1,8 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { ViewEncapsulation } from '@angular/core';
 
 import * as tool from './tools';
 
