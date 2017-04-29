@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RendererService } from './renderer.service';
+import { StorageService } from './storage.service';
 
 @Component({
     moduleId: module.id,
@@ -16,13 +17,16 @@ export class BrowserSupportComponent {
     private browserSupport: boolean = true;
 
     constructor(
-        private rendererService: RendererService
+        private rendererService: RendererService,
+        private storageService: StorageService
     ) {}
 
     ngOnInit() {
-
-        // Check if user's browser can render HTML, mainly for detecting Safari
-        this.rendererService.renderTest().then((value) => { this.browserSupport = value; });
-
+        if(this.storageService.hasData('renderSupport')) {
+            this.browserSupport = this.storageService.getData('renderSupport');
+        } else {
+            // Check if user's browser can render HTML, mainly for detecting Safari
+            this.rendererService.renderTest().then((value) => { this.browserSupport = value; });
+        }
     }
 }
