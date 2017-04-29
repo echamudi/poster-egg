@@ -23,7 +23,7 @@ export class RendererService {
         return this
     }
 
-    public setRawMaterial (rawMaterial: string): this {
+    public setRawMaterial(rawMaterial: string): this {
         this.rawMaterial = rawMaterial;
         return this;
     }
@@ -40,7 +40,7 @@ export class RendererService {
                     let dataURL = canvasEl.toDataURL();
                     return dataURL;
                 }
-                catch(e) {
+                catch (e) {
                     console.log('Failed to render')
                     return 'error image src';
                 }
@@ -49,7 +49,7 @@ export class RendererService {
 
     // Test render 
     public renderTest(): Promise<any> {
-        
+
         if (this.storageService.hasData('renderSupport')) {
             // console.log('Render Test: From Storage')
             return Promise.resolve(this.storageService.getData('renderSupport'));
@@ -67,7 +67,7 @@ export class RendererService {
                     this.storageService.setData('renderSupport', true);
                     return true;
                 }
-                catch(e) {
+                catch (e) {
                     // console.log('Render Test: Failed to render')
                     this.storageService.setData('renderSupport', false);
                     return false;

@@ -23,7 +23,7 @@ export class BitmapperClass {
     public setImage(imageURI: string): this {
         this.observerable = this.observerable.concatMap((value: string) => Observable.create((observer: Subject<any>) => {
             this.originalImage = imageURI;
-            
+
             // For initial point processedImage is the same as the original;
             this.processedImage = this.originalImage;
 
@@ -37,7 +37,7 @@ export class BitmapperClass {
     // Resize and stretch image
     // public resizeImage(width: number, height: number): this {
     //     this.observerable = this.observerable.concatMap((value: string) => Observable.create((observer: Subject<any>) => {
-            
+
     //         var img = new Image();
     //         img.src = this.processedImage;
 
@@ -65,15 +65,15 @@ export class BitmapperClass {
     // resize by limiting the px and keeping image ratio
     public resizeLimitPx(targetPixels: number): this {
         this.observerable = this.observerable.concatMap((value: string) => Observable.create((observer: Subject<any>) => {
-            
+
             var img = new Image();
             img.src = this.processedImage;
 
-            img.onload =  () => {
+            img.onload = () => {
                 // Original pxls
                 let totalPxOriginal = img.width * img.height;
 
-                if(totalPxOriginal < targetPixels) {
+                if (totalPxOriginal < targetPixels) {
                     console.log(`Not Compressed`);
                     observer.next();
                     observer.complete();
@@ -115,7 +115,7 @@ export class BitmapperClass {
 
     //         var img = new Image();
     //         img.src = this.processedImage;
-            
+
     //         img.onload =  () => {
     //             var canvas = document.createElement('canvas');
     //             var ctx = canvas.getContext('2d');

@@ -46,7 +46,7 @@ export class PageDoneComponent {
 
         } else {
             let today = new Date();
-            
+
             this.fileName = `postyposter.com_${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.png`;
             this.render();
         }
@@ -73,7 +73,7 @@ export class PageDoneComponent {
     }
 
     exit() {
-        if(!this.hasBeenDownloaded) {
+        if (!this.hasBeenDownloaded) {
             this.exitAlert();
         } else {
             this.exitForce();

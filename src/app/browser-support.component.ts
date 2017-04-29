@@ -6,9 +6,9 @@ import { StorageService } from './storage.service';
     moduleId: module.id,
     selector: 'browser-support',
     templateUrl: './app/browser-support.component.html',
-        providers: [ 
-        RendererService, 
-        ]
+    providers: [
+        RendererService,
+    ]
 
 })
 export class BrowserSupportComponent {
@@ -19,10 +19,10 @@ export class BrowserSupportComponent {
     constructor(
         private rendererService: RendererService,
         private storageService: StorageService
-    ) {}
+    ) { }
 
     ngOnInit() {
-        if(this.storageService.hasData('renderSupport')) {
+        if (this.storageService.hasData('renderSupport')) {
             this.browserSupport = this.storageService.getData('renderSupport');
         } else {
             // Check if user's browser can render HTML, mainly for detecting Safari

@@ -27,15 +27,15 @@ let createTextVersion = require("textversionjs");
     selector: 'page-editor',
     templateUrl: './app/page-editor.component.html',
     styleUrls: ['./app/page-editor.component.css'],
-    providers: [ 
+    providers: [
         PostmanService
-        ],
+    ],
     host: {
         '(window:resize)': 'onWindowResize()'
     }
 })
 export class PageEditorComponent {
-    
+
     private designProperties: DesignProperties;
 
     // Array version of designProperties, cause we need it to be looped in template later
@@ -68,7 +68,7 @@ export class PageEditorComponent {
 
     constructor(
         private storageService: StorageService,
-        private postmanService: PostmanService, 
+        private postmanService: PostmanService,
         private route: ActivatedRoute,
         private router: Router,
         private translate: TranslateService
@@ -95,7 +95,7 @@ export class PageEditorComponent {
             .takeWhile((value) => {
                 dataDesignProcessor.setDataDesignChild(value);
 
-                if(dataDesignProcessor.getChildWantsExtend()) {
+                if (dataDesignProcessor.getChildWantsExtend()) {
                     return true;
                 } else {
                     this.initiateArtboard(dataDesignProcessor.getDataDesignChild());
@@ -104,12 +104,12 @@ export class PageEditorComponent {
             })
             .concatMap((): ObservableInput<any[]> => {
                 return this.postmanService.getDesign(
-                    dataDesignProcessor.getParentID().packID, 
-                    dataDesignProcessor.getParentID().designID, 
-                    true, 
+                    dataDesignProcessor.getParentID().packID,
+                    dataDesignProcessor.getParentID().designID,
+                    true,
                     true);
             })
-            .subscribe(value => {                
+            .subscribe(value => {
                 dataDesignProcessor.setDataDesignParent(value);
                 this.initiateArtboard(dataDesignProcessor.merge().getDataDesignMerged());
             });
@@ -125,7 +125,7 @@ export class PageEditorComponent {
         this.designStyle = dataDesign[2];
 
         // Check if the user is reediting (coming back from page-done)
-        if(this.storageService.getData('designProperties')) {
+        if (this.storageService.getData('designProperties')) {
             this.designProperties = this.storageService.getData('designProperties');
             this.storageService.deleteData('designProperties');
         } else {
@@ -135,13 +135,13 @@ export class PageEditorComponent {
         // Webfontloader configuration
         let webFontConfig: any = {
             classes: true,
-            active: () => { 
+            active: () => {
                 this.unsetLoading('webfont');
             },
         };
 
         // Add google property if design data json has google font
-        if(this.designFonts.google) {
+        if (this.designFonts.google) {
             webFontConfig.google = {
                 families: this.designFonts.google
             }
@@ -153,7 +153,7 @@ export class PageEditorComponent {
         Object
             .keys(this.designProperties)
             .map(key => {
-                if(typeof this.designProperties[key].value == "string" && this.designProperties[key].value.match(/__designDataUrl__/g)) {
+                if (typeof this.designProperties[key].value == "string" && this.designProperties[key].value.match(/__designDataUrl__/g)) {
                     this.designProperties[key].value = this.designProperties[key].value.replace(/__designDataUrl__/g, config.designDataApi);
                 }
             });
@@ -174,12 +174,12 @@ export class PageEditorComponent {
     }
 
     // Add key to loadingthings, a list that shows something (a key) is still loading;
-    setLoading(key: string):void {
+    setLoading(key: string): void {
         this.loadingThings[key] = true;
         this.somethingIsLoading = true;
     }
 
-    unsetLoading(key: string):void {
+    unsetLoading(key: string): void {
         delete this.loadingThings[key];
 
         // If there's no more thing in this.loadingThings, make somethingIsLoading false. It will hide the spinner
@@ -187,23 +187,23 @@ export class PageEditorComponent {
     }
 
     textareaFitter(arg: HTMLTextAreaElement) {
-        
+
         // textarea dir rtl if its value is rtl
-        if(tool.detectRTL(arg.value)) {
+        if (tool.detectRTL(arg.value)) {
             arg.setAttribute('dir', 'rtl')
         } else {
             arg.setAttribute('dir', 'ltr')
         }
-        
+
         // resize text area based on its height 
         arg.style.height = "auto";
         arg.style.height = arg.scrollHeight + 20 + 'px';
     }
-    
+
     textareaProcess(designProperty: DesignProperty): string {
 
         // Resize textarea initially, before any input in sidebar is touched
-        if(!this.inputTouched) {
+        if (!this.inputTouched) {
             let textAreaElement: any = document.querySelector(`textarea[designpropertybinder="${designProperty._objectKey}"]`);
 
             this.textareaFitter(textAreaElement);
@@ -219,18 +219,18 @@ export class PageEditorComponent {
 
     // For textarea and range
     onInputChange(arg: any) {
-  
+
         // Prevent exiting this page, turn on guard
         this.hasChanges = true;
 
         // Get designPropertyBinder from the text input and its value for designProperties
         let key = arg.target.getAttribute('designPropertyBinder');
-    
+
         // Put the value to designProperties
         this.designProperties[key].value = arg.target.value;
 
         // If it's from textarea input
-        if(arg.target.tagName == "TEXTAREA") {
+        if (arg.target.tagName == "TEXTAREA") {
             this.artboard.drawSingle(key, this.designProperties[key].value, true);
         } else {
             this.artboard.drawSingle(key, this.designProperties[key].value);
@@ -258,7 +258,7 @@ export class PageEditorComponent {
 
             // If reading data successfuly loads picture
             reader.onload = (e: any) => {
-                
+
                 // Resize the image
 
                 let bitmapper = new BitmapperClass();
@@ -270,7 +270,7 @@ export class PageEditorComponent {
                         this.unsetLoading('processingFileInput');
 
                         this.designProperties[key].value = processedImage;
-                        
+
                         this.inputTouched = true;
                         this.artboard.drawSingle(key, this.designProperties[key].value);
                     })
@@ -293,9 +293,9 @@ export class PageEditorComponent {
             head link[href^="http://fonts.googleapis.com"]:not(#mainfont), 
             head link[href^="https://fonts.googleapis.com"]:not(#mainfont)
             `).forEach(
-                (el: any) => el.parentNode.removeChild(el)
+            (el: any) => el.parentNode.removeChild(el)
             );
-        
+
         // Remove 2px border
         toBeRendered = `<style>#artboard { border: none !important; } </style>` + toBeRendered;
 
@@ -303,7 +303,7 @@ export class PageEditorComponent {
 
         // Save hasChanges universally, incase the user goes back from the final page
         this.storageService.setData('hasChanges', this.hasChanges)
-        
+
         // Save has Changes to universal storage
         this.storageService.setData('artboard', this.artboard);
 

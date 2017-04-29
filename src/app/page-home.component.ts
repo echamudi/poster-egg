@@ -9,18 +9,18 @@ import { PostmanService } from './postman.service';
     selector: 'app-page-home',
     templateUrl: './app/page-home.component.html',
     styleUrls: ['./app/page-home.component.css'],
-    providers: [ 
-        PostmanService, 
-        ]
+    providers: [
+        PostmanService,
+    ]
 })
 export class PageHomeComponent {
 
     private packs: any[];
-    
+
     constructor(
-        private postmanService: PostmanService, 
+        private postmanService: PostmanService,
         private translate: TranslateService
-        ) {}
+    ) { }
 
     ngOnInit() {
         this.postmanService.getAllPacks().then(data => {
@@ -28,7 +28,7 @@ export class PageHomeComponent {
         });
     }
 
-    getDesignThumbnail(designID : string) : string {
+    getDesignThumbnail(designID: string): string {
         return this.postmanService.getDesignThumbnail(designID);
     }
 }

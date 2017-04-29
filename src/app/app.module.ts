@@ -24,7 +24,7 @@ import * as translate from './translate.functions';
 
 @NgModule({
     imports: [
-        BrowserModule, 
+        BrowserModule,
         HttpModule,
         TranslateModule.forRoot({
             loader: {
@@ -37,8 +37,8 @@ import * as translate from './translate.functions';
         FormsModule
     ],
     declarations: [
-        RootComponent, 
-        PageHomeComponent, 
+        RootComponent,
+        PageHomeComponent,
         PageEditorComponent,
         BrowserSupportComponent,
         PageDoneComponent,
@@ -52,7 +52,7 @@ import * as translate from './translate.functions';
     providers: [
         StorageService,
         {
-            provide: LocationStrategy, 
+            provide: LocationStrategy,
             useClass: HashLocationStrategy
         }
     ]

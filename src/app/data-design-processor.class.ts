@@ -4,11 +4,11 @@ export class DataDesignProcessorClass {
     // dataDesign[0] --> json
     // dataDesign[1] --> html
     // dataDesign[2] --> css
-    
+
     private dataDesignChild: any[];
     private dataDesignParent: any[];
     private dataDesignMerged: any[];
-    
+
     constructor() { }
 
     public setDataDesignParent(dataDesign: any[]): this {
@@ -31,7 +31,7 @@ export class DataDesignProcessorClass {
             designID: this.dataDesignChild[0].extends.designID
         };
     }
-    
+
     public getDataDesignMerged() {
         return this.dataDesignMerged;
     }
@@ -44,7 +44,7 @@ export class DataDesignProcessorClass {
         let dataDesignMerged: any[] = [];
 
         // Check if the child wants to extends HTML (no merge)
-        switch(this.dataDesignChild[0].extends.mergeBehaviour.html) {
+        switch (this.dataDesignChild[0].extends.mergeBehaviour.html) {
             case "use-parent":
                 dataDesignMerged[1] = this.dataDesignParent[1];
                 break;
@@ -55,7 +55,7 @@ export class DataDesignProcessorClass {
         }
 
         // Check if the child wants to extends CSS,
-        switch(this.dataDesignChild[0].extends.mergeBehaviour.css) {
+        switch (this.dataDesignChild[0].extends.mergeBehaviour.css) {
             case "use-parent":
                 dataDesignMerged[2] = this.dataDesignParent[2];
                 break;
@@ -84,10 +84,10 @@ export class DataDesignProcessorClass {
         dataDesignMerged[0].designProperties = this.dataDesignParent[0].designProperties;
         Object.keys(this.dataDesignChild[0].designProperties).forEach((key) => {
             dataDesignMerged[0].designProperties[key] = Object.assign(
-                {}, 
+                {},
                 this.dataDesignParent[0].designProperties[key],
                 this.dataDesignChild[0].designProperties[key]
-                );
+            );
         });
         this.dataDesignMerged = dataDesignMerged;
 

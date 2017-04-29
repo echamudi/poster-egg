@@ -7,7 +7,7 @@ import { config } from '../config';
 let createTextVersion = require("textversionjs");
 
 export class ArtboardClass {
-    
+
     // templateRaw is the exact html template taken from posty-poster-data
     private templateRaw: string;
 
@@ -122,26 +122,26 @@ export class ArtboardClass {
     }
 
     public drawSingle(key: string, replace: string, text?: boolean): this {
-        let regex = new RegExp(`\\[\\[%#-->\\[${key}]{([^]*?)}<--#%]]`,"g");
+        let regex = new RegExp(`\\[\\[%#-->\\[${key}]{([^]*?)}<--#%]]`, "g");
 
-        if(text) {
+        if (text) {
             // Escape HTMLs and change new line in input to <br> in output
             replace = createTextVersion(replace.replace(/\n|<br>/g, "[[BR]]")).replace(/\[\[BR\]\]/g, "<br>")
             replace = tool.detectRTL(createTextVersion(replace)) ? `<span dir="rtl">${replace}</span>` : replace;
         }
 
         this.templateEnclosed = this.templateEnclosed.replace(
-            regex, 
+            regex,
             `[[%#-->[${key}]{${replace}}<--#%]]`
-            );
+        );
 
-        
+
         this.output = this.templateEnclosed.replace(this.regex2, "$2");
         return this;
     }
 
     public drawAll(designProperties: DesignProperties): this {
-        
+
         // console.log(this.templateEnclosed);
 
         Object
@@ -149,7 +149,7 @@ export class ArtboardClass {
             .map(key => {
 
                 // If it's a text input and RTL, capsulize the text with span rtl.
-                if(designProperties[key].input == "text") {
+                if (designProperties[key].input == "text") {
                     this.drawSingle(key, designProperties[key].value, true);
                 } else {
                     this.drawSingle(key, designProperties[key].value);
