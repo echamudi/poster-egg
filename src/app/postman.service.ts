@@ -66,7 +66,7 @@ export class PostmanService {
         );
     }
 
-    getDesignThumbnail(designID: string): string {
-        return `${config.designDataApi}/design-assets/thumbnails/${designID}.png`;
+    getDesignThumbnail(packID: string, designID: string): string {
+        return `${config.designDataApi}/design-assets/thumbnails/${packID}.pack/${designID}.png`;
     }
 }

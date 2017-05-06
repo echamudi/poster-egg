@@ -18,7 +18,7 @@
                     .panel-heading {{ design.title[translate.currentLang] }}
                     .panel-body
                         img.img-responsive(
-                            [attr.src]="getDesignThumbnail(design.designID)", 
+                            [attr.src]="getDesignThumbnail(pack.packID, design.designID)", 
                             [routerLink]="['/editor', pack.packID, design.designID]",
                             (error)="$event.target.src = '/assets/no-preview.svg'")
                     .panel-footer

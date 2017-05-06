@@ -30,7 +30,7 @@ export class PageHomeComponent {
         });
     }
 
-    getDesignThumbnail(designID: string): string {
-        return this.postmanService.getDesignThumbnail(designID);
+    getDesignThumbnail(packID: string, designID: string): string {
+        return this.postmanService.getDesignThumbnail(packID, designID);
     }
 }
