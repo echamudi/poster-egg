@@ -7,7 +7,7 @@ modal
     .content-footer
         button.btn.btn-default(type='button', (click)='modal.hide()')  {{ "cancel" | translate | titleize }}
         .flex-1        
-        button.btn.btn-default(type='button', (click)='this.hasChanges = false', routerLink="/")  {{ "don't save" | translate | titleize }}
+        button.btn.btn-default(type='button', (click)='this.guard = false', routerLink="/")  {{ "don't save" | translate | titleize }}
         button.btn.btn-go(type='button', (click)='finalize()')  {{ "save" | translate | titleize }} ...
 .editor-container
     .editor-content

@@ -67,7 +67,7 @@ export class PageEditorComponent {
     private inputTouched: boolean = false;
 
     // For preventing changing router
-    public hasChanges: boolean = false;
+    public guard: boolean = false;
 
     // For loading spinner
     public loadingThings: any = {};
@@ -87,7 +87,7 @@ export class PageEditorComponent {
 
     ngOnInit() {
 
-        this.hasChanges = this.storageService.getData('hasChanges');
+        this.guard = this.storageService.getData('hasChanges');
 
         this.artboard = new ArtboardClass();
 
@@ -232,7 +232,7 @@ export class PageEditorComponent {
     onInputChange(arg: any) {
 
         // Prevent exiting this page, turn on guard
-        this.hasChanges = true;
+        this.guard = true;
 
         // Get designPropertyBinder from the text input and its value for designProperties
         let key = arg.target.getAttribute('designPropertyBinder');
@@ -256,7 +256,7 @@ export class PageEditorComponent {
         this.setLoading('processingFileInput');
 
         // Prevent exiting this page, turn on guard
-        this.hasChanges = true;
+        this.guard = true;
 
         // Get designPropertyBinder from the file input and its value for designProperties
         let key = arg.target.getAttribute('designPropertyBinder');
@@ -313,7 +313,7 @@ export class PageEditorComponent {
         this.artboard.setOutput(toBeRendered);
 
         // Save hasChanges universally, incase the user goes back from the final page
-        this.storageService.setData('hasChanges', this.hasChanges)
+        this.storageService.setData('hasChanges', this.guard)
 
         // Save has Changes to universal storage
         this.storageService.setData('artboard', this.artboard);
@@ -324,7 +324,7 @@ export class PageEditorComponent {
         // Go to renderer page
         this.router.navigate(['done']);
 
-        this.hasChanges = false;
+        this.guard = false;
     }
 
     scaleArtboard() {
