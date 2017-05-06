@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { PageEditorComponent } from './page-editor.component';
 
 @Injectable()
-export class UnsavedGuard implements CanDeactivate<PageEditorComponent> {
+export class PageEditorGuard implements CanDeactivate<PageEditorComponent> {
     canDeactivate(target: PageEditorComponent) {
         if (target.hasChanges) {
             target.modal.show();
