@@ -26,7 +26,7 @@ export class PageDoneComponent {
     private hasBeenDownloaded: boolean;
 
     // For page-done-guard
-    public guard: boolean = true;
+    public guard: boolean;
 
     @ViewChild(ModalComponent)
     public modal: ModalComponent;
@@ -39,6 +39,9 @@ export class PageDoneComponent {
     ) { }
 
     ngOnInit() {
+
+        // Only guard this page if user has touched the editor
+        this.guard = this.storageService.getData('hasChanges');
 
         this.artboard = this.storageService.getData('artboard');
         this.storageService.deleteData('artboard');
@@ -86,25 +89,17 @@ export class PageDoneComponent {
         this.guard = false;
     }
 
-    backAndEdit() {
+    back() {
         this.guard = false;
         this.location.back();
     }
-
-    downloadAndExit() {
-        this.download();
-        this.exit();
-    }
     
     exit() {
-        this.storageService.deleteData('hasChanges');
-        this.storageService.deleteData('designProperties');
+        if(!this.guard) {
+            this.storageService.deleteData('hasChanges');
+            this.storageService.deleteData('designProperties');
+        }
 
         this.router.navigate(['/']);
-    }
-
-    exitForce() {
-        this.guard = false;
-        this.exit();
     }
 }

@@ -67,7 +67,7 @@ export class PageEditorComponent {
     private inputTouched: boolean = false;
 
     // For preventing changing router
-    public guard: boolean = false;
+    public guard: boolean;
 
     // For loading spinner
     public loadingThings: any = {};

@@ -6,8 +6,8 @@ modal
     .content-footer
         button.btn.btn-default(type='button', (click)='modal.hide()') {{ "cancel" | translate | titleize }}
         .flex-1        
-        button.btn.btn-default(type='button', (click)="exitForce()") {{ "discard and exit" | translate | titleize }}
-        button.btn.btn-go(type='button', [ngClass]="{'disabled': !resultImgSrc}", (click)="downloadAndExit()") {{ "download and exit" | translate | titleize }}
+        button.btn.btn-default(type='button', (click)="this.guard = false; exit()") {{ "discard and exit" | translate | titleize }}
+        button.btn.btn-go(type='button', [ngClass]="{'disabled': !resultImgSrc}", (click)="download(); exit();") {{ "download and exit" | translate | titleize }}
 .container
     .row
         .col-lg-1.visible-lg-block
@@ -21,7 +21,7 @@ modal
             .panel.panel-default.panel-actions
                 .panel-body
                     a.btn.btn-go.btn-block([ngClass]="{'disabled': !resultImgSrc}", (click)="download()") {{ "download" | translate | titleize }}
-                    a.btn.btn-default.btn-block((click)="backAndEdit()") {{ "edit again" | translate | titleize }}
+                    a.btn.btn-default.btn-block((click)="back()") {{ "edit again" | translate | titleize }}
                     a.btn.btn-default.btn-block((click)="exit()") {{ "exit" | translate | titleize }}
                     p.ending-words {{ "Thanks for using Posty Poster." | translate }}        
         .col-lg-1.visible-lg-block
