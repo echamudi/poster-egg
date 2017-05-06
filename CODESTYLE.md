@@ -7,7 +7,7 @@ Under construction ...
 ### Import order
 
 1. Config
-1. Intervaces
+1. Interfaces
 1. Angular vendor
 1. Other vendors
 1. Modules
