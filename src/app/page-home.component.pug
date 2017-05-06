@@ -6,7 +6,11 @@
         .row
             .col-xs-12
                 browser-support
-    div(*ngIf="!packs") Loading...
+    div(*ngIf="!packs")
+        .row
+            .col-xs-12
+                .progress
+                    .progress-bar.progress-bar-striped.active(role='progressbar', style='width: 100%') Loading...
     div(*ngFor='let pack of packs')
         .row.pack-heading
             .col-xs-12
