@@ -25,8 +25,11 @@ export class PageDoneComponent {
 
     private hasBeenDownloaded: boolean;
 
+    // For page-done-guard
+    public guard: boolean = true;
+
     @ViewChild(ModalComponent)
-    private modal: ModalComponent;
+    public modal: ModalComponent;
 
     constructor(
         private storageService: StorageService,
@@ -38,18 +41,18 @@ export class PageDoneComponent {
     ngOnInit() {
 
         this.artboard = this.storageService.getData('artboard');
+        this.storageService.deleteData('artboard');
 
         if (!this.artboard) {
 
             // redirect to home if there's no artboard data
-            console.log('yer');
-
+            this.guard = false;
             this.router.navigate(['/']);
 
         } else {
             let today = new Date();
 
-            this.fileName = `postyposter.com_${today.getFullYear()}-${today.getMonth()}-${today.getDate()}.png`;
+            this.fileName = `postyposter.com_${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}.png`;
             this.render();
         }
     }
@@ -68,12 +71,6 @@ export class PageDoneComponent {
             });
     }
 
-    back() {
-        this.storageService.setData('backFromDone', true);
-
-        this.location.back();
-    }
-
     download() {
         let aElement = document.createElement('a');
 
@@ -86,7 +83,12 @@ export class PageDoneComponent {
         aElement.click();
         aElement.parentNode.removeChild(aElement);
 
-        this.hasBeenDownloaded = true;
+        this.guard = false;
+    }
+
+    backAndEdit() {
+        this.guard = false;
+        this.location.back();
     }
 
     downloadAndExit() {
@@ -95,22 +97,14 @@ export class PageDoneComponent {
     }
     
     exit() {
-        if (!this.hasBeenDownloaded) {
-            this.exitAlert();
-        } else {
-            this.exitForce();
-        }
-    }
-
-    exitAlert() {
-        this.modal.show();
-    }
-
-    exitForce() {
-        this.storageService.deleteData('artboard');
         this.storageService.deleteData('hasChanges');
         this.storageService.deleteData('designProperties');
 
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
+    }
+
+    exitForce() {
+        this.guard = false;
+        this.exit();
     }
 }

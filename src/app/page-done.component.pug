@@ -21,7 +21,7 @@ modal
             .panel.panel-default.panel-actions
                 .panel-body
                     a.btn.btn-go.btn-block([ngClass]="{'disabled': !resultImgSrc}", (click)="download()") {{ "download" | translate | titleize }}
-                    a.btn.btn-default.btn-block((click)="back()") {{ "edit again" | translate | titleize }}
+                    a.btn.btn-default.btn-block((click)="backAndEdit()") {{ "edit again" | translate | titleize }}
                     a.btn.btn-default.btn-block((click)="exit()") {{ "exit" | translate | titleize }}
                     p.ending-words {{ "Thanks for using Posty Poster." | translate }}        
         .col-lg-1.visible-lg-block

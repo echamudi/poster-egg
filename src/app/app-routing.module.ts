@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 
 import { PageEditorGuard } from './page-editor-guard.service';
+import { PageDoneGuard } from './page-done-guard.service';
 
 import { PageDoneComponent } from './page-done.component';
 import { PageEditorComponent } from './page-editor.component';
@@ -21,7 +22,8 @@ const routes: Routes = [
     },
     {
         path: 'done',
-        component: PageDoneComponent
+        component: PageDoneComponent,
+        canDeactivate: [PageDoneGuard]
     },
     {
         path: 'editor',
@@ -31,7 +33,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    providers: [PageEditorGuard],
+    providers: [PageEditorGuard, PageDoneGuard],
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
