@@ -1,24 +1,31 @@
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Component, ViewEncapsulation, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-
-import { PostmanService } from './postman.service';
-import { StorageService } from './storage.service';
-
-import { ModalComponent } from './modal.component';
-
-import { ArtboardClass } from './artboard.class';
-import { BitmapperClass } from './bitmapper.class';
-import { DataDesignProcessorClass } from './data-design-processor.class';
-
 import { config } from '../config';
 
 import { DesignProperties } from './interfaces';
 import { DesignProperty } from './interfaces';
 
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Params } from '@angular/router';
+import { Router } from '@angular/router';
+import { ViewChild } from '@angular/core';
+import { ViewEncapsulation } from '@angular/core';
+
+import { TranslateService } from '@ngx-translate/core';
+
 import { Observable } from 'rxjs/Observable';
 import { ObservableInput } from 'rxjs/Observable';
+
+import { PostmanService } from './postman.service';
+import { StorageService } from './storage.service';
+
+import { ArtboardClass } from './artboard.class';
+import { BitmapperClass } from './bitmapper.class';
+import { DataDesignProcessorClass } from './data-design-processor.class';
+
+import { ModalComponent } from './modal.component';
 
 import * as tool from './tools';
 
