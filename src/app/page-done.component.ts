@@ -74,26 +74,6 @@ export class PageDoneComponent {
         this.location.back();
     }
 
-    exit() {
-        if (!this.hasBeenDownloaded) {
-            this.exitAlert();
-        } else {
-            this.exitForce();
-        }
-    }
-
-    exitAlert() {
-        this.modal.show();
-    }
-
-    exitForce() {
-        this.storageService.deleteData('artboard');
-        this.storageService.deleteData('hasChanges');
-        this.storageService.deleteData('designProperties');
-
-        this.router.navigate(['']);
-    }
-
     download() {
         let aElement = document.createElement('a');
 
@@ -112,5 +92,25 @@ export class PageDoneComponent {
     downloadAndExit() {
         this.download();
         this.exit();
+    }
+    
+    exit() {
+        if (!this.hasBeenDownloaded) {
+            this.exitAlert();
+        } else {
+            this.exitForce();
+        }
+    }
+
+    exitAlert() {
+        this.modal.show();
+    }
+
+    exitForce() {
+        this.storageService.deleteData('artboard');
+        this.storageService.deleteData('hasChanges');
+        this.storageService.deleteData('designProperties');
+
+        this.router.navigate(['']);
     }
 }
