@@ -6,9 +6,15 @@
 let language: string = "en";
 let watermarkLabel: string = "postyposter.com";
 
-if (language == "id") {
-    watermarkLabel = "desainmu.com"
-}
+let idHostnames: string[] = [
+    "desainmu.com", 
+    "beta.desainmu.com"
+];
+
+if (idHostnames.indexOf(window.location.hostname) > -1) {
+        language = "id";
+        watermarkLabel = "desainmu.com"
+    }
 
 export const config = {
 
