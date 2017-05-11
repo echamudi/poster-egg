@@ -187,6 +187,9 @@ export class PageEditorComponent {
             .capsulize()
             .drawAll(this.designProperties)
 
+        // Replace URL in css and html
+        this.artboard.drawSingle('designDataUrl', config.designDataApi);
+
         this.scaleArtboard();
     }
 
