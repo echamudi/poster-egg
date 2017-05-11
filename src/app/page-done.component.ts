@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
@@ -27,6 +28,9 @@ export class PageDoneComponent {
 
     // For page-done-guard
     public guard: boolean;
+
+    // Flag, if it's true, designProperties will retain on destroy.
+    public dontDeleteData: boolean = false;
 
     @ViewChild(ModalComponent)
     public modal: ModalComponent;
@@ -91,15 +95,18 @@ export class PageDoneComponent {
 
     back() {
         this.guard = false;
+        this.dontDeleteData = true;
         this.location.back();
     }
     
     exit() {
-        if(!this.guard) {
+        this.router.navigate(['/']);
+    }
+
+    ngOnDestroy() {
+        if(!this.dontDeleteData) {
             this.storageService.deleteData('hasChanges');
             this.storageService.deleteData('designProperties');
         }
-
-        this.router.navigate(['/']);
     }
 }
