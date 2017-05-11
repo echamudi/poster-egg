@@ -25,7 +25,7 @@ const routes: Routes = [
         canDeactivate: [Guard]
     },
     {
-        path: 'editor',
+        path: '**',
         redirectTo: '/',
         pathMatch: 'full'
     }
