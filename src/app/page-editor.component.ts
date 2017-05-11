@@ -104,6 +104,12 @@ export class PageEditorComponent {
 
             // Check the first json, if it needs to extend, we'll request again, if not, done.
             .takeWhile((value) => {
+
+                // If design template json isn't found, go to home
+                if(!value[0]) {
+                    this.router.navigate(['/']);
+                }
+
                 dataDesignProcessor.setDataDesignChild(value);
 
                 if (dataDesignProcessor.getChildWantsExtend()) {
