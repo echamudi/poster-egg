@@ -44,7 +44,8 @@ export class PostmanService {
             // Get the json
             this.http.get(`${config.designDataApi}/design-packs/${packID}.pack/${designID}.template.json`)
                 .toPromise()
-                .then(res => res.json()),
+                .then(res => res.json())
+                .catch(res => null),
 
             // Get HTML if it's requested
             getHTML ?
