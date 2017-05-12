@@ -58,7 +58,6 @@
     "rasterizehtml": "^1.2.4",
     "rxjs": "^5.2.0",
     "textversionjs": "^1.0.2",
-    "webfontloader": "^1.6.27",
     "zone.js": "^0.8.5"
   }
 }

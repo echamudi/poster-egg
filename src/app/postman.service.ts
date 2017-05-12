@@ -14,6 +14,7 @@ import { Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
+import { Observer } from 'rxjs/Observer';
 
 import { ArtboardClass } from './artboard.class';
 
@@ -69,5 +70,58 @@ export class PostmanService {
 
     getDesignThumbnail(packID: string, designID: string): string {
         return `${config.designDataApi}/design-assets/thumbnails/${packID}.pack/${designID}.png`;
+    }
+
+    getGoogleFonts(fonts: string): Observable<any> {
+        let stylesheet: string;
+        let woffUrls: string[];
+
+        return this.http.get(`http://fonts.googleapis.com/css?family=${fonts}&amp;subset=arabic`)
+            .concatMap(value => { // value is the stylsheet from google font
+                stylesheet = value.text();
+
+                let woffs: any[] = value.text().match(/url\((.*?)\)/g);
+
+                woffs = woffs.map(member => member.slice(4, member.length - 1));
+                
+                woffUrls = woffs;
+
+                woffs = woffs.map(member => {
+                    return this.http
+                        .get(member, {responseType : 3})
+                        .toPromise()
+                        .then(res => res.blob());
+                });
+
+                return Observable.forkJoin<Response>(woffs);
+            })
+            .concatMap(value => { // value is array of woff blobs 
+                let readers: any[] = value;
+                
+                let reader = (blob: any) => Observable.create(function(observer: Observer<any>) {
+                        var reader = new FileReader();
+                        reader.onloadend = () => {
+                            observer.next(reader.result);
+                            observer.complete()
+                        }
+                        reader.readAsDataURL(blob);
+                });
+
+                readers = readers.map((member) => {
+                    return reader(member);
+                })
+
+                return Observable.forkJoin<any>(readers);
+            })
+            .concatMap(value => { // value is array of woff base64 urls 
+                return Observable.create(function(observer: Observer<any>) {
+                
+                    woffUrls.forEach((member, index) => {
+                        stylesheet = stylesheet.replace(member, '"' + value[index] + '"');
+                    })
+
+                    observer.next(stylesheet);
+                });
+            });
     }
 }

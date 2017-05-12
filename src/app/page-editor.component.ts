@@ -29,8 +29,6 @@ import { ModalComponent } from './modal.component';
 
 import * as tool from './tools';
 
-import WebFont = require('webfontloader');
-
 let createTextVersion = require("textversionjs");
 
 @Component({
@@ -149,23 +147,12 @@ export class PageEditorComponent {
             this.designProperties = dataDesign[0].designProperties;
         }
 
-        // Webfontloader configuration
-        let webFontConfig: any = {
-            classes: true,
-            active: () => {
+        this.postmanService.getGoogleFonts(this.designFonts)
+            .subscribe(res => {
+                window.document.head.insertAdjacentHTML('beforeend', `<style id="additionalFonts">${res}</style>`);
                 this.unsetLoading('webfont');
-            },
-        };
-
-        // Add google property if design data json has google font
-        if (this.designFonts.google) {
-            webFontConfig.google = {
-                families: this.designFonts.google
-            }
-        }
-
-        WebFont.load(webFontConfig);
-
+            });
+        
         // Look for __designDataUrl__ in design properties value, and change it with real API url
         Object
             .keys(this.designProperties)
@@ -305,20 +292,18 @@ export class PageEditorComponent {
 
         let toBeRendered = this.artboard.getOutput();
 
-        // Get stylesheets from <head> to be included in artboard output HTML.
-        document.querySelectorAll('head link[rel=stylesheet]').forEach((el: any) => toBeRendered = el.outerHTML + toBeRendered);
+        // Unload google font stylesheets from head
+        let additionalFontsElement = window.document.getElementById('additionalFonts');
+        additionalFontsElement.parentNode.removeChild(additionalFontsElement);
 
-        // Unload webfontloader's google font stylesheets from head
-        window.document.querySelectorAll(`
-            head link[href^="http://fonts.googleapis.com"]:not(#mainfont), 
-            head link[href^="https://fonts.googleapis.com"]:not(#mainfont)
-            `).forEach(
-            (el: any) => el.parentNode.removeChild(el)
-            );
+        // Add website stylesheet and additional stylesheet to to be rendered.
+        toBeRendered = window.document.getElementById('mainstyle').outerHTML + toBeRendered;
+        toBeRendered = additionalFontsElement.outerHTML + toBeRendered;
 
         // Remove 2px border
         toBeRendered = `<style>#artboard { border: none !important; } </style>` + toBeRendered;
-
+        console.log(toBeRendered);
+        
         this.artboard.setOutput(toBeRendered);
 
         // Save hasChanges universally, incase the user goes back from the final page
