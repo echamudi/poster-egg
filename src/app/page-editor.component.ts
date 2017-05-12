@@ -149,10 +149,20 @@ export class PageEditorComponent {
             this.designProperties = dataDesign[0].designProperties;
         }
 
+        // For animation
+        window.document.head.insertAdjacentHTML('beforeend', `<style id="fontHider"> #artboard * {
+            font-size: 0px !important;
+        }`);
+
+
         this.postmanService.getGoogleFonts(this.designFonts)
             .subscribe(res => {
                 this.fontStyleOuterHTML = `<style id="additionalFonts">${res}</style>`;
                 window.document.head.insertAdjacentHTML('beforeend', this.fontStyleOuterHTML);
+
+                // remove font hider aka start animation
+                let fontHiderElement = window.document.getElementById('fontHider');
+                fontHiderElement.parentNode.removeChild(fontHiderElement);
 
                 this.unsetLoading('webfont');
             });

@@ -162,6 +162,11 @@ $btn-go-border : darken($btn-go-bg, 5%);
     position: absolute;
     transform-origin: top left;
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.1);
+
+    // For animating while font is loading
+    div {
+        transition: font-size 0.4s ease;
+    }
 }
 
 // New Component : Spinner
