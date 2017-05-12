@@ -58,6 +58,8 @@ export class PageEditorComponent {
     private artboard: ArtboardClass;
     private artboardScaleStyle: string;
 
+    private fontStyleOuterHTML: string;
+
     // For unsubscribing later at ngOnDestroy()
     private alive: boolean = true;
 
@@ -149,7 +151,9 @@ export class PageEditorComponent {
 
         this.postmanService.getGoogleFonts(this.designFonts)
             .subscribe(res => {
-                window.document.head.insertAdjacentHTML('beforeend', `<style id="additionalFonts">${res}</style>`);
+                this.fontStyleOuterHTML = `<style id="additionalFonts">${res}</style>`;
+                window.document.head.insertAdjacentHTML('beforeend', this.fontStyleOuterHTML);
+
                 this.unsetLoading('webfont');
             });
         
@@ -292,13 +296,9 @@ export class PageEditorComponent {
 
         let toBeRendered = this.artboard.getOutput();
 
-        // Unload google font stylesheets from head
-        let additionalFontsElement = window.document.getElementById('additionalFonts');
-        additionalFontsElement.parentNode.removeChild(additionalFontsElement);
-
         // Add website stylesheet and additional stylesheet to to be rendered.
         toBeRendered = window.document.getElementById('mainstyle').outerHTML + toBeRendered;
-        toBeRendered = additionalFontsElement.outerHTML + toBeRendered;
+        toBeRendered = this.fontStyleOuterHTML + toBeRendered;
 
         // Remove 2px border
         toBeRendered = `<style>#artboard { border: none !important; } </style>` + toBeRendered;
@@ -358,6 +358,10 @@ export class PageEditorComponent {
     }
 
     ngOnDestroy() {
+        // Unload google font stylesheets from head
+        let additionalFontsElement = window.document.getElementById('additionalFonts');
+        additionalFontsElement.parentNode.removeChild(additionalFontsElement);
+
         //Unsubscribe things
         this.alive = false;
     }
