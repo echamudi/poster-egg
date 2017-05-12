@@ -165,7 +165,7 @@ $btn-go-border : darken($btn-go-bg, 5%);
 
     // For animating while font is loading
     div {
-        transition: font-size 0.4s ease;
+        transition: opacity 0.4s ease;
     }
 }
 

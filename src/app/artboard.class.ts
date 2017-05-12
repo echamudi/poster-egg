@@ -77,7 +77,7 @@ export class ArtboardClass {
                     width: ${this.width}px;
                     height: ${this.height}px;
                     overflow: hidden;
-                    background: white;
+                    background: #5f5f5f;
                     user-select: none !important; 
                 }
 

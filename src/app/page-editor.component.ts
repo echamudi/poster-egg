@@ -150,8 +150,9 @@ export class PageEditorComponent {
         }
 
         // For animation
-        window.document.head.insertAdjacentHTML('beforeend', `<style id="fontHider"> #artboard * {
-            font-size: 0px !important;
+        window.document.head.insertAdjacentHTML('beforeend', `<style id="fontHider"> 
+        #artboard div:not(.bg) {
+            opacity: 0 !important;
         }`);
 
 
