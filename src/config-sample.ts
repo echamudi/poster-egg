@@ -7,14 +7,18 @@ let language: string = "en";
 let watermarkLabel: string = "postyposter.com";
 
 let idHostnames: string[] = [
-    "desainmu.com", 
+    "desainmu.com",
     "beta.desainmu.com"
 ];
 
 if (idHostnames.indexOf(window.location.hostname) > -1) {
-        language = "id";
-        watermarkLabel = "desainmu.com"
-    }
+    language = "id";
+    watermarkLabel = "desainmu.com"
+    window.document.title = "Desainmu 3";
+} else {
+    window.document.title = "Posty Poster";
+
+}
 
 export const config = {
 
