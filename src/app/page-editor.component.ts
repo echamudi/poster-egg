@@ -313,7 +313,6 @@ export class PageEditorComponent {
 
         // Remove 2px border
         toBeRendered = `<style>#artboard { border: none !important; } </style>` + toBeRendered;
-        console.log(toBeRendered);
         
         this.artboard.setOutput(toBeRendered);
 

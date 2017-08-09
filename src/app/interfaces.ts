@@ -30,3 +30,9 @@ declare global {
         forEach?: (handler: Function) => void;
     }
 }
+
+declare global {
+    interface Window {
+        ga?: any;
+    }
+}
