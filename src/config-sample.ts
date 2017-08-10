@@ -28,6 +28,9 @@ export const config = {
     // Google Analytics ID
     googleAnalytics: "X",
 
+    // Redirect http to https
+    httpsRedir: false,
+
     // Url of design data, including design-packs and design-assets
     designDataApi: "http://localhost:60572/data",
 
