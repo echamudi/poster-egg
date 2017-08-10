@@ -15,10 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class RootComponent {
 
     constructor(translate: TranslateService, private router: Router) {
-        if(config.httpsRedir && location.protocol != 'https:') {
-            location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-        }
-
         translate.setDefaultLang('en');
 
         // Set language, change it in config.ts file
