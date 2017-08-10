@@ -157,6 +157,7 @@ export class PageEditorComponent {
 
 
         this.postmanService.getGoogleFonts(this.designFonts)
+            .takeWhile(() => this.alive)
             .subscribe(res => {
                 this.fontStyleOuterHTML = `<style id="additionalFonts">${res}</style>`;
                 window.document.head.insertAdjacentHTML('beforeend', this.fontStyleOuterHTML);
@@ -370,7 +371,17 @@ export class PageEditorComponent {
     ngOnDestroy() {
         // Unload google font stylesheets from head
         let additionalFontsElement = window.document.getElementById('additionalFonts');
-        additionalFontsElement.parentNode.removeChild(additionalFontsElement);
+
+        // If additional font element already exists, remove it
+        if(additionalFontsElement) {
+            additionalFontsElement.parentNode.removeChild(additionalFontsElement);
+        }
+
+        // remove font hider
+        let fontHiderElement = window.document.getElementById('fontHider');
+        if(fontHiderElement) {
+            fontHiderElement.parentNode.removeChild(fontHiderElement);
+        }
 
         //Unsubscribe things
         this.alive = false;
