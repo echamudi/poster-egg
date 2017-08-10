@@ -2,6 +2,11 @@
 
 A client-side poster maker using HTML5, CSS3, and Angular. The code is written by using [VSCode](https://github.com/Microsoft/vscode).
 
+## Try It Now
+
+- In English          : [postyposter.com](http://postyposter.com)
+- In Bahasa Indonesia : [desainmu.com](https://desainmu.com)
+
 ## Browser Compatibility
 
 This app is targeted to run on Chrome (>= 36), Firefox (>= 45), and Opera (Blink).
