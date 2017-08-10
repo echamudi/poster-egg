@@ -76,7 +76,7 @@ export class PostmanService {
         let stylesheet: string;
         let woffUrls: string[];
 
-        return this.http.get(`http://fonts.googleapis.com/css?family=${fonts}&amp;subset=arabic`)
+        return this.http.get(`https://fonts.googleapis.com/css?family=${fonts}&amp;subset=arabic`)
             .concatMap(value => { // value is the stylsheet from google font
                 stylesheet = value.text();
 
