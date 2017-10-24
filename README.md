@@ -32,7 +32,7 @@ posty-poster-project
 └── posty-poster-data       # Data
 ```
 
-Duplicate `config-sample.ts` inside `posty-poster-project/posty-poster/src` folder and rename it as `config.ts`.
+Duplicate `config-sample.ts` inside `posty-poster-project/posty-poster/src` folder, configure it for your envirnoment, and rename it as `config.ts` (overwriting the existing `config.ts`).
 
 Now, you need to build and run HTML server for both of them. This project includes gulp-connect as HTML server. 
 

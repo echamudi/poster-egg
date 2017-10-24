@@ -39,4 +39,4 @@ jspm_packages
 # Others
 dist
 dist-tsc
-src/config.ts
+# src/config.ts
