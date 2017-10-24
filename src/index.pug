@@ -4,6 +4,15 @@ html
         meta(name="viewport" content="width=device-width")
         title Loading ...
         base(href="/")
+        script.
+            if(window.location.hostname == "desainmu.com") {
+                // Redirect non-www to www
+                location.href = 'https://www.' + window.location.href.substring(window.location.protocol.length + 2);
+            } else if (location.protocol != 'https:' && (window.location.hostname == "www.postyposter.com" || window.location.hostname == "www.desainmu.com")) {
+                // Redirect non-https to https
+                location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+            }
+            
         link(id="mainstyle", rel="stylesheet", href="/style.css")
         link(id="mainfont", rel='stylesheet', href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700')
     body

@@ -3,6 +3,7 @@ let watermarkLabel: string;
 let googleAnalytics: string = "X";
 
 let idHostnames: string[] = [
+    "www.desainmu.com",
     "desainmu.com",
     "beta.desainmu.com"
 ];
