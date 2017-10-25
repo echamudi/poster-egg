@@ -4,8 +4,8 @@ A client-side poster maker using HTML5, CSS3, and Angular. The code is written b
 
 ## Try It Now
 
-- In English          : [postyposter.com](http://postyposter.com)
-- In Bahasa Indonesia : [desainmu.com](https://desainmu.com)
+- In English          : [postyposter.com](https://www.postyposter.com)
+- In Bahasa Indonesia : [desainmu.com](https://www.desainmu.com)
 
 ## Browser Compatibility
 
