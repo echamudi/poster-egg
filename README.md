@@ -1,6 +1,6 @@
 # Posty Poster
 
-A client-side poster maker using HTML5, CSS3, and Angular. The code is written by using [VSCode](https://github.com/Microsoft/vscode).
+A client-side poster maker using HTML5, CSS3, and Angular.
 
 ## Try It Now
 
@@ -11,9 +11,7 @@ A client-side poster maker using HTML5, CSS3, and Angular. The code is written b
 
 This app is targeted to run on Chrome (>= 36), Firefox (>= 45), and Opera (Blink).
 
-The app doesn't work in Safari, IE, and Edge. You can try this [codepen test](http://codepen.io/ezh/pen/RrLZqM) to test why the app can't work on those browsers. Anyone knows the workaround?
-
-## How to Run
+## Getting Started
 
 This repo only contains the web front-end part of Posty Poster project. It requires data from [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo, which contains design assets and templates. So, you need to clone both this repo and [posty-poster-data](https://github.com/ezhmd/posty-poster-data) repo.
 
@@ -64,15 +62,17 @@ $ gulp connect
 
 Open the site [http://localhost:60571/](http://localhost:60571/).
 
-## Todo
+## Built With
 
-Check [project](https://github.com/ezhmd/posty-poster/projects) page.
+* [VSCode](https://code.visualstudio.com)
+* [Angular](https://angular.io)
+* [Sass](https://sass-lang.com)
 
-## Creator
+## Authors
 
-Ezzat Chamudi
+* **Ezzat Chamudi** - *Initial work* - [ezhmd](https://github.com/ezhmd)
 
-[facebook.com/ezzatchamudi](https://facebook.com/ezzatchamudi)
+See also the list of [contributors](https://github.com/ezhmd/posty-poster/contributors) who participated in this project.
 
 ## Licenses
 
