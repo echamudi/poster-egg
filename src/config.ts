@@ -26,8 +26,8 @@ export const config = {
 
     googleAnalytics: googleAnalytics,
 
-    // designDataApi: "http://localhost:60572/data",
-    designDataApi: "https://ezhmd.github.io/posty-poster-data-server/",
+    designDataApi: "http://localhost:60572/data",
+    // designDataApi: "https://ezhmd.github.io/posty-poster-data-server/",
 
     language: language
 }
