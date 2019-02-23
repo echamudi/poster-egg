@@ -63,6 +63,8 @@ function swallowError(error) {
  * ------------------------------------------------------------------------
  */
 
+// TODO: Fix tasks
+
 const browserifyOptions = {
     basedir: '.',
     debug: maps,
@@ -175,13 +177,15 @@ gulp.task('assets', () => {
  * ------------------------------------------------------------------------
  */
 
-gulp.task('connect', () => {
+gulp.task('connect', (cb) => {
     connect.server({
         root: ['dist'],
         // fallback: 'dist/index.html', // Enable this if not using angular HashLocationStrategy
         port: hostPort,
         https: false
-    })
+    });
+
+    cb();
 });
 
 gulp.task('clean', () => {
@@ -223,38 +227,46 @@ gulp.task('newcomp', function () {
  */
 
 
-gulp.task('build', ['clean'], () => {
-    gulp.start('pug');
-    gulp.start('sass');
-    gulp.start('i18n');
-    gulp.start('assets');
-    bundle(normalBrowserify);
-});
+gulp.task('build', gulp.series('clean', 'pug', 'sass', 'i18n', 'assets', (done) => {
+    // gulp.series(
+    //     'pug', 
+    //     'sass', 
+    //     'i18n', 
+    //     'assets'
+    //     );
+    return bundle(normalBrowserify);
+}));
 
-gulp.task('build-prod', ['clean'], () => {
+gulp.task('build-prod', ('clean', () => {
     minify = true;
     maps = false;
     
-    gulp.start('build');
-});
+    gulp.series(
+        'build', 
+        );
+}));
 
-gulp.task('default', ['clean'], () => {
+gulp.task('default', gulp.series('clean', 
 
-    // Initial Executes
-    gulp.start('pug');
-    gulp.start('sass');
-    gulp.start('i18n');
-    gulp.start('assets');
-    bundle(watchedBrowserify);
+    // Initials
+    'pug', 'sass', 'i18n', 'assets', 
 
-    // Enable Watches
-    watchedBrowserify.on('update', () => bundle(watchedBrowserify));
-    gulp.watch('src/**/*.pug', ['pug']);
-    gulp.watch('src/**/*.scss', ['sass']);
-    gulp.watch('src/i18n/**/*.json', ['i18n']);
-    gulp.watch('src/assets/**/*.*', ['assets']);
+    (cb) => {
+        // bundle(watchedBrowserify);
+        return bundle(watchedBrowserify);
+    },
 
-    // Connect
-    gulp.start('connect');
-});
+    'connect', 
+    
+    // More
+    (cb) => {
 
+        watchedBrowserify.on('update', () => bundle(watchedBrowserify))         
+        gulp.watch('src/**/*.pug', gulp.series('pug'));
+        gulp.watch('src/**/*.scss', gulp.series('sass'));
+        gulp.watch('src/i18n/**/*.json', gulp.series('i18n'));
+        gulp.watch('src/assets/**/*.*', gulp.series('assets'));
+
+        cb();
+    })
+);
