@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class RootComponent {
 
-    constructor(translate: TranslateService, private router: Router) {
+    constructor(public translate: TranslateService, private router: Router) {
         translate.setDefaultLang('en');
 
         // Set language, change it in config.ts file
