@@ -124,6 +124,15 @@ $btn-go-border : darken($btn-go-bg, 5%);
 
 // New Component : Hero
 
+.hero-img {
+    text-align: center;
+
+    img {
+        max-height: 300px;
+        max-width: 100%;
+    }
+}
+
 .hero {
     background-image: linear-gradient(-180deg, #263A5E 0%, #425470 100%);
     color: white;
