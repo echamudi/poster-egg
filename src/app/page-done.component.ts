@@ -59,7 +59,7 @@ export class PageDoneComponent {
         } else {
             let today = new Date();
 
-            this.fileName = `postyposter.com_${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}.png`;
+            this.fileName = `posteregg_${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}.png`;
             this.render();
         }
     }
