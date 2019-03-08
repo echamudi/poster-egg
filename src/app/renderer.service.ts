@@ -33,10 +33,26 @@ export class RendererService {
         let canvasEl = document.createElement('canvas');
         canvasEl.setAttribute("width", this.width);
         canvasEl.setAttribute("height", this.height);
+        // console.log(this.rawMaterial.length);
 
         return Promise.resolve(rasterizeHTML.drawHTML(this.rawMaterial, canvasEl)
             .then(() => {
                 try {
+                    // document.body.appendChild(canvasEl);
+
+                    // var test = document.createElement('div');
+                    // test.innerHTML = `
+                    // <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="1024" height="1024">
+                    //     <foreignObject width="100%" height="100%">
+                    //         ${this.rawMaterial}
+                    //     </foreignObject>
+                    // </svg>
+                    // `;
+
+                    // document.body.appendChild(test);
+
+                    // console.log(this.rawMaterial);
+
                     let dataURL = canvasEl.toDataURL();
                     return dataURL;
                 }
