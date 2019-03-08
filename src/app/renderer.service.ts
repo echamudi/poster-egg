@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 
-import rasterizeHTML = require('rasterizehtml');
+import * as rasterizeHTML from 'rasterizehtml';
 
 @Injectable()
 export class RendererService {
