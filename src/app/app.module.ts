@@ -22,7 +22,7 @@ import { StorageService } from './storage.service';
 import { SafePipe } from './safe.pipe';
 import { TitleizePipe } from "./titleize.pipe";
 
-import { BrowserSupportComponent } from './browser-support.component';
+// import { BrowserSupportComponent } from './browser-support.component';
 import { ModalComponent } from './modal.component';
 import { PageDoneComponent } from './page-done.component';
 import { PageEditorComponent } from './page-editor.component';
@@ -50,7 +50,7 @@ import * as translate from './translate.functions';
         RootComponent,
         PageHomeComponent,
         PageEditorComponent,
-        BrowserSupportComponent,
+        // BrowserSupportComponent,
         PageDoneComponent,
         ModalComponent,
         SafePipe,
