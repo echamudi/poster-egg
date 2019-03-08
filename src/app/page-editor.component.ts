@@ -349,7 +349,7 @@ export class PageEditorComponent {
         let finalRatio: number = hRatio > wRatio ? wRatio : hRatio;
 
         // Make it a bit smaller
-        finalRatio = finalRatio;
+        finalRatio = finalRatio * 1;
 
         // Move artboard to center
         let translateY: number = (containerElHeight / 2) - (artboardHeight * finalRatio / 2);
