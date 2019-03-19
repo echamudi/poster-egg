@@ -22,7 +22,7 @@ modal
             div
                 browser-support
             div.form-group(*ngFor='let designProperty of designPropertiesArray')
-                label(*ngIf="designProperty.label") {{ designProperty.label[translate.currentLang] }}
+                label(*ngIf="designProperty.label && designProperty.input !== 'none'") {{ designProperty.label[translate.currentLang] }}
 
                 textarea.form-control(
                     *ngIf="designProperty.input === 'text'", 
