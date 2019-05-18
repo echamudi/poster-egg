@@ -14,6 +14,6 @@ export const config = {
     // Url of design data, including design-packs and design-assets
     designDataApi: "http://localhost:60572/data",
 
-    // Set language, en or id
+    // Set language, e.g. en, id
     language: "en"
 }
