@@ -1,3 +1,8 @@
+/**
+ * Config file
+ * Check config-sample.ts for default values.
+ */
+
 let language: string;
 let watermarkLabel: string = "Poster Egg";
 let googleAnalytics: string = "X";
