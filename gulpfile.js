@@ -13,6 +13,7 @@ const mkdirp = require('mkdirp');
 var path = require('path');
 
 // Gulps
+const babel = require('gulp-babel');
 const connect = require("gulp-connect");
 const debug = require('gulp-debug');
 const del = require('del');
@@ -101,6 +102,11 @@ const bundle = (toBundle) => {
         // Prepare maps
         .pipe(buffer())
         .pipe(gulpif(maps, sourcemaps.init({ loadMaps: true })))
+
+        // Babel
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
 
         // Uglify
         .pipe(gulpif(minify, uglify()))
