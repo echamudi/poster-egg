@@ -237,14 +237,13 @@ gulp.task('build', gulp.series('clean', 'pug', 'sass', 'i18n', 'assets', (done) 
     return bundle(normalBrowserify);
 }));
 
-gulp.task('build-prod', ('clean', () => {
+gulp.task('build-prod', gulp.series('clean', (done) => {
     minify = true;
     maps = false;
+
+    done();
     
-    gulp.series(
-        'build', 
-        );
-}));
+}, 'build'));
 
 gulp.task('default', gulp.series('clean', 
 
