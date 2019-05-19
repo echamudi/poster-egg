@@ -158,6 +158,46 @@ $btn-go-border : darken($btn-go-bg, 5%);
     }
 }
 
+// New Component : topbar
+
+.topbar {
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    color: #35495E;
+    height: 80px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    
+    .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    h1 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 42px;
+
+        .egg {
+            color: #2A87B8;
+            font-weight: 400;
+        }
+    }
+    
+    &-root {
+        position: absolute;
+    }
+}
+
+.topbar-pad {
+    display: block;
+    height: 100px;
+}
+
 // New Component : Artboard
 
 #artboardContainer {
