@@ -104,9 +104,9 @@ const bundle = (toBundle) => {
         .pipe(gulpif(maps, sourcemaps.init({ loadMaps: true })))
 
         // Babel
-        .pipe(babel({
+        .pipe(gulpif(minify, babel({
             presets: ['@babel/env']
-        }))
+        })))
 
         // Uglify
         .pipe(gulpif(minify, uglify()))
