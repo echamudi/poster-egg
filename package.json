@@ -8,10 +8,13 @@
   },
   "license": "AGPL-3.0",
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "autoprefixer": "^9.5.1",
     "browserify": "^16.2.3",
     "del": "^4.1.1",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-connect": "^5.7.0",
     "gulp-debug": "^4.0.0",
     "gulp-exit": "0.0.2",
