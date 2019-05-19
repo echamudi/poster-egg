@@ -7,10 +7,10 @@ let createTextVersion = require("textversionjs");
 
 export class ArtboardClass {
 
-    // templateRaw is the exact html template taken from posty-poster-data
+    // templateRaw is the exact html template taken from poster-egg-data
     private templateRaw: string;
 
-    // stlyeRaw is the exact css taken from posty-poster-data
+    // stlyeRaw is the exact css taken from poster-egg-data
     private styleRaw: string;
 
     // processed style+template

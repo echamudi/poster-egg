@@ -8,7 +8,7 @@ html
             if(window.location.hostname == "desainmu.com") {
                 // Redirect non-www to www
                 location.href = 'https://www.' + window.location.href.substring(window.location.protocol.length + 2);
-            } else if (location.protocol != 'https:' && (window.location.hostname == "www.postyposter.com" || window.location.hostname == "www.desainmu.com")) {
+            } else if (location.protocol != 'https:' && (window.location.hostname == "www.posteregg.com" || window.location.hostname == "www.desainmu.com")) {
                 // Redirect non-https to https
                 location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
             }

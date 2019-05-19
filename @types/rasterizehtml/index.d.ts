@@ -1,6 +1,6 @@
 /**
  * Type definitions for rasterizehtml 0.1
- * Project: Posty
+ * Project: Poster Egg
  * Definitions by: Hernawan Fa'iz Abdillah <abdillah.me>
  */
 
