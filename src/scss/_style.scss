@@ -166,7 +166,7 @@ $btn-go-border : darken($btn-go-bg, 5%);
     z-index: 10;
     background: rgba(255, 255, 255, 0.95);
     color: #35495E;
-    height: 80px;
+    height: 70px;
     margin-bottom: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -180,7 +180,7 @@ $btn-go-border : darken($btn-go-bg, 5%);
     h1 {
         margin: 0;
         font-weight: 600;
-        font-size: 42px;
+        font-size: 38px;
 
         .egg {
             color: #2A87B8;
@@ -195,7 +195,7 @@ $btn-go-border : darken($btn-go-bg, 5%);
 
 .topbar-pad {
     display: block;
-    height: 100px;
+    height: 80px;
 }
 
 // New Component : Artboard
@@ -264,6 +264,15 @@ $btn-go-border : darken($btn-go-bg, 5%);
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+
+// New Component : Github Badge
+
+.github-badge {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
 }
 
 // Helpers
