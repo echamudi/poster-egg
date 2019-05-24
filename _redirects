@@ -1,0 +1,5 @@
+# These rules will change if you change your site’s custom domains or HTTPS settings
+# Copy this file to dist for netlify redirection
+
+# Redirect default Netlify subdomain to primary domain
+https://posteregg.netlify.com/* https://posteregg.com/:splat 301!
