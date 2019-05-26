@@ -63,13 +63,12 @@ Open the site [http://localhost:60571/](http://localhost:60571/).
 
 ## Built With
 
-* [VSCode](https://code.visualstudio.com)
 * [Angular](https://angular.io)
 * [Sass](https://sass-lang.com)
 
 ## Authors
 
-* **Ezzat Chamudi** - *Initial work* - [ezhmd](https://github.com/ezhmd)
+* **Ezzat Chamudi** - [ezhmd](https://github.com/ezhmd)
 
 See also the list of [contributors](https://github.com/ezhmd/poster-egg/contributors) who participated in this project.
 
