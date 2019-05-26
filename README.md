@@ -6,7 +6,7 @@ A client-side poster maker using HTML5, CSS3, and Angular. This project was form
 
 This app is targeted to run on Chrome (>= 36), Firefox (>= 45), and Opera (Blink).
 
-# Releases
+## Releases
 
 Please check tags for stable versions. The master branch contains latest development changes that are mostly unstable.
 
