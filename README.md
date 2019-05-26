@@ -65,6 +65,8 @@ Open the site [http://localhost:60571/](http://localhost:60571/).
 
 * [Angular](https://angular.io)
 * [Sass](https://sass-lang.com)
+* [Pug](https://pugjs.org)
+* [Gulp](https://gulpjs.com)
 
 ## Authors
 
