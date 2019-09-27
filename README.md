@@ -2,15 +2,30 @@
 
 A client-side poster maker using HTML5, CSS3, and Angular. This project was formerly named "Posty Poster".
 
-## Browser Compatibility
+## About This Project
+
+### Browser Compatibility
 
 This app is targeted to run on Chrome (>= 36), Firefox (>= 45), and Opera (Blink).
+
+### Built With
+
+* [Angular](https://angular.io)
+* [Sass](https://sass-lang.com)
+* [Pug](https://pugjs.org)
+* [Gulp](https://gulpjs.com)
 
 ## Releases
 
 Please check tags for stable versions. The master branch contains latest development changes that are mostly unstable.
 
-## Getting Started
+## Usage
+
+Open http://posteregg.com.
+
+## Development
+
+### Getting Started
 
 This repo only contains the web front-end part of Poster Egg project. It requires data from [poster-egg-data](https://github.com/ezhmd/poster-egg-data) repo, which contains design assets and templates. So, you need to clone both this repo and [poster-egg-data](https://github.com/ezhmd/poster-egg-data) repo.
 
@@ -61,23 +76,16 @@ $ gulp connect
 
 Open the site [http://localhost:60571/](http://localhost:60571/).
 
-## Built With
-
-* [Angular](https://angular.io)
-* [Sass](https://sass-lang.com)
-* [Pug](https://pugjs.org)
-* [Gulp](https://gulpjs.com)
-
 ## Authors
 
 * **Ezzat Chamudi** - [ezhmd](https://github.com/ezhmd)
 
-See also the list of [contributors](https://github.com/ezhmd/poster-egg/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ezhmd/poster-egg/graphs/contributors) who participated in this project.
 
-## Licenses
+## License
 
-Poster Egg code released under [AGPLv3](http://www.gnu.org/licenses/agpl-3.0.html). 
+Code and documentation copyright 2019 the [Poster Egg Project Authors](https://github.com/ezhmd/poster-egg/graphs/contributors). 
 
-Images, logos, docs, and articles released under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
+Poster Egg code is licensed under {{code_license}}. Images, logos, docs, and articles in this Poster Egg project are released under [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
 
-Libraries, dependencies, and tools used in this project tied with their own licenses respectively.
+Libraries, dependencies, and tools used in this project aret tied with their own licenses respectively.
