@@ -52,26 +52,26 @@ The normal setup will run front-end server using port `60571` and data server us
 
 Let's build and run the built in server.
 
-```
-$ cd ./poster-egg 
-$ npm install
-$ gulp build
-$ cd ../poster-egg-data
-$ npm install
-$ gulp build
+```sh
+cd ./poster-egg 
+npm install
+npx gulp build
+cd ../poster-egg-data
+npm install
+npx gulp build
 ```
 
 Then, open 2 different terminal tabs to create server. 
 
+```sh
+# Terminal 1
+cd poster-egg-project/poster-egg
+npx gulp connect
 ```
-$ # Terminal 1
-$ cd poster-egg-project/poster-egg
-$ gulp connect
-```
-```
-$ # Terminal 2
-$ cd poster-egg-project/poster-egg-data
-$ gulp connect
+```sh
+# Terminal 2
+cd poster-egg-project/poster-egg-data
+npx gulp connect
 ```
 
 Open the site [http://localhost:60571/](http://localhost:60571/).
