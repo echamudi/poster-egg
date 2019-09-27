@@ -8,7 +8,7 @@ A client-side poster maker using HTML5, CSS3, and Angular. This project was form
 
 This app is targeted to run on Chrome (>= 36), Firefox (>= 45), and Opera (Blink).
 
-### Built With
+### Built with
 
 * [Angular](https://angular.io)
 * [Sass](https://sass-lang.com)
