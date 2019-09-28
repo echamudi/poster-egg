@@ -86,6 +86,6 @@ See also the list of [contributors](https://github.com/ezhmd/poster-egg/graphs/c
 
 Code and documentation copyright 2019 the [Poster Egg Project Authors](https://github.com/ezhmd/poster-egg/graphs/contributors). 
 
-Poster Egg code is licensed under {{code_license}}. Images, logos, docs, and articles in this Poster Egg project are released under [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+Poster Egg code is licensed under [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.en.html). Images, logos, docs, and articles in this Poster Egg project are released under [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
 
 Libraries, dependencies, and tools used in this project are tied with their own licenses respectively.
