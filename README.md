@@ -27,13 +27,13 @@ Open http://posteregg.com.
 
 ### Getting Started
 
-This repo only contains the web front-end part of Poster Egg project. It requires data from [poster-egg-data](https://github.com/ezhmd/poster-egg-data) repo, which contains design assets and templates. So, you need to clone both this repo and [poster-egg-data](https://github.com/ezhmd/poster-egg-data) repo.
+This repo only contains the web front-end part of Poster Egg project. It requires data from [poster-egg-data](https://github.com/echamudi/poster-egg-data) repo, which contains design assets and templates. So, you need to clone both this repo and [poster-egg-data](https://github.com/echamudi/poster-egg-data) repo.
 
 ```
 $ mkdir poster-egg-project
 $ cd poster-egg-project
-$ git clone https://github.com/ezhmd/poster-egg.git
-$ git clone https://github.com/ezhmd/poster-egg-data.git
+$ git clone https://github.com/echamudi/poster-egg.git
+$ git clone https://github.com/echamudi/poster-egg-data.git
 ```
 
 If it's done correctly, the folder structure will look like this :
@@ -78,13 +78,13 @@ Open the site [http://localhost:60571/](http://localhost:60571/).
 
 ## Authors
 
-* **Ezzat Chamudi** - [ezhmd](https://github.com/ezhmd)
+* **Ezzat Chamudi** - [echamudi](https://github.com/echamudi)
 
-See also the list of [contributors](https://github.com/ezhmd/poster-egg/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/echamudi/poster-egg/graphs/contributors) who participated in this project.
 
 ## License
 
-Code and documentation copyright 2019 the [Poster Egg Project Authors](https://github.com/ezhmd/poster-egg/graphs/contributors). 
+Code and documentation copyright 2019 the [Poster Egg Project Authors](https://github.com/echamudi/poster-egg/graphs/contributors). 
 
 Poster Egg code is licensed under [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.en.html). Images, logos, docs, and articles in this Poster Egg project are released under [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
 

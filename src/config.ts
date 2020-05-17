@@ -32,7 +32,7 @@ export const config = {
     googleAnalytics: googleAnalytics,
 
     // designDataApi: "http://localhost:60572/data",
-    // designDataApi: "https://ezhmd.github.io/poster-egg-data-server/",
+    // designDataApi: "https://echamudi.github.io/poster-egg-data-server/",
     designDataApi: "/data",
 
     language: language
