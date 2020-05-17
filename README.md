@@ -76,6 +76,15 @@ npx gulp connect
 
 Open the site [http://localhost:60571/](http://localhost:60571/).
 
+## Contributing
+
+This project is following [GitHub flow branching model](https://guides.github.com/introduction/flow/). 
+- Please create a branch from `master`.
+- Name it something descriptive other than `master`.
+- Open a pull request to `master`.
+
+Make sure your contributions are compatible with the license of this code.
+
 ## Authors
 
 * **Ezzat Chamudi** - [echamudi](https://github.com/echamudi)
