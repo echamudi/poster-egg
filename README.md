@@ -1,6 +1,8 @@
 # Poster Egg
 
-A client-side poster maker using HTML5, CSS3, and Angular. This project was formerly named "Posty Poster".
+A client-side poster maker using HTML5, CSS3, and Angular.
+
+![Poster Egg Screenshot](https://raw.githubusercontent.com/echamudi/echamudi/master/project-screenshots/poster-egg.png)
 
 ## About This Project
 
